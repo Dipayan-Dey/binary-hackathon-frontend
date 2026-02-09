@@ -289,13 +289,13 @@ const Hero = () => {
               <div className="absolute inset-3 bg-gradient-to-br from-slate-800 to-slate-900 rounded-full border-2 border-slate-700 shadow-2xl">
                 <div className="absolute inset-4 bg-gradient-to-br from-slate-900 to-slate-950 rounded-full flex flex-col items-center justify-center">
                   <motion.div 
-                    className="text-5xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1"
+                    className="text-4xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1"
                     animate={{ scale: [1, 1.05, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
-                    20k+
+                    Nexus
                   </motion.div>
-                  <div className="text-slate-400 text-xs font-bold tracking-wide">DEVELOPERS</div>
+                  <div className="text-slate-400 text-xs font-bold tracking-wide">Team</div>
                   <motion.div 
                     className="mt-2 flex gap-1"
                     initial={{ opacity: 0 }}

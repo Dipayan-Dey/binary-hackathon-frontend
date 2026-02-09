@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Github, Linkedin, Twitter } from 'lucide-react';
-
+import { Logo } from './Logo';
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white pt-16 pb-8 ">
@@ -10,12 +10,11 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                S
-              </div>
-              <span className="text-xl font-bold text-white">
+                <Logo/>
+             
+              {/* <span className="text-xl font-bold text-white">
                 Readynx
-              </span>
+              </span> */}
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed">
               AI-powered career readiness platform helping students and developers bridge the gap between education and industry through data-driven insights.
@@ -59,7 +58,7 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-500 text-sm">
-            © 2026 Readynx. All rights reserved.
+            © 2026 Readynx. Team Nexus All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <a href="#" className="text-gray-400 hover:text-white transition-colors bg-gray-800 p-2 rounded-full hover:bg-blue-600">
