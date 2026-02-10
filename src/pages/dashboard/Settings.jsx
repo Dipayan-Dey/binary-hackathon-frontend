@@ -3,7 +3,8 @@ import { toast } from "react-toastify";
 import "./DashboardPages.css";
 
 const API_URL =
-  import.meta.env.BACKEND_API_ENDPOINT || "http://localhost:5000/api/v1";
+  import.meta.env.BACKEND_API_ENDPOINT ||
+  "https://readynx-backend-ts.onrender.com/api/v1";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState("profile");

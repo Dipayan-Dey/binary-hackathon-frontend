@@ -2,7 +2,7 @@ import axios from "axios";
 import axiosClient from "./axiosClient";
 // Create axios instance with base URL
 // const axiosClient = axios.create({
-//   baseURL: import.meta.env.BACKEND_API_ENDPOINT || "http://localhost:5000/api/v1",
+//   baseURL: import.meta.env.BACKEND_API_ENDPOINT || "https://readynx-backend-ts.onrender.com/api/v1",
 //   headers: {
 //     "Content-Type": "application/json",
 //   },

@@ -3,7 +3,8 @@ import { toast } from "react-toastify";
 import "./PremiumPages.css";
 
 const API_URL =
-  import.meta.env.BACKEND_API_ENDPOINT || "http://localhost:5000/api/v1";
+  import.meta.env.BACKEND_API_ENDPOINT ||
+  "https://readynx-backend-ts.onrender.com/api/v1";
 
 const Integrations = () => {
   const [integrations, setIntegrations] = useState({
@@ -65,21 +66,18 @@ const Integrations = () => {
     }
   }, []);
 
-
   const handleConnectGithub = () => {
     setLoading(true);
     const token = localStorage.getItem("token");
-    
+
     window.location.href = `${API_URL}/integrations/github?token=${token}`;
   };
 
- 
   const handleConnectLinkedIn = () => {
     setLoading(true);
     const token = localStorage.getItem("token");
     window.location.href = `${API_URL}/integrations/linkedin?token=${token}`;
   };
-
 
   const handleDisconnectGithub = async () => {
     try {
@@ -107,7 +105,6 @@ const Integrations = () => {
     }
   };
 
-  
   const handleDisconnectLinkedIn = async () => {
     try {
       setLoading(true);
@@ -134,7 +131,6 @@ const Integrations = () => {
     }
   };
 
-
   const handleLinkedInPost = async () => {
     if (!linkedinPostText.trim()) {
       toast.error("Please enter some text to post");
@@ -159,7 +155,7 @@ const Integrations = () => {
       if (!res.ok) throw new Error(data.message);
 
       toast.success("Posted to LinkedIn successfully!");
-      setLinkedinPostText(""); 
+      setLinkedinPostText("");
     } catch (error) {
       toast.error(error.message || "Failed to post to LinkedIn");
       console.error(error);
