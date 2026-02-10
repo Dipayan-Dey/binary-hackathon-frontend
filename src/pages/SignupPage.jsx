@@ -1,22 +1,52 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User, Eye, EyeOff, ArrowLeft, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { toast } from 'react-toastify';
 import { Logo } from '../components/Logo';
 import { TopographyPattern, WavePattern } from '../components/BackgroundPatterns';
+import { signupUser } from '../api/authApi';
 
 const SignupPage = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        fullName: '',
+        name: '',
         email: '',
         password: '',
         confirmPassword: ''
     });
+
+    const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        // Validate passwords match
+        if (formData.password !== formData.confirmPassword) {
+            toast.error('Passwords do not match');
+            return;
+        }
+        
+        setLoading(true);
+        try {
+            const res = await signupUser(formData);
+            toast.success(res.message || 'Account created successfully!');
+            navigate('/login');
+        } catch (error) {
+            console.error('Signup error:', error);
+            const errorMessage = error?.response?.data?.message || 
+                                error?.message || 
+                                'Failed to create account. Please try again.';
+            toast.error(errorMessage);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const passwordStrength = formData.password.length > 0 ? 
@@ -61,17 +91,17 @@ const SignupPage = () => {
                         <p className="text-slate-400">Start your industry readiness journey today</p>
                     </div>
 
-                    <form className="space-y-5">
+                    <form className="space-y-5" onSubmit={handleSubmit}>
                         <div>
                             <label className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
                             <div className="relative">
                                 <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-5 h-5" />
                                 <input 
                                     type="text"
-                                    name="fullName"
+                                    name="name"
                                     className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-700 bg-slate-800/50 text-white placeholder-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
                                     placeholder="John Doe"
-                                    value={formData.fullName}
+                                    value={formData.name}
                                     onChange={handleChange}
                                     required
                                 />
@@ -162,8 +192,12 @@ const SignupPage = () => {
                             </label>
                         </div>
 
-                        <button className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-[1.02]">
-                            Create Account
+                        <button 
+                            type="submit"
+                            disabled={loading}
+                            className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                        >
+                            {loading ? 'Creating Account...' : 'Create Account'}
                         </button>
                     </form>
 

@@ -3,11 +3,15 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronRight } from 'lucide-react';
 import { Logo } from './Logo';
+import UserProfile from '../hooks/UserProfile';
+import { useAuth } from '../context/authContext';
 
 const Navbar = () => {
+  const { user, isAuthenticated, logout } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+const {profile}=UserProfile();
+console.log(profile);
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -15,7 +19,6 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
   const navLinks = [
     { name: 'How It Works', path: '#workflow' },
     { name: 'Features', path: '#features' },
@@ -57,27 +60,54 @@ const Navbar = () => {
         </div>
 
         {/* Auth Buttons */}
-        <div className="hidden md:flex items-center gap-4">
-          <Link
-            to="/login"
-            className={`font-medium transition-colors ${
-              isScrolled ? 'text-slate-300 hover:text-white' : 'text-white hover:text-yellow-300'
-            }`}
-          >
-            Login
-          </Link>
-          <Link
-            to="/signup"
-            className={`px-6 py-2.5 rounded-full font-medium transition-all flex items-center gap-2 group ${
-              isScrolled 
-                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 hover:shadow-lg hover:shadow-blue-500/50' 
-                : 'bg-white text-purple-600 hover:bg-yellow-300 hover:text-purple-700 hover:shadow-lg'
-            }`}
-          >
-            Sign Up
-            <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
+       {
+        isAuthenticated?(
+          <div className="hidden md:flex items-center gap-4">
+            <Link
+              to="/dashboard"
+              className={`font-medium transition-colors ${
+                isScrolled ? 'text-slate-300 hover:text-white' : 'text-white hover:text-yellow-300'
+              }`}
+            >
+              {profile?.data?.user?.name}
+            </Link>
+            <button
+              // to="/logout"
+              onClick={logout}
+              className={`px-6 py-2.5 rounded-full font-medium transition-all flex items-center gap-2 group ${
+                isScrolled 
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 hover:shadow-lg hover:shadow-blue-500/50' 
+                  : 'bg-white text-purple-600 hover:bg-yellow-300 hover:text-purple-700 hover:shadow-lg'
+              }`}
+            >
+              Logout
+              <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+        ):(
+          <div className="hidden md:flex items-center gap-4">
+            <Link
+              to="/login"
+              className={`font-medium transition-colors ${
+                isScrolled ? 'text-slate-300 hover:text-white' : 'text-white hover:text-yellow-300'
+              }`}
+            >
+              Login
+            </Link>
+            <Link
+              to="/signup"
+              className={`px-6 py-2.5 rounded-full font-medium transition-all flex items-center gap-2 group ${
+                isScrolled 
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 hover:shadow-lg hover:shadow-blue-500/50' 
+                  : 'bg-white text-purple-600 hover:bg-yellow-300 hover:text-purple-700 hover:shadow-lg'
+              }`}
+            >
+              Sign Up
+              <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        )
+       }
 
         {/* Mobile Menu Button */}
         <button
@@ -111,7 +141,30 @@ const Navbar = () => {
                 </a>
               ))}
               <hr className="border-slate-700" />
-              <Link
+            {
+              isAuthenticated?(<div className="flex flex-col gap-4">
+                <Link
+                  to="/"
+                  className="text-slate-300 hover:text-white font-medium py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                   {profile?.data?.user?.name}
+                </Link>
+                <button
+                  // to="/logout"
+                  onClick={logout}
+                  className={`px-6 py-2.5 rounded-full font-medium transition-all flex items-center gap-2 group ${
+                    isScrolled 
+                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 hover:shadow-lg hover:shadow-blue-500/50' 
+                      : 'bg-white text-purple-600 hover:bg-yellow-300 hover:text-purple-700 hover:shadow-lg'
+                  }`}
+                >
+                  Logout
+                  <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>):(
+             <div className="flex flex-col gap-4">
+               <Link
                 to="/login"
                 className="text-slate-300 hover:text-white font-medium py-2"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -125,6 +178,9 @@ const Navbar = () => {
               >
                 Sign Up
               </Link>
+             </div>
+             )
+            }
             </div>
           </motion.div>
         )}
