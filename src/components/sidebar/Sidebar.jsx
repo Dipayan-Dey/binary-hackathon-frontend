@@ -106,7 +106,7 @@ const Sidebar = ({ profile }) => {
             <span>Overview</span>
           </NavLink>
 
-          <NavLink
+          {/* <NavLink
             to="/dashboard/ai-analyze"
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
             onClick={closeSidebar}
@@ -146,13 +146,13 @@ const Sidebar = ({ profile }) => {
               />
             </svg>
             <span>Chatbot</span>
-          </NavLink>
+          </NavLink> */}
 
-          {/* Section Divider */}
+          
           <div className="nav-divider"></div>
 
-          {/* Premium Routes */}
-          <NavLink
+     
+          {/* <NavLink
             to="/dashboard/analytics"
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
             onClick={closeSidebar}
@@ -234,7 +234,7 @@ const Sidebar = ({ profile }) => {
               />
             </svg>
             <span>Calendar</span>
-          </NavLink>
+          </NavLink> */}
 
           <NavLink
             to="/dashboard/reports"
@@ -278,7 +278,7 @@ const Sidebar = ({ profile }) => {
             <span>Integrations</span>
           </NavLink>
 
-          <NavLink
+          {/* <NavLink
             to="/dashboard/settings"
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
             onClick={closeSidebar}
@@ -302,7 +302,7 @@ const Sidebar = ({ profile }) => {
               />
             </svg>
             <span>Settings</span>
-          </NavLink>
+          </NavLink> */}
         </nav>
 
         {/* Logout Button */}
