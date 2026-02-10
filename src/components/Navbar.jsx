@@ -144,7 +144,7 @@ console.log(profile);
             {
               isAuthenticated?(<div className="flex flex-col gap-4">
                 <Link
-                  to="/"
+                  to="/dashboard"
                   className="text-slate-300 hover:text-white font-medium py-2"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
