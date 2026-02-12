@@ -108,7 +108,7 @@ const AllRepositories = ({
                         rel="noopener noreferrer"
                         className="hover:text-sky-300 transition-colors flex items-center gap-2"
                       >
-                        📦 {repo.name}
+                         {repo.name}
                       </a>
                     </h4>
                     {repo.private ? (
@@ -127,14 +127,14 @@ const AllRepositories = ({
                   </p>
                   <div className="flex items-center gap-4 flex-wrap">
                     <span className="bg-blue-600/30 text-blue-100 px-3 py-1.5 rounded-lg text-xs font-bold border border-blue-400/50 flex items-center gap-2">
-                      💻 {repo.language || "Unknown"}
+                       {repo.language || "Unknown"}
                     </span>
                     <span className="text-yellow-200 text-sm font-semibold flex items-center gap-1 bg-yellow-500/10 px-2 py-1 rounded-lg border border-yellow-500/20">
                       ⭐ {repo.stars || 0} Stars
                     </span>
-                    <span className="text-purple-200 text-sm font-semibold flex items-center gap-1 bg-purple-500/10 px-2 py-1 rounded-lg border border-purple-500/20">
+                    {/* <span className="text-purple-200 text-sm font-semibold flex items-center gap-1 bg-purple-500/10 px-2 py-1 rounded-lg border border-purple-500/20">
                       🍴 {repo.forks || 0} Forks
-                    </span>
+                    </span> */}
                   </div>
                 </div>
 
