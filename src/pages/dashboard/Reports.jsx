@@ -311,7 +311,7 @@ const Reports = () => {
       <div className="reports-container">
         <div className="reports-header">
           <div>
-            <h1 className="text-white text-3xl font-bold">📊 GitHub Reports</h1>
+            <h1 className="text-white text-3xl font-bold">GitHub Reports</h1>
             <p className="text-gray-300 mt-2">
               Analyze your repositories and track your skills
             </p>
@@ -325,7 +325,7 @@ const Reports = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sky-100 text-sm font-bold mb-2">
-                  📦 Total Repositories
+                 Total Repositories
                 </p>
                 <p className="text-white text-5xl font-bold drop-shadow-lg">
                   {reposTotalCount > 0 ? reposTotalCount : repos.length}
@@ -340,7 +340,7 @@ const Reports = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-emerald-100 text-sm font-bold mb-2">
-                  📊 Analyzed Projects
+                  Analyzed Projects
                 </p>
                 <p className="text-white text-5xl font-bold drop-shadow-lg">
                   {projectsTotalCount > 0
@@ -357,7 +357,7 @@ const Reports = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-fuchsia-100 text-sm font-bold mb-2">
-                  ✨ Skills Evaluated
+                   Skills Evaluated
                 </p>
                 <p className="text-white text-5xl font-bold drop-shadow-lg">
                   {skillsTotalCount > 0
@@ -376,19 +376,19 @@ const Reports = () => {
             className={`tab ${activeTab === "repos" ? "active" : ""}`}
             onClick={() => setActiveTab("repos")}
           >
-            📦 Repositories ({repos.length})
+             Repositories ({repos.length})
           </button>
           <button
             className={`tab ${activeTab === "analyzed" ? "active" : ""}`}
             onClick={() => setActiveTab("analyzed")}
           >
-            📊 Analyzed ({analyzedProjects.length})
+             Analyzed ({analyzedProjects.length})
           </button>
           <button
             className={`tab ${activeTab === "skills" ? "active" : ""}`}
             onClick={() => setActiveTab("skills")}
           >
-            ✨ Skills ({extractedSkills.length})
+             Skills ({extractedSkills.length})
           </button>
         </div>
 
