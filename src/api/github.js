@@ -35,9 +35,20 @@ import axiosClient from "./axiosClient";
 //   },
 // );
 
-export const fetchGithubRepos = async () => {
+export const fetchGithubRepos = async (page = 1, limit = 10, search = "") => {
   try {
-    const response = await axiosClient.get("/integrations/github/repos");
+    const params = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+    });
+
+    if (search) {
+      params.append("search", search);
+    }
+
+    const response = await axiosClient.get(
+      `/integrations/github/repos?${params.toString()}`,
+    );
     return response.data;
   } catch (error) {
     console.error("Error fetching GitHub repos:", error);
@@ -73,9 +84,20 @@ export const generateSkills = async () => {
   }
 };
 
-export const getUserProjects = async () => {
+export const getUserProjects = async (page = 1, limit = 10, search = "") => {
   try {
-    const response = await axiosClient.get("/user/projects");
+    const params = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+    });
+
+    if (search) {
+      params.append("search", search);
+    }
+
+    const response = await axiosClient.get(
+      `/user/projects?${params.toString()}`,
+    );
     return response.data;
   } catch (error) {
     console.error("Error fetching user projects:", error);
@@ -85,9 +107,18 @@ export const getUserProjects = async () => {
   }
 };
 
-export const getUserSkills = async () => {
+export const getUserSkills = async (page = 1, limit = 10, search = "") => {
   try {
-    const response = await axiosClient.get("/user/skills");
+    const params = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+    });
+
+    if (search) {
+      params.append("search", search);
+    }
+
+    const response = await axiosClient.get(`/user/skills?${params.toString()}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching user skills:", error);
@@ -95,10 +126,7 @@ export const getUserSkills = async () => {
   }
 };
 
-/**
- * Get user profile information
- * @returns {Promise<Object>} Response with user data
- */
+
 export const getUserProfile = async () => {
   try {
     const response = await axiosClient.get("/user/me");
@@ -109,11 +137,6 @@ export const getUserProfile = async () => {
   }
 };
 
-/**
- * Complete workflow: Analyze repository and generate skills
- * @param {string} repoFullName - Full repository name (e.g., "username/repo")
- * @returns {Promise<Object>} Response with both project and skill data
- */
 export const analyzeAndGenerateSkills = async (repoFullName) => {
   try {
     // Step 1: Analyze repository

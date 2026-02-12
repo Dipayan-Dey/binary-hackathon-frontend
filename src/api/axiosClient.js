@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "https://readynx-backend-ts.onrender.com/api/v1", 
+  baseURL: "http://localhost:5000/api/v1", 
 });
 
 // Auto attach token
