@@ -9,7 +9,7 @@
 .event-time,
 .event-date,
 .activity-time {
-  color: rgba(255, 255, 255, 0.95) !important; /* Almost white instead of 0.6-0.7 */
+  color: var(--color-text-bright) !important;
 }
 
 /* Card Backgrounds - More Opaque */
@@ -23,8 +23,8 @@
 .reports-section,
 .summary-card,
 .table-section {
-  background: rgba(255, 255, 255, 0.15) !important; /* Increased from 0.08 */
-  border: 2px solid rgba(255, 255, 255, 0.3) !important; /* Brighter border */
+  background: var(--glass-bg) !important;
+  border: 2px solid var(--glass-border) !important;
 }
 
 .stat-card:hover,
@@ -32,21 +32,21 @@
 .project-card:hover,
 .team-card:hover,
 .summary-card:hover {
-  background: rgba(255, 255, 255, 0.22) !important; /* Even brighter on hover */
-  border-color: rgba(255, 255, 255, 0.4) !important;
+  background: var(--color-hover) !important;
+  border-color: var(--color-text-primary) !important;
 }
 
 /* Nested Cards - Brighter */
 .activity-item,
 .report-card,
 .event-card {
-  background: rgba(255, 255, 255, 0.12) !important; /* Increased from 0.05 */
+  background: var(--glass-bg) !important;
 }
 
 .activity-item:hover,
 .report-card:hover,
 .event-card:hover {
-  background: rgba(255, 255, 255, 0.18) !important; /* Brighter hover */
+  background: var(--color-hover) !important;
 }
 
 /* Gradient Buttons - MORE Vibrant */
@@ -211,17 +211,17 @@
   display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 2px solid var(--glass-border);
   padding-bottom: 0;
 }
 
 .reports-tabs .tab {
   padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: var(--glass-bg);
+  border: 2px solid var(--glass-border);
   border-bottom: none;
   border-radius: 12px 12px 0 0;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
@@ -231,9 +231,9 @@
 }
 
 .reports-tabs .tab:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.9);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: var(--color-hover);
+  color: var(--color-text-primary);
+  border-color: var(--glass-border);
 }
 
 .reports-tabs .tab.active {
@@ -247,15 +247,15 @@
 .chart-filter,
 .calendar-nav-btn,
 .action-btn-secondary {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border-color: rgba(255, 255, 255, 0.3) !important;
+  background: var(--glass-bg) !important;
+  border-color: var(--glass-border) !important;
 }
 
 .chart-filter:hover,
 .calendar-nav-btn:hover,
 .action-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.22) !important;
-  border-color: rgba(255, 255, 255, 0.4) !important;
+  background: var(--color-hover) !important;
+  border-color: var(--color-text-primary) !important;
 }
 
 /* All text should be clear white */
@@ -271,7 +271,7 @@
 .report-title,
 .event-title,
 .activity-title {
-  color: #ffffff !important;
+  color: var(--color-text-bright) !important;
   font-weight: 700;
 }
 
@@ -279,12 +279,12 @@
 .chart-icon svg,
 .calendar-icon svg,
 .table-icon svg {
-  color: rgba(255, 255, 255, 0.95) !important;
+  color: var(--color-text-bright) !important;
 }
 
 /* Progress bar background */
 .progress-bar {
-  background: rgba(255, 255, 255, 0.2) !important;
+  background: var(--glass-bg) !important;
   height: 10px;
 }
 
@@ -294,5 +294,5 @@
 }
 
 .report-icon svg {
-  color: #ffffff !important;
+  color: var(--color-text-bright) !important;
 }

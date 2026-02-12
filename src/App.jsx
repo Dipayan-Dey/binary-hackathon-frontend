@@ -12,22 +12,25 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import DashboardLayout from "./layouts/DashboardLayout";
-import Overview from "./pages/dashboard/Overview";
-import AIAnalyze from "./pages/dashboard/AIAnalyze";
-import Chatbot from "./pages/dashboard/Chatbot";
-import Settings from "./pages/dashboard/Settings";
-import Analytics from "./pages/dashboard/Analytics";
-import Projects from "./pages/dashboard/Projects";
-import Team from "./pages/dashboard/Team";
-import Calendar from "./pages/dashboard/Calendar";
-import Reports from "./pages/dashboard/Reports";
-import Integrations from "./pages/dashboard/Integrations";
+import Overview from "./dashboard/Overview";
+import AIAnalyze from "./dashboard/AIAnalyze";
+import Chatbot from "./dashboard/Chatbot";
+import Settings from "./dashboard/Settings";
+import Analytics from "./dashboard/Analytics";
+import Projects from "./dashboard/Projects";
+import Team from "./dashboard/Team";
+import Calendar from "./dashboard/Calendar";
+import Reports from "./dashboard/Reports";
+import Integrations from "./dashboard/Integrations";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./context/authContext";
 // import { PublicRoute, PrivateRoute } from "./components/protectedroute/ProtectedRoute";
 import UserProfile from "./hooks/UserProfile";
-import { PrivateRoute, PublicRoute } from "./components/protectedroute/ProtectedRoute";
+import {
+  PrivateRoute,
+  PublicRoute,
+} from "./components/protectedroute/ProtectedRoute";
 function AppContent() {
   const { profile } = UserProfile();
   const location = useLocation();
@@ -35,7 +38,7 @@ function AppContent() {
     location.pathname === "/login" || location.pathname === "/signup";
   const isDashboard = location.pathname.startsWith("/dashboard");
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900">
+    <div className="min-h-screen font-sans transition-colors duration-300">
       <ToastContainer position="top-right" autoClose={3000} />
       {!isAuthPage && !isDashboard && <Navbar />}
       <main>
@@ -84,12 +87,16 @@ function AppContent() {
   );
 }
 
+import { ThemeProvider } from "./context/ThemeContext";
+
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <AppContent />
-      </Router>
+      <ThemeProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </ThemeProvider>
     </AuthProvider>
   );
 }

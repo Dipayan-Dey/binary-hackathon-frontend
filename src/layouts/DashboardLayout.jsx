@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "../components/sidebar/Sidebar";
+import Sidebar from "../dashboard/sidebar/Sidebar";
 import "./DashboardLayout.css";
 import UserProfile from "../hooks/UserProfile";
 

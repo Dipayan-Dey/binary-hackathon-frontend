@@ -1,6 +1,18 @@
 @import "tailwindcss";
 
-@theme {
+:root {
+  /* Default Dark Mode Colors */
+  --color-bg-primary: #0f172a;
+  --color-bg-secondary: #1e293b;
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-hover: rgba(255, 255, 255, 0.05);
+  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --color-text-bright: rgba(255, 255, 255, 0.95);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.05);
+
   --color-primary-50: #f0f9ff;
   --color-primary-100: #e0f2fe;
   --color-primary-200: #bae6fd;
@@ -11,6 +23,19 @@
   --color-primary-700: #0369a1;
   --color-primary-800: #075985;
   --color-primary-900: #0c4a6e;
+}
+
+:root.light {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f1f5f9;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-border: rgba(0, 0, 0, 0.1);
+  --color-hover: rgba(0, 0, 0, 0.05);
+  --bg-gradient: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  --color-text-bright: #1e293b;
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.6);
 
   --font-family-sans: 'Inter', system-ui, sans-serif;
 

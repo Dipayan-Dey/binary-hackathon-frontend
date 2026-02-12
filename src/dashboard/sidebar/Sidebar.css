@@ -6,9 +6,9 @@
   top: 0;
   height: 100vh;
   width: 280px;
-  background: rgba(15, 23, 42, 0.95);
+  background: var(--color-bg-primary);
   backdrop-filter: blur(20px);
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
   z-index: 100;
@@ -19,7 +19,7 @@
 /* Profile Section */
 .sidebar-profile {
   padding: 2rem 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--color-border);
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
 }
 
@@ -48,7 +48,7 @@
 .profile-name {
   font-size: 1.125rem;
   font-weight: 600;
-  color: white;
+  color: var(--color-text-primary);
   margin-bottom: 0.25rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -57,7 +57,7 @@
 
 .profile-email {
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-secondary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -76,7 +76,7 @@
   gap: 0.875rem;
   padding: 0.875rem 1rem;
   margin-bottom: 0.5rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   text-decoration: none;
   border-radius: 12px;
   transition: all 0.3s ease;
@@ -105,8 +105,8 @@
 }
 
 .nav-link:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
+  background: var(--color-hover);
+  color: var(--color-text-primary);
 }
 
 .nav-link:hover svg {
@@ -115,7 +115,7 @@
 
 .nav-link.active {
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
-  color: white;
+  color: var(--color-text-primary);
   box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
 }
 
@@ -126,14 +126,14 @@
 /* Navigation Divider */
 .nav-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
   margin: 1rem 0;
 }
 
 /* Footer / Logout */
 .sidebar-footer {
   padding: 1.5rem 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--color-border);
 }
 
 .logout-btn {
@@ -176,11 +176,11 @@
   z-index: 101;
   width: 48px;
   height: 48px;
-  background: rgba(15, 23, 42, 0.95);
+  background: var(--color-bg-primary);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
-  color: white;
+  color: var(--color-text-primary);
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -236,10 +236,10 @@
 }
 
 .sidebar-nav::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--color-hover);
   border-radius: 3px;
 }
 
 .sidebar-nav::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--color-border);
 }

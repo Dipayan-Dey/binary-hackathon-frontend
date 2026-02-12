@@ -14,7 +14,7 @@ import {
   RadialBarChart,
   RadialBar,
 } from "recharts";
-import { useInfiniteScroll } from "../../../hooks/useInfiniteScroll";
+import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 
 // BRIGHT VIBRANT COLORS - Neon Palette
 const COLORS = {

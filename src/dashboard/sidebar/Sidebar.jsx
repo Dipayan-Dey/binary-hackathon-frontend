@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import "./Sidebar.css";
+import { h1 } from "framer-motion/client";
 // import UserProfile from "../../hooks/UserProfile";
 
 const Sidebar = ({ profile }) => {
@@ -67,11 +68,17 @@ const Sidebar = ({ profile }) => {
                 d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
               />
             </svg> */}
-            <img
-              src={profile?.data?.user?.avatar}
-              alt=""
-              className="rounded-full"
-            />
+            {
+              profile?.data?.user?.avatar ? (
+                <img
+                  src={profile?.data?.user?.avatar}
+                  alt=""
+                  className="rounded-full"
+                />
+              ) : (
+               <h1 className="text-5xl font-bold">{profile?.data?.user?.name.charAt(0).toUpperCase()}</h1>
+              )
+            }
           </div>
           <div className="profile-info">
             <h3 className="profile-name">
@@ -148,10 +155,8 @@ const Sidebar = ({ profile }) => {
             <span>Chatbot</span>
           </NavLink> */}
 
-          
           <div className="nav-divider"></div>
 
-     
           {/* <NavLink
             to="/dashboard/analytics"
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
@@ -278,7 +283,7 @@ const Sidebar = ({ profile }) => {
             <span>Integrations</span>
           </NavLink>
 
-          {/* <NavLink
+          <NavLink
             to="/dashboard/settings"
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
             onClick={closeSidebar}
@@ -302,7 +307,7 @@ const Sidebar = ({ profile }) => {
               />
             </svg>
             <span>Settings</span>
-          </NavLink> */}
+          </NavLink>
         </nav>
 
         {/* Logout Button */}

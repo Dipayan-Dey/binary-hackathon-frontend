@@ -5,7 +5,7 @@ import {
   fetchGithubRepos,
   getUserProjects,
   getUserSkills,
-} from "../../api/github";
+} from "../api/github";
 import "./DashboardPages.css";
 import "./BrightColors.css";
 
