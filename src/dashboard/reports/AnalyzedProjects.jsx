@@ -76,8 +76,8 @@ const AnalyzedProjects = ({
 
       {analyzedProjects.map((project, index) => {
         // Prepare data for charts with fallback checks
-        const languageData = project.languageStats?.languageBreakdown
-          ? Object.entries(project.languageStats.languageBreakdown).map(
+        const languageData = project.languageStats?.languagePercentage
+          ? Object.entries(project.languageStats.languagePercentage).map(
               ([name, value]) => ({
                 name,
                 value,
@@ -172,7 +172,7 @@ const AnalyzedProjects = ({
                           cy="50%"
                           labelLine={false}
                           label={({ name, percent }) =>
-                            percent > 0.05 ? `${name}` : ""
+                            percent > 0.05 ? `${name} ` : ""
                           }
                           outerRadius={90}
                           innerRadius={50}
@@ -182,12 +182,12 @@ const AnalyzedProjects = ({
                           strokeWidth={2}
                           paddingAngle={2}
                         >
-                          {languageData.map((entry, index) => (
+                          {languageData.map((_, index) => (
                             <Cell
                               key={`cell-${index}`}
                               fill={
                                 Object.values(COLORS)[
-                                  index % Object.values(COLORS).length
+                                  index % Object.values(COLORS).length 
                                 ]
                               }
                             />

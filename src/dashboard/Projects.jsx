@@ -1,5 +1,5 @@
 import React from "react";
-import "./PremiumPages.css";
+import "./styles/PremiumPages.css";
 
 const Projects = () => {
   const projects = [

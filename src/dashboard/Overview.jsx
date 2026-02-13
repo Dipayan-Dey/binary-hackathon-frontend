@@ -6,8 +6,9 @@ import {
   getUserProjects,
   getUserSkills,
 } from "../api/github";
-import "./DashboardPages.css";
-import "./BrightColors.css";
+import "./styles/DashboardPages.css";
+import "./styles/BrightColors.css";
+import { ArrowLeft } from "lucide-react";
 
 const Overview = ({ profile }) => {
   const navigate = useNavigate();
@@ -52,6 +53,9 @@ const Overview = ({ profile }) => {
       {/* Header Section */}
       <div className="page-header mb-8">
         <div>
+          <h1 className="text-slate-300 text-sm font-semibold mb-2 flex items-center">  <ArrowLeft className="w-5 h-5" /> <a href="/" className="p-0.5">
+         Back to home</a>
+          </h1>
           <h1 className="text-white text-4xl font-bold mb-2">
             👋 Welcome back,{" "}
             {profile?.data?.user?.name?.split(" ")[0] || "User"}!

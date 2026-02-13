@@ -17,6 +17,7 @@ import { HexagonPattern, DotPattern } from "../components/BackgroundPatterns";
 import { loginUser } from "../api/authApi";
 import { useAuth } from "../context/authContext";
 import GoogleLoginButton from "../components/GoogleLoginButton";
+import { div } from "framer-motion/client";
 const LoginPage = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -189,7 +190,20 @@ const LoginPage = () => {
 
           {/* Google Login Button */}
           <div className="w-full">
-            <GoogleLoginButton />
+            {
+              loading ? (
+                <button
+                  disabled
+                  className="w-full py-3.5 bg-gradient-to-r from-gray-600 to-gray-400 text-white rounded-xl font-semibold cursor-not-allowed opacity-50"
+                >
+                  Loading...
+                </button>
+              ) : (
+               <div className=" w-full align-items-center justify-center">
+                <GoogleLoginButton />
+              </div>
+              )
+            }
           </div>
 
           <p className="text-center mt-8 text-slate-400 text-sm">

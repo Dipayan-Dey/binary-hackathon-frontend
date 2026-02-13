@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import "./DashboardPages.css";
-import "./Settings.css";
+import "./styles/DashboardPages.css";
+import "./styles/Settings.css";
 import { useTheme } from "../context/ThemeContext";
 
 const API_URL =

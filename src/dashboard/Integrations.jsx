@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import "./BrightColors.css";
+import "./styles/DashboardPages.css";
 
 const API_URL =
   import.meta.env.BACKEND_API_ENDPOINT ||
@@ -226,7 +226,7 @@ const Integrations = () => {
             <div className="mb-6 p-3 bg-green-500/10 rounded-lg border border-green-500/20 flex items-center gap-2">
               <span className="text-green-400 text-sm">👤 Connected as:</span>
               <span className="text-white font-bold text-sm">
-                @{integrations.github.username}
+                {integrations.github.username}
               </span>
             </div>
           )}

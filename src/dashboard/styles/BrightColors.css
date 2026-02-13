@@ -1,0 +1,572 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* ============================================
+   BRIGHT NEON THEME - ULTRA VIBRANT
+   Eye-catching colors and glow effects
+   ============================================ */
+
+/* ============================================
+   TEXT COLORS - MAXIMUM BRIGHTNESS
+   ============================================ */
+
+.stat-label,
+.progress-label,
+.team-count,
+.summary-label,
+.report-meta,
+.event-time,
+.event-date,
+.activity-time,
+.chart-placeholder-text,
+.table-placeholder-text,
+.placeholder-text {
+  color: var(--color-text-bright) !important;
+  font-weight: 600 !important;
+}
+
+/* ============================================
+   CARD BACKGROUNDS - ENHANCED GLASS
+   ============================================ */
+
+.stat-card,
+.chart-card,
+.activity-section,
+.project-card,
+.team-card,
+.calendar-main,
+.events-sidebar,
+.reports-section,
+.summary-card,
+.table-section,
+.integration-card,
+.settings-card,
+.info-card {
+  background: var(--glass-bg-strong) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.stat-card:hover,
+.chart-card:hover,
+.project-card:hover,
+.team-card:hover,
+.summary-card:hover,
+.integration-card:hover,
+.info-card:hover {
+  background: var(--glass-hover) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: var(--shadow-xl), 0 0 40px rgba(99, 102, 241, 0.3) !important;
+}
+
+/* ============================================
+   NESTED CARDS - BRIGHTER CONTRAST
+   ============================================ */
+
+.activity-item,
+.report-card,
+.event-card,
+.settings-item {
+  background: var(--glass-bg) !important;
+  border: 1px solid transparent !important;
+}
+
+.activity-item:hover,
+.report-card:hover,
+.event-card:hover,
+.settings-item:hover {
+  background: var(--glass-hover) !important;
+  border-color: var(--glass-border) !important;
+}
+
+/* ============================================
+   NEON GRADIENT BUTTONS
+   ============================================ */
+
+.generate-report-btn,
+.add-event-btn,
+.download-btn,
+.project-action-btn,
+.action-btn-primary,
+.connect-btn,
+.integration-btn,
+.settings-btn {
+  background: linear-gradient(135deg, #6366f1, #ec4899) !important;
+  border: none !important;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4), 0 0 20px rgba(236, 72, 153, 0.3) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.generate-report-btn::before,
+.add-event-btn::before,
+.connect-btn::before,
+.settings-btn::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(135deg, #ec4899, #6366f1) !important;
+  opacity: 0 !important;
+  transition: opacity 0.4s !important;
+}
+
+.generate-report-btn:hover:not(:disabled),
+.add-event-btn:hover:not(:disabled),
+.download-btn:hover:not(:disabled),
+.project-action-btn:hover,
+.action-btn-primary:hover,
+.connect-btn:hover:not(:disabled),
+.settings-btn:hover:not(:disabled) {
+  box-shadow: 0 12px 32px rgba(99, 102, 241, 0.6), 0 0 40px rgba(236, 72, 153, 0.5) !important;
+  transform: translateY(-4px) !important;
+}
+
+.generate-report-btn:hover::before,
+.add-event-btn:hover::before,
+.connect-btn:hover::before,
+.settings-btn:hover::before {
+  opacity: 1 !important;
+}
+
+/* ============================================
+   PROGRESS BARS - VIBRANT GRADIENTS
+   ============================================ */
+
+.progress-bar {
+  background: rgba(0, 0, 0, 0.3) !important;
+  height: 12px !important;
+  border-radius: 10px !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899) !important;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.6) !important;
+  position: relative !important;
+}
+
+.progress-fill::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent) !important;
+  animation: shimmerProgress 2s infinite !important;
+}
+
+@keyframes shimmerProgress {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.project-card-success .progress-fill {
+  background: linear-gradient(90deg, #10b981, #06b6d4, #3b82f6) !important;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.6) !important;
+}
+
+.project-card-warning .progress-fill {
+  background: linear-gradient(90deg, #f59e0b, #f97316, #ef4444) !important;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.6) !important;
+}
+
+/* ============================================
+   STATUS BADGES - NEON GLOW
+   ============================================ */
+
+.status-in-progress,
+.status-badge,
+.project-status {
+  background: rgba(99, 102, 241, 0.2) !important;
+  color: #c7d2fe !important;
+  border: 1px solid rgba(99, 102, 241, 0.5) !important;
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.4) !important;
+  font-weight: 700 !important;
+}
+
+.status-completed,
+.status-ready,
+.status-connected {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #a7f3d0 !important;
+  border: 1px solid rgba(16, 185, 129, 0.5) !important;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.4) !important;
+}
+
+.status-pending,
+.status-processing {
+  background: rgba(245, 158, 11, 0.2) !important;
+  color: #fde68a !important;
+  border: 1px solid rgba(245, 158, 11, 0.5) !important;
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.4) !important;
+}
+
+.status-disconnected {
+  background: rgba(156, 163, 175, 0.2) !important;
+  color: #d1d5db !important;
+  border: 1px solid rgba(156, 163, 175, 0.5) !important;
+}
+
+/* ============================================
+   ICON BACKGROUNDS - VIBRANT GRADIENTS
+   ============================================ */
+
+.stat-icon,
+.summary-icon-primary,
+.add-project-icon,
+.team-member-avatar,
+.team-avatar,
+.activity-icon,
+.card-icon,
+.placeholder-icon {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4), 0 0 20px rgba(139, 92, 246, 0.3) !important;
+}
+
+.summary-icon-success,
+.stat-card-success .stat-icon,
+.activity-icon-success {
+  background: linear-gradient(135deg, #10b981, #06b6d4) !important;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4), 0 0 20px rgba(6, 182, 212, 0.3) !important;
+}
+
+.summary-icon-warning,
+.stat-card-warning .stat-icon,
+.activity-icon-warning {
+  background: linear-gradient(135deg, #f59e0b, #ec4899) !important;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4), 0 0 20px rgba(236, 72, 153, 0.3) !important;
+}
+
+.stat-card-danger .stat-icon,
+.activity-icon-danger {
+  background: linear-gradient(135deg, #ef4444, #f97316) !important;
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4), 0 0 20px rgba(249, 115, 22, 0.3) !important;
+}
+
+.activity-icon-primary {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4) !important;
+}
+
+/* ============================================
+   REPORT TYPE BADGES
+   ============================================ */
+
+.type-pdf,
+.report-type {
+  background: rgba(239, 68, 68, 0.2) !important;
+  color: #fca5a5 !important;
+  border: 1px solid rgba(239, 68, 68, 0.4) !important;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.3) !important;
+  font-weight: 700 !important;
+}
+
+.type-excel {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #6ee7b7 !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3) !important;
+}
+
+/* ============================================
+   EVENT CATEGORIES - NEON TAGS
+   ============================================ */
+
+.category-meeting,
+.event-category {
+  background: rgba(99, 102, 241, 0.2) !important;
+  color: #c7d2fe !important;
+  border: 1px solid rgba(99, 102, 241, 0.4) !important;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.3) !important;
+  font-weight: 700 !important;
+}
+
+.category-deadline {
+  background: rgba(239, 68, 68, 0.2) !important;
+  color: #fca5a5 !important;
+  border: 1px solid rgba(239, 68, 68, 0.4) !important;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.3) !important;
+}
+
+.category-presentation {
+  background: rgba(245, 158, 11, 0.2) !important;
+  color: #fde68a !important;
+  border: 1px solid rgba(245, 158, 11, 0.4) !important;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.3) !important;
+}
+
+.category-review {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #6ee7b7 !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3) !important;
+}
+
+/* ============================================
+   BORDER ACCENTS - NEON GLOW
+   ============================================ */
+
+.event-card-primary,
+.report-card {
+  border-left: 4px solid #6366f1 !important;
+  box-shadow: -4px 0 12px rgba(99, 102, 241, 0.3) !important;
+}
+
+.event-card-success {
+  border-left: 4px solid #10b981 !important;
+  box-shadow: -4px 0 12px rgba(16, 185, 129, 0.3) !important;
+}
+
+.event-card-danger {
+  border-left: 4px solid #ef4444 !important;
+  box-shadow: -4px 0 12px rgba(239, 68, 68, 0.3) !important;
+}
+
+.event-card-warning {
+  border-left: 4px solid #f59e0b !important;
+  box-shadow: -4px 0 12px rgba(245, 158, 11, 0.3) !important;
+}
+
+/* ============================================
+   PLACEHOLDER ICONS - GLOWING
+   ============================================ */
+
+.chart-icon,
+.calendar-icon,
+.table-icon {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(236, 72, 153, 0.25)) !important;
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.4) !important;
+}
+
+.chart-icon svg,
+.calendar-icon svg,
+.table-icon svg,
+.placeholder-icon svg {
+  color: var(--color-text-bright) !important;
+  filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.6)) !important;
+}
+
+/* ============================================
+   STATUS INDICATORS - PULSING GLOW
+   ============================================ */
+
+.status-online .status-indicator {
+  background: #10b981 !important;
+  box-shadow: 0 0 15px #10b981, 0 0 30px rgba(16, 185, 129, 0.5) !important;
+  animation: pulseGreen 2s ease-in-out infinite !important;
+}
+
+@keyframes pulseGreen {
+  0%, 100% {
+    box-shadow: 0 0 15px #10b981, 0 0 30px rgba(16, 185, 129, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px #10b981, 0 0 40px rgba(16, 185, 129, 0.8);
+  }
+}
+
+.status-away .status-indicator {
+  background: #f59e0b !important;
+  box-shadow: 0 0 15px #f59e0b, 0 0 30px rgba(245, 158, 11, 0.5) !important;
+  animation: pulseAmber 2s ease-in-out infinite !important;
+}
+
+@keyframes pulseAmber {
+  0%, 100% {
+    box-shadow: 0 0 15px #f59e0b, 0 0 30px rgba(245, 158, 11, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px #f59e0b, 0 0 40px rgba(245, 158, 11, 0.8);
+  }
+}
+
+/* ============================================
+   STAT CHANGE - ENHANCED COLORS
+   ============================================ */
+
+.stat-change.positive {
+  color: #6ee7b7 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 10px rgba(110, 231, 183, 0.5) !important;
+}
+
+.stat-change.negative {
+  color: #fca5a5 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 10px rgba(252, 165, 165, 0.5) !important;
+}
+
+/* ============================================
+   TABS - ULTRA BRIGHT
+   ============================================ */
+
+.reports-tabs .tab,
+.settings-tab-btn {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.reports-tabs .tab.active,
+.settings-tab-btn.active {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+  border: none !important;
+  color: white !important;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.5), 0 0 30px rgba(139, 92, 246, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+.reports-tabs .tab:hover:not(.active),
+.settings-tab-btn:hover:not(.active) {
+  background: var(--glass-hover) !important;
+  color: var(--color-text-primary) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ============================================
+   FILTER INPUTS - ENHANCED
+   ============================================ */
+
+.chart-filter,
+.calendar-nav-btn,
+.action-btn-secondary,
+.settings-input,
+.settings-select {
+  background: var(--glass-bg) !important;
+  border: 2px solid var(--glass-border) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.chart-filter:hover,
+.calendar-nav-btn:hover,
+.action-btn-secondary:hover,
+.settings-input:hover,
+.settings-select:hover {
+  background: var(--glass-hover) !important;
+  border-color: rgba(99, 102, 241, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+.chart-filter:focus,
+.settings-input:focus,
+.settings-select:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15) !important;
+}
+
+/* ============================================
+   BRIGHT TEXT - ALL MAJOR ELEMENTS
+   ============================================ */
+
+.stat-value,
+.progress-percentage,
+.team-member-name,
+.project-name,
+.chart-title,
+.section-title,
+.sidebar-title,
+.calendar-month,
+.summary-value,
+.report-title,
+.event-title,
+.activity-title,
+.page-title,
+.settings-title,
+.integration-name,
+.card-value {
+  color: var(--color-text-bright) !important;
+  font-weight: 800 !important;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ============================================
+   REPORT ICON - ENHANCED
+   ============================================ */
+
+.report-icon {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3)) !important;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4) !important;
+}
+
+.report-icon svg {
+  color: var(--color-text-bright) !important;
+  filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.6)) !important;
+}
+
+/* ============================================
+   INTEGRATION ICONS - SPECIFIC
+   ============================================ */
+
+.github-icon {
+  background: linear-gradient(135deg, #24292e, #000000) !important;
+  box-shadow: 0 8px 24px rgba(36, 41, 46, 0.5), 0 0 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+.linkedin-icon {
+  background: linear-gradient(135deg, #0077b5, #005582) !important;
+  box-shadow: 0 8px 24px rgba(0, 119, 181, 0.5), 0 0 20px rgba(0, 85, 130, 0.4) !important;
+}
+
+/* ============================================
+   DISCONNECT BUTTON
+   ============================================ */
+
+.disconnect-btn {
+  background: rgba(239, 68, 68, 0.15) !important;
+  color: #fca5a5 !important;
+  border: 2px solid rgba(239, 68, 68, 0.4) !important;
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.2) !important;
+}
+
+.disconnect-btn:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.25) !important;
+  border-color: rgba(239, 68, 68, 0.6) !important;
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ============================================
+   ANIMATED BACKGROUNDS
+   ============================================ */
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.stat-card::after,
+.chart-card::after,
+.project-card::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 300px !important;
+  height: 300px !important;
+  background: radial-gradient(circle, var(--card-gradient-start, #6366f1) 0%, transparent 70%) !important;
+  opacity: 0 !important;
+  transform: translate(-50%, -50%) !important;
+  transition: opacity 0.6s !important;
+  pointer-events: none !important;
+  filter: blur(60px) !important;
+}
+
+.stat-card:hover::after,
+.chart-card:hover::after,
+.project-card:hover::after {
+  opacity: 0.2 !important;
+}
+
+/* ============================================
+   RESPONSIVE BRIGHTNESS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .stat-value,
+  .progress-percentage,
+  .chart-title,
+  .section-title {
+    font-weight: 700 !important;
+  }
+}

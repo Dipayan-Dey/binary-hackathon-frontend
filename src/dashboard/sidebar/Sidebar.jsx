@@ -4,7 +4,7 @@ import { useAuth } from "../../context/authContext";
 import "./Sidebar.css";
 import { h1 } from "framer-motion/client";
 // import UserProfile from "../../hooks/UserProfile";
-
+import devlogo from "../../../public/my-sig-logo.png"
 const Sidebar = ({ profile }) => {
   const { logout } = useAuth();
   // console.log(profile?.data?.user?.avatar);
@@ -328,6 +328,9 @@ const Sidebar = ({ profile }) => {
             </svg>
             <span>Logout</span>
           </button>
+          <p className="text-[15px] text-gray-400 mt-4 text-center ">
+            <a href="https://www.dipayandey.site" target="_blank" rel="noopener noreferrer">Visit Developer's Profile</a>
+          </p>
         </div>
       </aside>
     </>

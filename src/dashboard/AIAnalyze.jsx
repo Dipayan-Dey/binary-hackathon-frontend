@@ -1,5 +1,5 @@
 import React from "react";
-import "./DashboardPages.css";
+import "./styles/DashboardPages.css";
 
 const AIAnalyze = () => {
   return (

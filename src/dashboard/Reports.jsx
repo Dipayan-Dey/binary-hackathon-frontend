@@ -13,8 +13,8 @@ import { useURLParams } from "../hooks/useURLParams";
 import AllRepositories from "./reports/AllRepositories";
 import AnalyzedProjects from "./reports/AnalyzedProjects";
 import SkillsEvaluation from "./reports/SkillsEvaluation";
-import "./PremiumPages.css";
-import "./BrightColors.css";
+import "./styles/PremiumPages.css";
+import "./styles/BrightColors.css";
 
 const Reports = () => {
   const navigate = useNavigate();

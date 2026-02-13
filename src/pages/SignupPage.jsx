@@ -177,7 +177,7 @@ const SignupPage = () => {
                             </div>
                         </div>
 
-                         <div className="p-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl border border-blue-500/30">
+                         {/* <div className="p-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl border border-blue-500/30">
                             <label className="flex items-start gap-3 cursor-pointer group">
                                 <div className="mt-1">
                                     <input type="checkbox" defaultChecked className="rounded border-blue-500/30 bg-slate-800/50 text-blue-600 focus:ring-blue-500/20 cursor-pointer" />
@@ -190,7 +190,7 @@ const SignupPage = () => {
                                     <p className="text-blue-400/70">Allow AI to scan your public profiles for personalized skill gap analysis and career recommendations.</p>
                                 </div>
                             </label>
-                        </div>
+                        </div> */}
 
                         <button 
                             type="submit"

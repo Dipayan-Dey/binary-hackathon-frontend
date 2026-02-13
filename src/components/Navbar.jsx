@@ -69,10 +69,12 @@ console.log(profile);
                 isScrolled ? 'text-slate-300 hover:text-white' : 'text-white hover:text-yellow-300'
               }`}
             >
-              {profile?.data?.user?.name}
+             <button className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors cursor-pointer">
+              Dashboard
+             </button>
             </Link>
-            <button
-              // to="/logout"
+            {/* <button
+             
               onClick={logout}
               className={`px-6 py-2.5 rounded-full font-medium transition-all flex items-center gap-2 group ${
                 isScrolled 
@@ -82,7 +84,7 @@ console.log(profile);
             >
               Logout
               <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </button>
+            </button> */}
           </div>
         ):(
           <div className="hidden md:flex items-center gap-4">
