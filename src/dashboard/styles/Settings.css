@@ -14,7 +14,7 @@
   gap: 1rem;
   margin-bottom: 4rem;
   padding: 0.875rem;
-  background: var(--glass-emerald);
+  background: rgba(0, 217, 255, 0.03);
   backdrop-filter: blur(20px) saturate(180%);
   border-radius: 24px;
   border: 1.5px solid var(--glass-border);
@@ -54,11 +54,11 @@
   position: absolute;
   inset: 0;
   border-radius: 18px;
-  background: linear-gradient(135deg, var(--color-emerald), var(--color-gold));
+  background: linear-gradient(135deg, #00d9ff, #a855f7);
   opacity: 0;
   transition: opacity 0.4s;
   z-index: -1;
-  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.4);
 }
 
 .settings-tab-btn:hover:not(.active) {
@@ -69,7 +69,9 @@
 
 .settings-tab-btn.active {
   color: white;
-  box-shadow: 0 6px 24px rgba(5, 150, 105, 0.5);
+  background: rgba(0, 217, 255, 0.1);
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
   transform: translateY(-4px);
 }
 
@@ -98,7 +100,7 @@
 }
 
 .settings-card {
-  background: var(--glass-emerald-strong);
+  background: rgba(15, 12, 41, 0.8);
   backdrop-filter: blur(30px) saturate(180%);
   border-radius: 28px;
   border: 1.5px solid var(--glass-border);
@@ -115,9 +117,9 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--color-emerald-bright), var(--color-gold-bright));
+  background: linear-gradient(90deg, #00d9ff, #a855f7);
   opacity: 0.9;
-  box-shadow: 0 0 15px var(--color-emerald-bright);
+  box-shadow: 0 0 15px #00d9ff;
 }
 
 .settings-title {
@@ -136,9 +138,9 @@
   content: '';
   width: 6px;
   height: 36px;
-  background: linear-gradient(180deg, var(--color-emerald-bright), var(--color-gold-bright));
+  background: linear-gradient(180deg, #00d9ff, #a855f7);
   border-radius: 3px;
-  box-shadow: 0 0 15px var(--color-emerald-bright);
+  box-shadow: 0 0 15px #00d9ff;
 }
 
 /* ============================================
@@ -164,7 +166,7 @@
 .settings-select {
   width: 100%;
   padding: 1.125rem 1.5rem;
-  background: var(--glass-emerald);
+  background: rgba(0, 217, 255, 0.03);
   border: 2px solid var(--glass-border);
   border-radius: 16px;
   color: var(--color-text-primary);
@@ -183,16 +185,16 @@
 
 .settings-input:hover,
 .settings-select:hover {
-  border-color: rgba(5, 150, 105, 0.4);
+  border-color: rgba(0, 217, 255, 0.4);
   background: var(--glass-hover);
 }
 
 .settings-input:focus,
 .settings-select:focus {
   outline: none;
-  border-color: var(--color-emerald-bright);
-  background: var(--glass-emerald-strong);
-  box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.15);
+  border-color: #00d9ff;
+  background: rgba(0, 217, 255, 0.05);
+  box-shadow: 0 0 0 4px rgba(0, 217, 255, 0.15);
   transform: translateY(-3px);
 }
 
@@ -238,7 +240,7 @@ textarea.settings-input {
   justify-content: space-between;
   align-items: center;
   padding: 1.75rem;
-  background: var(--glass-emerald);
+  background: rgba(0, 217, 255, 0.03);
   border-radius: 18px;
   margin-bottom: 1.25rem;
   border: 1.5px solid transparent;
@@ -344,7 +346,7 @@ input:focus + .settings-toggle-slider {
 .settings-btn {
   margin-top: 3rem;
   padding: 1.25rem 3rem;
-  background: linear-gradient(135deg, var(--color-emerald), var(--color-gold));
+  background: linear-gradient(135deg, #00d9ff, #a855f7);
   border: none;
   border-radius: 16px;
   color: white;
@@ -380,7 +382,7 @@ input:focus + .settings-toggle-slider {
 
 .settings-btn:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 32px rgba(5, 150, 105, 0.6), var(--glow-emerald);
+  box-shadow: 0 10px 32px rgba(5, 150, 105, 0.6), rgba(0, 217, 255, 0.03);
 }
 
 .settings-btn:hover::before {
@@ -509,7 +511,7 @@ input:focus + .settings-toggle-slider {
   align-items: center;
   gap: 2.5rem;
   padding: 2.5rem;
-  background: var(--glass-emerald);
+  background: rgba(0, 217, 255, 0.03);
   border-radius: 20px;
   border: 1.5px solid var(--glass-border);
   margin-bottom: 2.5rem;
@@ -561,7 +563,7 @@ input:focus + .settings-toggle-slider {
 
 .profile-picture-actions button {
   padding: 0.875rem 1.75rem;
-  background: var(--glass-emerald-strong);
+  background: rgba(15, 12, 41, 0.8);
   border: 1.5px solid var(--glass-border);
   border-radius: 14px;
   color: var(--color-text-primary);

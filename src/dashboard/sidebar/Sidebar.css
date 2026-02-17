@@ -20,19 +20,19 @@
 .sidebar-profile {
   padding: 2rem 1.5rem;
   border-bottom: 1px solid var(--color-border);
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
 }
 
 .profile-avatar {
   width: 80px;
   height: 80px;
   margin: 0 auto 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #00d9ff 0%, #a855f7 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 217, 255, 0.5), 0 0 30px rgba(168, 85, 247, 0.3);
 }
 
 .profile-avatar svg {
@@ -92,9 +92,10 @@
   top: 0;
   bottom: 0;
   width: 4px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #00d9ff 0%, #a855f7 100%);
   transform: scaleY(0);
   transition: transform 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
 }
 
 .nav-link svg {
@@ -114,9 +115,10 @@
 }
 
 .nav-link.active {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%);
   color: var(--color-text-primary);
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 217, 255, 0.3), 0 0 20px rgba(168, 85, 247, 0.2);
+  border: 1px solid rgba(0, 217, 255, 0.2);
 }
 
 .nav-link.active::before {
@@ -191,8 +193,9 @@
 }
 
 .sidebar-toggle:hover {
-  background: rgba(99, 102, 241, 0.2);
-  border-color: rgba(99, 102, 241, 0.4);
+  background: rgba(0, 217, 255, 0.2);
+  border-color: rgba(0, 217, 255, 0.4);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
 }
 
 /* Overlay for mobile */

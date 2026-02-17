@@ -1,4 +1,5 @@
 import React from "react";
+import { Target, Wrench, Code, AlertTriangle } from "lucide-react";
 import {
   RadarChart,
   PolarGrid,
@@ -65,13 +66,13 @@ const SkillsEvaluation = ({
     <div className="space-y-8">
       {/* Search Bar */}
       <div className="mb-6 relative group">
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-200"></div>
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00d9ff] to-[#a855f7] rounded-xl blur opacity-30 group-hover:opacity-75 transition duration-200"></div>
         <input
           type="text"
           placeholder="🔍 Search skills by repository name..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="relative w-full px-5 py-3 bg-gray-900 border-2 border-white/20 rounded-xl text-white text-base placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all shadow-xl"
+          className="relative w-full px-5 py-3 bg-[#0f172a]/80 border-2 border-[#00d9ff]/20 rounded-xl text-white text-base placeholder-gray-400 focus:border-[#00d9ff] focus:outline-none focus:ring-1 focus:ring-[#00d9ff] transition-all shadow-[0_0_15px_rgba(0,217,255,0.1)]"
         />
       </div>
 
@@ -145,7 +146,7 @@ const SkillsEvaluation = ({
           <div
             key={skill._id}
             ref={index === extractedSkills.length - 1 ? lastElementRef : null}
-            className="bg-gray-900/40 backdrop-blur-md rounded-2xl border-2 border-white/20 p-6 md:p-8 hover:border-blue-400/50 hover:bg-gray-900/60 transition-all shadow-2xl hover:shadow-blue-500/10"
+            className="bg-[#151b3d]/60 backdrop-blur-md rounded-2xl border border-[#00d9ff]/30 p-6 md:p-8 hover:border-[#00d9ff]/60 hover:bg-[#151b3d]/80 transition-all shadow-[0_0_20px_rgba(0,0,0,0.3)] hover:shadow-[0_0_30px_rgba(0,217,255,0.15)]"
           >
             {/* Overall Scores Header */}
             <div className="mb-8">
@@ -177,7 +178,7 @@ const SkillsEvaluation = ({
                   </div>
                   <div className="h-6 rounded-full overflow-hidden border border-white/20 bg-gray-900">
                     <div
-                      className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 shadow-lg relative"
+                      className="h-full bg-gradient-to-r from-[#00d9ff] via-[#a855f7] to-[#ff006e] shadow-[0_0_15px_rgba(168,85,247,0.5)] relative"
                       style={{ width: `${skill.overallScore}%` }}
                     >
                       <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
@@ -255,7 +256,8 @@ const SkillsEvaluation = ({
               {/* Radar Chart for Core Competencies */}
               <div className="bg-gray-800/50 rounded-2xl p-6 border-2 border-white/10 shadow-inner">
                 <h5 className="text-blue-300 text-lg font-bold mb-4 flex items-center gap-2">
-                  🎯 Competency Radar
+                  <Target className="w-5 h-5 inline-block mr-2" /> Competency
+                  Radar
                 </h5>
                 <ResponsiveContainer width="100%" height={280}>
                   <RadarChart
@@ -309,7 +311,8 @@ const SkillsEvaluation = ({
               {engineeringData.length > 0 && (
                 <div className="bg-gray-800/50 rounded-2xl p-6 border-2 border-white/10 shadow-inner">
                   <h5 className="text-emerald-300 text-lg font-bold mb-4 flex items-center gap-2">
-                    🛠️ Engineering Skills Matrix
+                    <Wrench className="w-5 h-5 inline-block mr-2" /> Engineering
+                    Skills Matrix
                   </h5>
                   <ResponsiveContainer width="100%" height={280}>
                     <BarChart data={engineeringData} layout="vertical">
@@ -364,9 +367,9 @@ const SkillsEvaluation = ({
 
             {/* Language Skills */}
             {skill.languageSkills && skill.languageSkills.length > 0 && (
-              <div className="mb-6 p-6 bg-gradient-to-br from-blue-900/40 to-indigo-900/40 rounded-2xl border-2 border-blue-500/30 hover:border-blue-500/50 transition-colors">
+              <div className="mb-6 p-6 bg-gradient-to-br from-[#0f172a] to-[#1e1b4b] rounded-2xl border-2 border-[#00d9ff]/30 hover:border-[#00d9ff] transition-colors hover:shadow-[0_0_20px_rgba(0,217,255,0.2)]">
                 <h5 className="text-blue-200 text-lg font-bold mb-4 border-b border-blue-500/30 pb-2">
-                  💻 Language Skills
+                  <Code className="w-5 h-5 inline-block mr-2" /> Language Skills
                 </h5>
                 <div className="flex flex-wrap gap-3">
                   {skill.languageSkills.map((langSkill, idx) => (
@@ -394,7 +397,7 @@ const SkillsEvaluation = ({
             {/* Strengths & Gaps */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {skill.strengths && skill.strengths.length > 0 && (
-                <div className="bg-gradient-to-br from-emerald-900/40 to-teal-900/40 p-6 rounded-2xl border-2 border-emerald-500/30 shadow-inner">
+                <div className="bg-gradient-to-br from-[#0f172a] to-[#064e3b] p-6 rounded-2xl border-2 border-[#00f5a0]/30 shadow-inner hover:border-[#00f5a0] transition-colors hover:shadow-[0_0_20px_rgba(0,245,160,0.2)]">
                   <p className="text-emerald-200 text-lg mb-4 font-bold border-b border-emerald-500/30 pb-2">
                     💪 Strengths
                   </p>
@@ -411,9 +414,10 @@ const SkillsEvaluation = ({
                 </div>
               )}
               {skill.gaps && skill.gaps.length > 0 && (
-                <div className="bg-gradient-to-br from-red-900/40 to-orange-900/40 p-6 rounded-2xl border-2 border-red-500/30 shadow-inner">
+                <div className="bg-gradient-to-br from-[#0f172a] to-[#451a03] p-6 rounded-2xl border-2 border-[#ff6b35]/30 shadow-inner hover:border-[#ff6b35] transition-colors hover:shadow-[0_0_20px_rgba(255,107,53,0.2)]">
                   <p className="text-red-200 text-lg mb-4 font-bold border-b border-red-500/30 pb-2">
-                    ⚠️ Improvement Areas
+                    <AlertTriangle className="w-5 h-5 inline-block mr-2" />{" "}
+                    Improvement Areas
                   </p>
                   <div className="flex flex-col gap-3">
                     {skill.gaps.slice(0, 5).map((gap, idx) => (

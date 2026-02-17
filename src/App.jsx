@@ -22,6 +22,8 @@ import Team from "./dashboard/Team";
 import Calendar from "./dashboard/Calendar";
 import Reports from "./dashboard/Reports";
 import Integrations from "./dashboard/Integrations";
+import Interview from "./dashboard/Interview";
+import Quiz from "./dashboard/Quiz";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./context/authContext";
@@ -31,12 +33,20 @@ import {
   PrivateRoute,
   PublicRoute,
 } from "./components/protectedroute/ProtectedRoute";
+
 function AppContent() {
   const { profile } = UserProfile();
   const location = useLocation();
   const isAuthPage =
     location.pathname === "/login" || location.pathname === "/signup";
   const isDashboard = location.pathname.startsWith("/dashboard");
+  const handleRefresh = () => {
+    if (isDashboard) {
+      profile.refetch();
+    } else {
+      window.location.reload();
+    }
+  };
   return (
     <div className="min-h-screen font-sans transition-colors duration-300">
       <ToastContainer position="top-right" autoClose={3000} />
@@ -69,8 +79,13 @@ function AppContent() {
             }
           >
             <Route index element={<Navigate to="overview" replace />} />
-            <Route path="overview" element={<Overview profile={profile} />} />
-            <Route path="ai-analyze" element={<AIAnalyze />} />
+            <Route
+              path="overview"
+              element={
+                <Overview profile={profile} handleRefresh={handleRefresh} />
+              }
+            />
+            <Route path="resume-analyse" element={<AIAnalyze />} />
             <Route path="chatbot" element={<Chatbot />} />
             <Route path="settings" element={<Settings />} />
             <Route path="analytics" element={<Analytics />} />
@@ -79,6 +94,8 @@ function AppContent() {
             <Route path="calendar" element={<Calendar />} />
             <Route path="reports" element={<Reports />} />
             <Route path="integrations" element={<Integrations />} />
+            <Route path="interview" element={<Interview />} />
+            <Route path="quiz" element={<Quiz />} />
           </Route>
         </Routes>
       </main>
@@ -88,6 +105,7 @@ function AppContent() {
 }
 
 import { ThemeProvider } from "./context/ThemeContext";
+// import { UserAccout } from "./hooks/account";
 
 function App() {
   return (

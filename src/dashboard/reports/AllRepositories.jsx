@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
+import { Star } from "lucide-react";
 
 const AllRepositories = ({
   repos,
@@ -47,7 +48,7 @@ const AllRepositories = ({
             placeholder="🔍 Search repositories..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-3 bg-white/10 border-2 border-white/20 rounded-xl text-white text-base placeholder-gray-400 focus:border-blue-400 focus:outline-none transition-colors"
+            className="w-full px-4 py-3 bg-[#0f172a]/80 border-2 border-[#00d9ff]/20 rounded-xl text-white text-base placeholder-gray-400 focus:border-[#00d9ff] focus:outline-none transition-colors shadow-[0_0_10px_rgba(0,217,255,0.1)]"
           />
         </div>
 
@@ -55,7 +56,7 @@ const AllRepositories = ({
         <select
           value={languageFilter}
           onChange={(e) => setLanguageFilter(e.target.value)}
-          className="px-4 py-3 bg-white/10 border-2 border-white/20 rounded-xl text-white text-base cursor-pointer focus:border-blue-400 focus:outline-none transition-colors"
+          className="px-4 py-3 bg-[#0f172a]/80 border-2 border-[#00d9ff]/20 rounded-xl text-white text-base cursor-pointer focus:border-[#00d9ff] focus:outline-none transition-colors shadow-[0_0_10px_rgba(0,217,255,0.1)]"
         >
           <option value="all" className="bg-gray-800">
             All Languages
@@ -71,7 +72,7 @@ const AllRepositories = ({
         <select
           value={visibilityFilter}
           onChange={(e) => setVisibilityFilter(e.target.value)}
-          className="px-4 py-3 bg-white/10 border-2 border-white/20 rounded-xl text-white text-base cursor-pointer focus:border-blue-400 focus:outline-none transition-colors"
+          className="px-4 py-3 bg-[#0f172a]/80 border-2 border-[#00d9ff]/20 rounded-xl text-white text-base cursor-pointer focus:border-[#00d9ff] focus:outline-none transition-colors shadow-[0_0_10px_rgba(0,217,255,0.1)]"
         >
           <option value="all" className="bg-gray-800">
             All Repos
@@ -96,7 +97,7 @@ const AllRepositories = ({
             <div
               key={repo.fullName}
               ref={index === filteredRepos.length - 1 ? lastElementRef : null}
-              className="bg-white/10 rounded-xl border-2 border-white/30 p-5 hover:border-sky-400 hover:bg-white/20 transition-all shadow-lg hover:shadow-sky-500/20"
+              className="bg-[#151b3d]/60 rounded-xl border-2 border-[#00d9ff]/20 p-5 hover:border-[#00d9ff] hover:bg-[#151b3d]/80 transition-all shadow-lg hover:shadow-[0_0_20px_rgba(0,217,255,0.2)]"
             >
               <div className="flex flex-col md:flex-row items-start justify-between gap-4">
                 <div className="flex-1 w-full">
@@ -130,7 +131,8 @@ const AllRepositories = ({
                       {repo.language || "Unknown"}
                     </span>
                     <span className="text-yellow-200 text-sm font-semibold flex items-center gap-1 bg-yellow-500/10 px-2 py-1 rounded-lg border border-yellow-500/20">
-                      ⭐ {repo.stars || 0} Stars
+                      <Star className="w-4 h-4 inline-block mr-1" />{" "}
+                      {repo.stars || 0} Stars
                     </span>
                     {/* <span className="text-purple-200 text-sm font-semibold flex items-center gap-1 bg-purple-500/10 px-2 py-1 rounded-lg border border-purple-500/20">
                       🍴 {repo.forks || 0} Forks

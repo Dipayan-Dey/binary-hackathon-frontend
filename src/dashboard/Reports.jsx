@@ -6,8 +6,8 @@ import {
   analyzeRepository,
   getUserProjects,
   getUserSkills,
-  getUserProfile,
 } from "../api/github";
+import { getProfile } from "../api/userApi";
 import { useDebounce } from "../hooks/useDebounce";
 import { useURLParams } from "../hooks/useURLParams";
 import AllRepositories from "./reports/AllRepositories";
@@ -15,6 +15,7 @@ import AnalyzedProjects from "./reports/AnalyzedProjects";
 import SkillsEvaluation from "./reports/SkillsEvaluation";
 import "./styles/PremiumPages.css";
 import "./styles/BrightColors.css";
+import { RefreshCw } from "lucide-react";
 
 const Reports = () => {
   const navigate = useNavigate();
@@ -90,19 +91,30 @@ const Reports = () => {
 
   const checkGithubConnection = async () => {
     try {
-      const data = await getUserProfile();
+      console.log("🔍 Checking GitHub connection...");
+      const response = await getProfile();
+      console.log("📦 Full response:", response);
+      // console.log("📦 Connections:", response?.data?.connections);
+      // console.log(
+      //   "� GitHub connected?",
+      //   response?.data?.connections?.githubConnected,
+      // );
 
-      if (data.data.githubConnected) {
+      // Check if GitHub is connected from connections object
+      if (response?.data?.data?.connections?.githubConnected) {
+        // console.log("✅ GitHub is connected! Loading data...");
         setGithubConnected(true);
         loadRepositories();
         loadAnalyzedProjects();
         fetchSkillsData();
       } else {
+        console.log("❌ GitHub is NOT connected");
         setGithubConnected(false);
         setLoading(false);
       }
     } catch (error) {
-      console.error("Error checking GitHub connection:", error);
+      console.error("❌ Error checking GitHub connection:", error);
+      setGithubConnected(false);
       setLoading(false);
     }
   };
@@ -265,6 +277,18 @@ const Reports = () => {
     }
   }, [skillsPage, skillsTotalPages, loadingMore, debouncedSkillsSearch]);
 
+  const handleRefresh = () => {
+    setRepos([]);
+    setAnalyzedProjects([]);
+    setExtractedSkills([]);
+    setReposPage(1);
+    setProjectsPage(1);
+    setSkillsPage(1);
+    loadRepositories(1, debouncedReposSearch, true);
+    loadAnalyzedProjects(1, debouncedProjectsSearch, true);
+    fetchSkillsData(1, debouncedSkillsSearch, true);
+  };
+
   if (
     loading &&
     repos.length === 0 &&
@@ -372,24 +396,34 @@ const Reports = () => {
 
         {/* Tabs */}
         <div className="reports-tabs">
-          <button
-            className={`tab ${activeTab === "repos" ? "active" : ""}`}
-            onClick={() => setActiveTab("repos")}
-          >
-            Repositories ({repos.length})
-          </button>
-          <button
-            className={`tab ${activeTab === "analyzed" ? "active" : ""}`}
-            onClick={() => setActiveTab("analyzed")}
-          >
-            Analyzed ({analyzedProjects.length})
-          </button>
-          <button
-            className={`tab ${activeTab === "skills" ? "active" : ""}`}
-            onClick={() => setActiveTab("skills")}
-          >
-            Skills ({extractedSkills.length})
-          </button>
+          <div>
+            <button
+              className={`tab ${activeTab === "repos" ? "active" : ""}`}
+              onClick={() => setActiveTab("repos")}
+            >
+              All Repositories
+            </button>
+            <button
+              className={`tab ${activeTab === "analyzed" ? "active" : ""}`}
+              onClick={() => setActiveTab("analyzed")}
+            >
+              Analyzed Projects
+            </button>
+            <button
+              className={`tab ${activeTab === "skills" ? "active" : ""}`}
+              onClick={() => setActiveTab("skills")}
+            >
+              Skills Evaluation
+            </button>
+          </div>
+          <div>
+            <button
+              onClick={handleRefresh}
+              className="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg transition-colors duration-300 mr-5 cursor-pointer flex items-center gap-1"
+            >
+              Refresh <RefreshCw className="inline-block ml-1" />
+            </button>
+          </div>
         </div>
 
         {/* Tab Content */}

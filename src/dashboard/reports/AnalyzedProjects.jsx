@@ -15,19 +15,20 @@ import {
   RadialBar,
 } from "recharts";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
+import { BarChart3, Code, FileText, Target } from "lucide-react";
 
-// BRIGHT VIBRANT COLORS - Neon Palette
+// CYBER AURORA NEON PALETTE - Eye-Catching Colors
 const COLORS = {
-  blue: "#3b82f6", // Bright blue
-  emerald: "#10b981", // Bright emerald
-  amber: "#f59e0b", // Bright amber
-  purple: "#8b5cf6", // Bright purple
-  pink: "#ec4899", // Bright pink
-  cyan: "#06b6d4", // Bright cyan
-  red: "#ef4444", // Bright red
+  cyan: "#00d9ff", // Electric cyan
+  purple: "#a855f7", // Vivid purple
+  pink: "#ff006e", // Hot pink
+  orange: "#ff6b35", // Vibrant orange
+  green: "#00f5a0", // Neon green
+  gold: "#ffd700", // Rich gold
+  blue: "#667eea", // Vivid blue
+  emerald: "#10b981", // Emerald
+  amber: "#fbbf24", // Bright amber
   lime: "#84cc16", // Bright lime
-  orange: "#f97316", // Bright orange
-  indigo: "#6366f1", // Bright indigo
 };
 
 const AnalyzedProjects = ({
@@ -64,13 +65,13 @@ const AnalyzedProjects = ({
     <div className="reports-list space-y-8">
       {/* Search Bar */}
       <div className="mb-6 relative group">
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-200"></div>
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00d9ff] to-[#a855f7] rounded-xl blur opacity-30 group-hover:opacity-75 transition duration-200"></div>
         <input
           type="text"
           placeholder="🔍 Search analyzed projects..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="relative w-full px-5 py-3 bg-gray-900 border-2 border-white/20 rounded-xl text-white text-base placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all shadow-xl"
+          className="relative w-full px-5 py-3 bg-[#0f172a]/80 border-2 border-[#00d9ff]/20 rounded-xl text-white text-base placeholder-gray-400 focus:border-[#00d9ff] focus:outline-none focus:ring-1 focus:ring-[#00d9ff] transition-all shadow-[0_0_15px_rgba(0,217,255,0.1)]"
         />
       </div>
 
@@ -125,12 +126,12 @@ const AnalyzedProjects = ({
           <div
             key={project._id}
             ref={index === analyzedProjects.length - 1 ? lastElementRef : null}
-            className="bg-gray-900/40 backdrop-blur-md rounded-2xl border-2 border-white/20 p-6 md:p-8 hover:border-blue-400/50 hover:bg-gray-900/60 transition-all shadow-2xl hover:shadow-blue-500/10"
+            className="bg-[#151b3d]/60 backdrop-blur-md rounded-2xl border border-[#00d9ff]/30 p-6 md:p-8 hover:border-[#00d9ff]/60 hover:bg-[#151b3d]/80 transition-all shadow-[0_0_20px_rgba(0,0,0,0.3)] hover:shadow-[0_0_30px_rgba(0,217,255,0.15)]"
           >
             {/* Header with Title and Badges */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
               <h4 className="text-white text-2xl font-bold m-0 flex items-center gap-2 tracking-wide">
-                <span className="text-3xl">📊</span>
+                <BarChart3 className="w-8 h-8 text-blue-300" />
                 {project.repoName}
               </h4>
               <div className="flex flex-wrap gap-2">
@@ -161,7 +162,8 @@ const AnalyzedProjects = ({
               {languageData.length > 0 && (
                 <div className="bg-gray-800/50 rounded-2xl p-6 border-2 border-white/10 shadow-inner">
                   <h5 className="text-blue-300 text-lg font-bold mb-4 flex items-center gap-2">
-                    📝 Language Distribution
+                    <FileText className="w-5 h-5 inline-block mr-2" /> Language
+                    Distribution
                   </h5>
                   <div className="relative z-10">
                     <ResponsiveContainer width="100%" height={240}>
@@ -187,7 +189,7 @@ const AnalyzedProjects = ({
                               key={`cell-${index}`}
                               fill={
                                 Object.values(COLORS)[
-                                  index % Object.values(COLORS).length 
+                                  index % Object.values(COLORS).length
                                 ]
                               }
                             />
@@ -220,7 +222,8 @@ const AnalyzedProjects = ({
               {/* Health Metrics Radial Chart */}
               <div className="bg-gray-800/50 rounded-2xl p-6 border-2 border-white/10 shadow-inner">
                 <h5 className="text-emerald-300 text-lg font-bold mb-4 flex items-center gap-2">
-                  🎯 Health Metrics
+                  <Target className="w-5 h-5 inline-block mr-2" /> Health
+                  Metrics
                 </h5>
                 <div className="relative z-10">
                   <ResponsiveContainer width="100%" height={240}>
@@ -276,7 +279,8 @@ const AnalyzedProjects = ({
             {project.commitStats && (
               <div className="mb-8 p-6 bg-gray-800/50 rounded-2xl border-2 border-white/10 shadow-inner">
                 <h5 className="text-purple-300 text-lg font-bold mb-4 flex items-center gap-2">
-                  💻 Commit Activity Overview
+                  <Code className="w-5 h-5 inline-block mr-2" /> Commit Activity
+                  Overview
                 </h5>
                 <ResponsiveContainer width="100%" height={220}>
                   <BarChart data={commitActivityData} barSize={40}>
@@ -325,9 +329,10 @@ const AnalyzedProjects = ({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Language Stats */}
               {project.languageStats && (
-                <div className="p-6 bg-gradient-to-br from-blue-900/40 to-indigo-900/40 rounded-2xl border-2 border-blue-500/30 hover:border-blue-500/50 transition-colors">
+                <div className="p-6 bg-gradient-to-br from-[#0f172a] to-[#1e1b4b] rounded-2xl border-2 border-[#00d9ff]/30 hover:border-[#00d9ff] transition-all hover:shadow-[0_0_20px_rgba(0,217,255,0.2)]">
                   <h5 className="text-blue-200 text-lg font-bold mb-4 border-b border-blue-500/30 pb-2">
-                    📝 Language Intelligence
+                    <FileText className="w-5 h-5 inline-block mr-2" /> Language
+                    Intelligence
                   </h5>
                   <div className="grid grid-cols-2 gap-y-4 gap-x-6">
                     <div>
@@ -382,9 +387,10 @@ const AnalyzedProjects = ({
 
               {/* Commit Stats */}
               {project.commitStats && (
-                <div className="p-6 bg-gradient-to-br from-emerald-900/40 to-teal-900/40 rounded-2xl border-2 border-emerald-500/30 hover:border-emerald-500/50 transition-colors">
+                <div className="p-6 bg-gradient-to-br from-[#0f172a] to-[#064e3b] rounded-2xl border-2 border-[#00f5a0]/30 hover:border-[#00f5a0] transition-all hover:shadow-[0_0_20px_rgba(0,245,160,0.2)]">
                   <h5 className="text-emerald-200 text-lg font-bold mb-4 border-b border-emerald-500/30 pb-2">
-                    💻 Commit Activity
+                    <Code className="w-5 h-5 inline-block mr-2" /> Commit
+                    Activity
                   </h5>
                   <div className="grid grid-cols-2 gap-y-4 gap-x-6">
                     <div>
@@ -437,7 +443,7 @@ const AnalyzedProjects = ({
 
               {/* Collaboration Stats */}
               {project.collaborationStats && (
-                <div className="p-6 bg-gradient-to-br from-amber-900/40 to-orange-900/40 rounded-2xl border-2 border-amber-500/30 hover:border-amber-500/50 transition-colors">
+                <div className="p-6 bg-gradient-to-br from-[#0f172a] to-[#451a03] rounded-2xl border-2 border-[#ff6b35]/30 hover:border-[#ff6b35] transition-all hover:shadow-[0_0_20px_rgba(255,107,53,0.2)]">
                   <h5 className="text-amber-200 text-lg font-bold mb-4 border-b border-amber-500/30 pb-2">
                     👥 Collaboration
                   </h5>
@@ -486,7 +492,7 @@ const AnalyzedProjects = ({
 
               {/* Architecture Stats */}
               {project.architectureStats && (
-                <div className="p-6 bg-gradient-to-br from-purple-900/40 to-pink-900/40 rounded-2xl border-2 border-purple-500/30 hover:border-purple-500/50 transition-colors">
+                <div className="p-6 bg-gradient-to-br from-[#0f172a] to-[#581c87] rounded-2xl border-2 border-[#a855f7]/30 hover:border-[#a855f7] transition-all hover:shadow-[0_0_20px_rgba(168,85,247,0.2)]">
                   <h5 className="text-purple-200 text-lg font-bold mb-4 border-b border-purple-500/30 pb-2">
                     🏗️ Architecture
                   </h5>

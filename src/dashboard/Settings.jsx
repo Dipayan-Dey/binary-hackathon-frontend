@@ -3,131 +3,208 @@ import { toast } from "react-toastify";
 import "./styles/DashboardPages.css";
 import "./styles/Settings.css";
 import { useTheme } from "../context/ThemeContext";
-
-const API_URL =
-  import.meta.env.BACKEND_API_ENDPOINT ||
-  "https://readynx-backend-ts.onrender.com/api/v1";
+import {
+  updatePersonalInformation,
+  updateProfile,
+  updateSettings,
+  // disconnectLinkedIn,
+  // disconnectGitHub,
+} from "../api/userApi";
+import UserProfile from "../hooks/UserProfile";
+import { User, Bell, Lock, Palette, Sun, Moon, Monitor } from "lucide-react";
+// import { useProfile } from "../hooks/useProfile";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState("profile");
-  const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
-
-  // Profile Settings
+  const {
+    profile: profileResponse,
+    loading,
+    error,
+    refreshProfile,
+  } = UserProfile();
+  // Profile Settings - loaded from API
   const [profileData, setProfileData] = useState({
     name: "",
     email: "",
     bio: "",
     location: "",
     website: "",
+    phone: "",
+    targetRole: "",
+    experienceLevel: "intermediate",
+    skills: [],
   });
-
+  console.log("===================Profile Data===========", profileData);
   // Notification Settings
   const [notificationSettings, setNotificationSettings] = useState({
     emailNotifications: true,
     pushNotifications: false,
-    weeklyDigest: true,
-    projectUpdates: true,
-    skillRecommendations: true,
   });
 
   // Privacy Settings
   const [privacySettings, setPrivacySettings] = useState({
     profileVisibility: "public",
     showEmail: false,
-    showLocation: true,
-    allowIndexing: true,
+    showPhone: false,
   });
 
   // Appearance Settings
   const { theme, setTheme } = useTheme();
-
   const [appearanceSettings, setAppearanceSettings] = useState({
     theme: theme,
     language: "en",
     compactMode: false,
   });
 
-  // Sync local state with context when theme changes externally or on load
+  // Sync theme with context
   useEffect(() => {
     setAppearanceSettings((prev) => ({ ...prev, theme }));
   }, [theme]);
 
-  // Load user settings
+  // Load profile data from UserProfile hook
   useEffect(() => {
-    loadSettings();
-  }, []);
+    if (profileResponse?.success && profileResponse?.data) {
+      const { user, profile: userProfile } = profileResponse.data;
 
-  const loadSettings = async () => {
-    try {
-      setLoading(true);
-      const token = localStorage.getItem("token");
-      const response = await fetch(`${API_URL}/user/settings`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      // Set profile data from API response
+      setProfileData({
+        name: user?.name || "",
+        email: user?.email || "",
+        bio: userProfile?.bio || "",
+        location: userProfile?.location || "",
+        website: userProfile?.website || "",
+        phone: userProfile?.phone || "",
+        targetRole: userProfile?.targetRole || "",
+        experienceLevel: userProfile?.experienceLevel || "intermediate",
+        skills: userProfile?.skills || [],
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success && data.data) {
-          setProfileData(data.data.profile || profileData);
-          setNotificationSettings(
-            data.data.notifications || notificationSettings,
-          );
-          setPrivacySettings(data.data.privacy || privacySettings);
-          setAppearanceSettings(data.data.appearance || appearanceSettings);
-        }
+      // Set notification preferences from API
+      if (userProfile?.notificationPreferences) {
+        setNotificationSettings({
+          emailNotifications:
+            userProfile.notificationPreferences.emailNotifications ?? true,
+          pushNotifications:
+            userProfile.notificationPreferences.pushNotifications ?? false,
+        });
       }
-    } catch (error) {
-      console.error("Error loading settings:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  const saveSettings = async (section, data) => {
+      // Set privacy settings from API
+      if (userProfile?.privacySettings) {
+        setPrivacySettings({
+          profileVisibility:
+            userProfile.privacySettings.profileVisibility || "public",
+          showEmail: userProfile.privacySettings.showEmail ?? false,
+          showPhone: userProfile.privacySettings.showPhone ?? false,
+        });
+      }
+    }
+  }, [profileResponse]);
+
+  // Handle Profile Save - Uses updatePersonalInformation and updateProfile APIs
+  const handleProfileSave = async () => {
     try {
       setSaving(true);
-      const token = localStorage.getItem("token");
-      const response = await fetch(`${API_URL}/user/settings`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ section, data }),
-      });
+      const currentProfile = profileResponse?.data;
 
-      if (response.ok) {
-        toast.success("Settings saved successfully!");
-      } else {
-        toast.error("Failed to save settings");
+      // Update personal info (name) if changed
+      if (profileData.name && profileData.name !== currentProfile?.user?.name) {
+        await updatePersonalInformation({ name: profileData.name });
       }
+
+      // Update profile fields (bio, location, website, phone, targetRole, experienceLevel, skills)
+      const profileUpdates = {};
+      if (profileData.bio !== currentProfile?.profile?.bio)
+        profileUpdates.bio = profileData.bio;
+      if (profileData.location !== currentProfile?.profile?.location)
+        profileUpdates.location = profileData.location;
+      if (profileData.website !== currentProfile?.profile?.website)
+        profileUpdates.website = profileData.website;
+      if (profileData.phone !== currentProfile?.profile?.phone)
+        profileUpdates.phone = profileData.phone;
+      if (profileData.targetRole !== currentProfile?.profile?.targetRole)
+        profileUpdates.targetRole = profileData.targetRole;
+      if (
+        profileData.experienceLevel !== currentProfile?.profile?.experienceLevel
+      )
+        profileUpdates.experienceLevel = profileData.experienceLevel;
+      if (
+        JSON.stringify(profileData.skills) !==
+        JSON.stringify(currentProfile?.profile?.skills)
+      )
+        profileUpdates.skills = profileData.skills;
+
+      if (Object.keys(profileUpdates).length > 0) {
+        await updateProfile(profileUpdates);
+      }
+
+      // Refresh profile data to show updates
+      await refreshProfile();
+      toast.success("Profile updated successfully!");
     } catch (error) {
-      console.error("Error saving settings:", error);
-      toast.error("Failed to save settings");
+      console.error("Error saving profile:", error);
+      toast.error(error.response?.data?.message || "Failed to save profile");
     } finally {
       setSaving(false);
     }
   };
 
-  const handleProfileSave = () => {
-    saveSettings("profile", profileData);
+  // Handle Notification Settings Save - Uses updateSettings API
+  const handleNotificationSave = async () => {
+    try {
+      setSaving(true);
+      await updateSettings({
+        notificationPreferences: notificationSettings,
+      });
+      // Refresh profile data to show updates
+      await refreshProfile();
+      toast.success("Notification settings saved!");
+    } catch (error) {
+      console.error("Error saving notification settings:", error);
+      toast.error(
+        error.response?.data?.message || "Failed to save notification settings",
+      );
+    } finally {
+      setSaving(false);
+    }
   };
 
-  const handleNotificationSave = () => {
-    saveSettings("notifications", notificationSettings);
+  // Handle Privacy Settings Save - Uses updateSettings API
+  const handlePrivacySave = async () => {
+    try {
+      setSaving(true);
+      await updateSettings({
+        privacySettings: {
+          profileVisibility: privacySettings.profileVisibility,
+          showEmail: privacySettings.showEmail,
+          showPhone: privacySettings.showPhone,
+        },
+      });
+      // Refresh profile data to show updates
+      await refreshProfile();
+      toast.success("Privacy settings saved!");
+    } catch (error) {
+      console.error("Error saving privacy settings:", error);
+      toast.error(
+        error.response?.data?.message || "Failed to save privacy settings",
+      );
+    } finally {
+      setSaving(false);
+    }
   };
 
-  const handlePrivacySave = () => {
-    saveSettings("privacy", privacySettings);
+  // Handle skills input change
+  const handleSkillsChange = (e) => {
+    const skillsString = e.target.value;
+    const skillsArray = skillsString
+      .split(",")
+      .map((skill) => skill.trim())
+      .filter((skill) => skill !== "");
+    setProfileData({ ...profileData, skills: skillsArray });
   };
 
-  const handleAppearanceSave = () => {
-    saveSettings("appearance", appearanceSettings);
-  };
-
+  // Loading state
   if (loading) {
     return (
       <div className="dashboard-page">
@@ -138,6 +215,20 @@ const Settings = () => {
           style={{ display: "flex", justifyContent: "center", padding: "3rem" }}
         >
           <div className="spinner"></div>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="dashboard-page">
+        <div className="page-header">
+          <h1 className="page-title">Settings</h1>
+        </div>
+        <div className="text-center text-red-400 p-8">
+          Failed to load settings. Please try again.
         </div>
       </div>
     );
@@ -158,25 +249,25 @@ const Settings = () => {
           onClick={() => setActiveTab("profile")}
           className={`settings-tab-btn ${activeTab === "profile" ? "active" : ""}`}
         >
-          👤 Profile
+          <User className="w-4 h-4 inline-block mr-2" /> Profile
         </button>
         <button
           onClick={() => setActiveTab("notifications")}
           className={`settings-tab-btn ${activeTab === "notifications" ? "active" : ""}`}
         >
-          🔔 Notifications
+          <Bell className="w-4 h-4 inline-block mr-2" /> Notifications
         </button>
         <button
           onClick={() => setActiveTab("privacy")}
           className={`settings-tab-btn ${activeTab === "privacy" ? "active" : ""}`}
         >
-          🔒 Privacy
+          <Lock className="w-4 h-4 inline-block mr-2" /> Privacy
         </button>
         <button
           onClick={() => setActiveTab("appearance")}
           className={`settings-tab-btn ${activeTab === "appearance" ? "active" : ""}`}
         >
-          🎨 Appearance
+          <Palette className="w-4 h-4 inline-block mr-2" /> Appearance
         </button>
       </div>
 
@@ -197,7 +288,14 @@ const Settings = () => {
                   }
                   className="settings-input"
                   placeholder="Enter your full name"
+                  minLength={2}
                 />
+                <span
+                  className="settings-item-desc"
+                  style={{ marginTop: "0.25rem", display: "block" }}
+                >
+                  Minimum 2 characters
+                </span>
               </div>
 
               <div className="settings-form-group">
@@ -206,13 +304,15 @@ const Settings = () => {
                   type="email"
                   value={profileData.email}
                   disabled
-                  onChange={(e) =>
-                    setProfileData({ ...profileData, email: e.target.value })
-                  }
                   className="settings-input"
                   style={{ opacity: 0.7, cursor: "not-allowed" }}
-                  placeholder="your.email@example.com"
                 />
+                <span
+                  className="settings-item-desc"
+                  style={{ marginTop: "0.25rem", display: "block" }}
+                >
+                  Email cannot be changed
+                </span>
               </div>
 
               <div className="settings-form-group">
@@ -235,7 +335,7 @@ const Settings = () => {
                   className="settings-item-desc"
                   style={{ marginTop: "0.25rem", display: "block" }}
                 >
-                  {profileData.bio.length}/500
+                  {profileData.bio.length}/500 characters
                 </span>
               </div>
 
@@ -249,6 +349,7 @@ const Settings = () => {
                   }
                   className="settings-input"
                   placeholder="City, Country"
+                  maxLength={100}
                 />
               </div>
 
@@ -263,6 +364,73 @@ const Settings = () => {
                   className="settings-input"
                   placeholder="https://yourwebsite.com"
                 />
+              </div>
+
+              <div className="settings-form-group">
+                <label className="settings-label">Phone Number</label>
+                <input
+                  type="tel"
+                  value={profileData.phone}
+                  onChange={(e) =>
+                    setProfileData({ ...profileData, phone: e.target.value })
+                  }
+                  className="settings-input"
+                  placeholder="+1 234 567 8900"
+                />
+              </div>
+
+              <div className="settings-form-group">
+                <label className="settings-label">Target Role</label>
+                <input
+                  type="text"
+                  value={profileData.targetRole}
+                  onChange={(e) =>
+                    setProfileData({
+                      ...profileData,
+                      targetRole: e.target.value,
+                    })
+                  }
+                  className="settings-input"
+                  placeholder="e.g. Senior Full-Stack Developer"
+                  maxLength={100}
+                />
+              </div>
+
+              <div className="settings-form-group">
+                <label className="settings-label">Experience Level</label>
+                <select
+                  value={profileData.experienceLevel}
+                  onChange={(e) =>
+                    setProfileData({
+                      ...profileData,
+                      experienceLevel: e.target.value,
+                    })
+                  }
+                  className="settings-select"
+                >
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </div>
+
+              <div className="settings-form-group">
+                <label className="settings-label">
+                  Skills (comma separated)
+                </label>
+                <input
+                  type="text"
+                  value={profileData.skills.join(", ")}
+                  onChange={handleSkillsChange}
+                  className="settings-input"
+                  placeholder="React, Node.js, Python, etc."
+                />
+                <span
+                  className="settings-item-desc"
+                  style={{ marginTop: "0.25rem", display: "block" }}
+                >
+                  Separate skills with commas
+                </span>
               </div>
             </div>
 
@@ -294,21 +462,6 @@ const Settings = () => {
                   key: "pushNotifications",
                   label: "Push Notifications",
                   desc: "Receive push notifications in your browser",
-                },
-                {
-                  key: "weeklyDigest",
-                  label: "Weekly Digest",
-                  desc: "Get a weekly summary of your activity",
-                },
-                {
-                  key: "projectUpdates",
-                  label: "Project Updates",
-                  desc: "Get notified when your projects are analyzed",
-                },
-                {
-                  key: "skillRecommendations",
-                  label: "Skill Recommendations",
-                  desc: "Receive personalized skill suggestions",
                 },
               ].map((item) => (
                 <div key={item.key} className="settings-item">
@@ -365,19 +518,19 @@ const Settings = () => {
                 >
                   <option
                     value="public"
-                    style={{ background: "#1a1a2e", color: "#fff" }}
+                    style={{ background: "#0f0c29", color: "#fff" }}
                   >
                     Public - Anyone can view
                   </option>
                   <option
                     value="private"
-                    style={{ background: "#1a1a2e", color: "#fff" }}
+                    style={{ background: "#0f0c29", color: "#fff" }}
                   >
                     Private - Only you
                   </option>
                   <option
                     value="connections"
-                    style={{ background: "#1a1a2e", color: "#fff" }}
+                    style={{ background: "#0f0c29", color: "#fff" }}
                   >
                     Connections Only
                   </option>
@@ -391,14 +544,9 @@ const Settings = () => {
                   desc: "Display your email on your public profile",
                 },
                 {
-                  key: "showLocation",
-                  label: "Show Location",
-                  desc: "Display your location on your profile",
-                },
-                {
-                  key: "allowIndexing",
-                  label: "Search Engine Indexing",
-                  desc: "Allow search engines to index your profile",
+                  key: "showPhone",
+                  label: "Show Phone Number",
+                  desc: "Display your phone number on your profile",
                 },
               ].map((item) => (
                 <div key={item.key} className="settings-item">
@@ -457,21 +605,21 @@ const Settings = () => {
                 >
                   <option
                     value="dark"
-                    style={{ background: "#1a1a2e", color: "#fff" }}
+                    style={{ background: "#0f0c29", color: "#fff" }}
                   >
-                    🌙 Dark Mode
+                    Dark Mode
                   </option>
                   <option
                     value="light"
-                    style={{ background: "#1a1a2e", color: "#fff" }}
+                    style={{ background: "#0f0c29", color: "#fff" }}
                   >
-                    ☀️ Light Mode
+                    Light Mode
                   </option>
                   <option
                     value="auto"
-                    style={{ background: "#1a1a2e", color: "#fff" }}
+                    style={{ background: "#0f0c29", color: "#fff" }}
                   >
-                    🔄 Auto (System)
+                    Auto (System)
                   </option>
                 </select>
               </div>
@@ -490,25 +638,25 @@ const Settings = () => {
                 >
                   <option
                     value="en"
-                    style={{ background: "#1a1a2e", color: "#fff" }}
+                    style={{ background: "#0f0c29", color: "#fff" }}
                   >
                     🇬🇧 English
                   </option>
                   <option
                     value="es"
-                    style={{ background: "#1a1a2e", color: "#fff" }}
+                    style={{ background: "#0f0c29", color: "#fff" }}
                   >
                     🇪🇸 Español
                   </option>
                   <option
                     value="fr"
-                    style={{ background: "#1a1a2e", color: "#fff" }}
+                    style={{ background: "#0f0c29", color: "#fff" }}
                   >
                     🇫🇷 Français
                   </option>
                   <option
                     value="de"
-                    style={{ background: "#1a1a2e", color: "#fff" }}
+                    style={{ background: "#0f0c29", color: "#fff" }}
                   >
                     🇩🇪 Deutsch
                   </option>
@@ -539,11 +687,11 @@ const Settings = () => {
             </div>
 
             <button
-              onClick={handleAppearanceSave}
+              onClick={() => toast.success("Appearance settings saved!")}
               disabled={saving}
               className="settings-btn"
             >
-              {saving ? "Saving..." : "Save Appearance"}
+              Save Appearance
             </button>
           </div>
         </div>

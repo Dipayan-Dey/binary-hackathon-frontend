@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchUserProfile } from "../api/authApi";
-// import { fetchUserProfile } from "../api/Authapi";
-// import { fetchUserProfile } from "../api/authApi";  // adjust path if needed
+import { getProfile } from "../api/userApi";
 
 export default function UserProfile() {
   const [profile, setProfile] = useState(null);
@@ -12,12 +10,11 @@ export default function UserProfile() {
     try {
       setLoading(true);
       setError("");
-      const data = await fetchUserProfile();
-      setProfile(data.user || data);
+      const response = await getProfile();
+      setProfile(response.data); // Structure: { success: true, data: { ... } }
     } catch (err) {
-      setError(
-        err.response?.data?.detail || "Failed to load profile"
-      );
+      console.error("Error loading profile:", err);
+      setError(err.response?.data?.message || "Failed to load profile");
     } finally {
       setLoading(false);
     }

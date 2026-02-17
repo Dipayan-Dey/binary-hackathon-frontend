@@ -6,47 +6,73 @@
    ============================================ */
 
 :root {
-  /* Core Colors - Deep Space Theme */
-  --color-primary: #6366f1;
-  --color-primary-light: #818cf8;
-  --color-primary-dark: #4f46e5;
+  /* Cyber Aurora Color Palette - Vibrant & Eye-Catching */
   
-  --color-secondary: #ec4899;
-  --color-secondary-light: #f472b6;
+  /* Primary Colors - Electric & Vivid */
+  --color-primary: #667eea;           /* Vivid purple */
+  --color-primary-light: #8b9aff;     /* Light electric purple */
+  --color-primary-dark: #5568d3;      /* Deep purple */
   
-  --color-accent-cyan: #06b6d4;
-  --color-accent-emerald: #10b981;
-  --color-accent-amber: #f59e0b;
-  --color-accent-rose: #f43f5e;
+  --color-secondary: #ff006e;         /* Hot pink */
+  --color-secondary-light: #ff4d9d;   /* Light hot pink */
   
-  /* Backgrounds */
-  --color-bg-primary: #0a0e1a;
-  --color-bg-secondary: #111827;
-  --color-bg-tertiary: #1f2937;
+  /* Neon Accent Colors */
+  --color-accent-cyan: #00d9ff;       /* Electric cyan */
+  --color-accent-purple: #a855f7;     /* Vivid purple */
+  --color-accent-pink: #ff006e;       /* Hot pink */
+  --color-accent-orange: #ff6b35;     /* Vibrant orange */
+  --color-accent-green: #00f5a0;      /* Neon green */
+  --color-accent-gold: #ffd700;       /* Rich gold */
+  --color-accent-emerald: #10b981;    /* Emerald */
+  --color-accent-amber: #fbbf24;      /* Bright amber */
+  --color-accent-rose: #f43f5e;       /* Rose */
   
-  /* Glass Effects */
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-bg-strong: rgba(255, 255, 255, 0.08);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-hover: rgba(255, 255, 255, 0.12);
+  /* Deep Space Backgrounds */
+  --color-bg-primary: #0a0e27;        /* Deep space blue */
+  --color-bg-secondary: #151b3d;      /* Rich navy */
+  --color-bg-tertiary: #1a2332;       /* Slate blue */
+  --color-bg-card: #1e2139;           /* Card background */
   
-  /* Text */
-  --color-text-primary: #f9fafb;
-  --color-text-secondary: #d1d5db;
-  --color-text-tertiary: #9ca3af;
+  /* Vibrant Gradients */
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --gradient-success: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  --gradient-warning: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --gradient-cyber: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  --gradient-neon: linear-gradient(135deg, #00d9ff 0%, #a855f7 50%, #ff006e 100%);
+  
+  /* Glass Effects - Enhanced */
+  --glass-bg: rgba(21, 27, 61, 0.4);
+  --glass-bg-strong: rgba(21, 27, 61, 0.7);
+  --glass-border: rgba(0, 217, 255, 0.2);
+  --glass-hover: rgba(21, 27, 61, 0.8);
+  
+  /* Text Colors - High Contrast */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e2e8f0;
+  --color-text-tertiary: #cbd5e1;
   --color-text-bright: #ffffff;
+  --color-text-neon-cyan: #00d9ff;
+  --color-text-neon-purple: #a855f7;
+  --color-text-neon-pink: #ff006e;
   
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
-  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5);
+  /* Enhanced Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
   
-  /* Glow Effects */
-  --glow-primary: 0 0 20px rgba(99, 102, 241, 0.4);
-  --glow-secondary: 0 0 20px rgba(236, 72, 153, 0.4);
-  --glow-cyan: 0 0 20px rgba(6, 182, 212, 0.4);
-  --glow-emerald: 0 0 20px rgba(16, 185, 129, 0.4);
+  /* Neon Glow Effects */
+  --glow-primary: 0 0 30px rgba(102, 126, 234, 0.6);
+  --glow-secondary: 0 0 30px rgba(255, 0, 110, 0.6);
+  --glow-cyan: 0 0 30px rgba(0, 217, 255, 0.6);
+  --glow-purple: 0 0 30px rgba(168, 85, 247, 0.6);
+  --glow-pink: 0 0 30px rgba(255, 0, 110, 0.6);
+  --glow-green: 0 0 30px rgba(0, 245, 160, 0.6);
+  --glow-emerald: 0 0 30px rgba(16, 185, 129, 0.6);
+  --glow-orange: 0 0 30px rgba(255, 107, 53, 0.6);
+  --glow-gold: 0 0 30px rgba(255, 215, 0, 0.6);
 }
 
 /* Light Theme */
@@ -362,25 +388,25 @@
   }
 }
 
-/* Card Color Variants */
+/* Card Color Variants - Cyber Aurora Theme */
 .info-card:nth-child(1) {
-  --card-gradient-start: #6366f1;
-  --card-gradient-end: #8b5cf6;
+  --card-gradient-start: #00d9ff;  /* Electric cyan */
+  --card-gradient-end: #a855f7;    /* Vivid purple */
 }
 
 .info-card:nth-child(2) {
-  --card-gradient-start: #10b981;
-  --card-gradient-end: #06b6d4;
+  --card-gradient-start: #00f5a0;  /* Neon green */
+  --card-gradient-end: #00d9ff;    /* Electric cyan */
 }
 
 .info-card:nth-child(3) {
-  --card-gradient-start: #f59e0b;
-  --card-gradient-end: #ef4444;
+  --card-gradient-start: #ff6b35;  /* Vibrant orange */
+  --card-gradient-end: #ff006e;    /* Hot pink */
 }
 
 .info-card:nth-child(4) {
-  --card-gradient-start: #ec4899;
-  --card-gradient-end: #8b5cf6;
+  --card-gradient-start: #a855f7;  /* Vivid purple */
+  --card-gradient-end: #ff006e;    /* Hot pink */
 }
 
 /* ============================================
