@@ -114,14 +114,39 @@ export const startLiveInterview = () => {
   return axiosClient.post("/live-interview/start");
 };
 
-export const submitLiveInterviewAnswer = (sessionId, answer) => {
-  return axiosClient.post("/live-interview/answer", { sessionId, answer });
+export const getLiveInterviewQuestionAudio = (sessionId, questionIndex) => {
+  return axiosClient.get(
+    `/live-interview/question/${sessionId}/${questionIndex}/audio`,
+    {
+      responseType: "blob", // Important for audio data
+    },
+  );
 };
 
-export const finishLiveInterview = (sessionId) => {
-  return axiosClient.post("/live-interview/finish", { sessionId });
+export const submitLiveInterviewAnswer = (sessionId, questionIndex, answer) => {
+  // Backend expects sessionId and answer in body
+  return axiosClient.post("/live-interview/answer", {
+    sessionId,
+    answer,
+  });
+};
+
+export const completeLiveInterview = (sessionId) => {
+  return axiosClient.post(`/live-interview/${sessionId}/complete`, {});
 };
 
 export const getLiveInterviewSession = (sessionId) => {
   return axiosClient.get(`/live-interview/session/${sessionId}`);
-};
+};
+
+// ==========================================
+// CAREER MAP SYSTEM APIs
+// ==========================================
+
+export const getCVMindMap = () => {
+  return axiosClient.get("/carrermap/cv-mindmap");
+};
+
+export const generateTechRoadmap = (data) => {
+  return axiosClient.post("/carrermap/tech-roadmap", data);
+};

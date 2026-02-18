@@ -15,7 +15,7 @@ const Integrations = () => {
   const [loading, setLoading] = useState(false);
   const [linkedinPostText, setLinkedinPostText] = useState("");
   const [posting, setPosting] = useState(false);
-
+  console.log(integrations);
   // ✅ Fetch profile & integration status
   const fetchIntegrationStatus = async () => {
     try {
@@ -31,16 +31,19 @@ const Integrations = () => {
 
       if (!res.ok) throw new Error(data.message);
 
-      setIntegrations({
-        github: {
-          connected: data.data.githubConnected || false,
-          username: data.data.githubUsername || null,
-        },
-        linkedin: {
-          connected: data.data.linkedinConnected || false,
-          username: data.data.linkedinId || null,
-        },
-      });
+      setIntegrations(
+        //   {
+        //   github: {
+        //     connected: data.data.githubConnected || false,
+        //     username: data.data.githubUsername || null,
+        //   },
+        //   linkedin: {
+        //     connected: data.data.linkedinConnected || false,
+        //     username: data.data.linkedinId || null,
+        //   },
+        // }
+        data.data.connections,
+      );
     } catch (error) {
       console.error(error);
     }
@@ -301,7 +304,7 @@ const Integrations = () => {
             <div className="mb-6 p-3 bg-blue-500/10 rounded-lg border border-blue-500/20 flex items-center gap-2">
               <span className="text-blue-400 text-sm">👤 Connected as:</span>
               <span className="text-white font-bold text-sm">
-                @{integrations.linkedin.username}
+                {integrations.linkedin.linkedinId}
               </span>
             </div>
           )}

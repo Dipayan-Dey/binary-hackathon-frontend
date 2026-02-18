@@ -13,9 +13,11 @@ import {
   LogOut,
   Menu,
   Globe,
+  MessageSquareText,
+  Github,
 } from "lucide-react";
 import "./Sidebar.css";
-import devlogo from "../../../public/my-sig-logo.png";
+const devlogo = "/my-sig-logo.png";
 
 const Sidebar = ({ profile }) => {
   const { logout } = useAuth();
@@ -103,16 +105,25 @@ const Sidebar = ({ profile }) => {
             onClick={closeSidebar}
           >
             <Mic size={20} />
-            <span>Mock Interview</span>
+            <span>Mock Test</span>
           </NavLink>
 
-          <NavLink
+          {/* <NavLink
             to="/dashboard/live-interview"
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
             onClick={closeSidebar}
           >
-            <Globe size={20} />
+            <Mic size={20} />
             <span>Live Interview</span>
+          </NavLink> */}
+
+          <NavLink
+            to="/dashboard/career-map"
+            className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+            onClick={closeSidebar}
+          >
+            <Globe size={20} />
+            <span>Career Map</span>
           </NavLink>
 
           <NavLink
@@ -129,7 +140,7 @@ const Sidebar = ({ profile }) => {
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
             onClick={closeSidebar}
           >
-            <MessageSquare size={20} />
+            <MessageSquareText size={20} />
             <span>Chatbot</span>
           </NavLink>
 
@@ -140,8 +151,8 @@ const Sidebar = ({ profile }) => {
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
             onClick={closeSidebar}
           >
-            <BarChart3 size={20} />
-            <span>Reports</span>
+            <Github size={20} />
+            <span>Github Reports</span>
           </NavLink>
 
           <NavLink

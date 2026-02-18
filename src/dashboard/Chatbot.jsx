@@ -1,12 +1,12 @@
-
 import React, { useState, useRef, useEffect } from "react";
 // import chatbotService from "../services/chatbotService";
 import "./styles/chat-bot.css";
 import { chatbotService } from "../api/userApi";
 import UserProfile from "../hooks/UserProfile";
+import { BrushCleaning, Loader2, Send } from "lucide-react";
 
 const Chatbot = () => {
-  const {profile}=UserProfile()
+  const { profile } = UserProfile();
   const [messages, setMessages] = useState([
     {
       role: "bot",
@@ -102,8 +102,12 @@ const Chatbot = () => {
     <div className="chatbot-container">
       <div className="chatbot-header">
         <h2>🤖 AI Career Assistant</h2>
-        <button onClick={clearChat} className="clear-btn" title="Clear chat">
-          🗑️ Clear
+        <button
+          onClick={clearChat}
+          className=" clear-btn flex items-center gap-2"
+          title="Clear chat"
+        >
+          <BrushCleaning className="w-4 h-4" /> <p>Clear</p>
         </button>
       </div>
 
@@ -133,7 +137,9 @@ const Chatbot = () => {
             className={`message ${msg.role} ${msg.isError ? "error" : ""}`}
           >
             <div className="message-avatar">
-              {msg.role === "user" ? `${profile?.data?.user?.name?.charAt(0).toUpperCase()}` : "🤖"}
+              {msg.role === "user"
+                ? `${profile?.data?.user?.name?.charAt(0).toUpperCase()}`
+                : "🤖"}
             </div>
             <div className="message-content">
               <p>{msg.content}</p>
@@ -174,9 +180,14 @@ const Chatbot = () => {
           <button
             onClick={sendMessage}
             disabled={loading || !input.trim()}
-            className="send-btn"
+            className="send-btn flex justify-center items-center gap-2"
           >
-            {loading ? "⏳" : "📤"} Send
+            {loading ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Send className="w-4 h-4" />
+            )}
+            Send
           </button>
         </div>
       </div>
@@ -185,4 +196,3 @@ const Chatbot = () => {
 };
 
 export default Chatbot;
-

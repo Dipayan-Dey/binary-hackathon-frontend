@@ -8,9 +8,9 @@ import ResumeViewModal from "../components/ResumeViewModal";
 import LoadingScreen from "../components/LoadingScreen";
 import RefreshButton from "../components/RefreshButton";
 import "./styles/DashboardPages.css";
-import { RefreshCw } from "lucide-react";
+import { Eye, FolderSync, RefreshCw, Trash } from "lucide-react";
 
-const AIAnalyze = () => {
+const ResumeAnalyze = () => {
   const {
     resumeData,
     analysisData: initialAnalysisData,
@@ -126,12 +126,12 @@ const AIAnalyze = () => {
               <div className="flex gap-3 flex-wrap">
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="px-4 py-2 bg-[#00d9ff]/10 text-[#00d9ff] rounded-lg hover:bg-[#00d9ff]/20 hover:shadow-[0_0_10px_rgba(0,217,255,0.2)] transition-all text-sm font-medium border border-[#00d9ff]/30"
+                  className="flex items-center gap-2 cursor-pointer px-4 py-2 bg-[#00d9ff]/10 text-[#00d9ff] rounded-lg hover:bg-[#00d9ff]/20 hover:shadow-[0_0_10px_rgba(0,217,255,0.2)] transition-all text-sm font-medium border border-[#00d9ff]/30"
                 >
-                  📄 View Resume
+                  <Eye className="w-4 h-4" /> <p>View Resume</p>
                 </button>
-                <label className="px-4 py-2 bg-[#a855f7]/10 text-[#a855f7] rounded-lg hover:bg-[#a855f7]/20 hover:shadow-[0_0_10px_rgba(168,85,247,0.2)] transition-all text-sm font-medium cursor-pointer border border-[#a855f7]/30 flex items-center gap-2">
-                  🔄 Update Resume
+                <label className="flex items-center gap-2 cursor-pointer px-4 py-2 bg-[#a855f7]/10 text-[#a855f7] rounded-lg hover:bg-[#a855f7]/20 hover:shadow-[0_0_10px_rgba(168,85,247,0.2)] transition-all text-sm font-medium cursor-pointer border border-[#a855f7]/30 flex items-center gap-2">
+                 <FolderSync className=" w-4 h-4" /> <p>Update Resume</p>
                   <input
                     type="file"
                     accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -165,9 +165,9 @@ const AIAnalyze = () => {
                       }
                     }
                   }}
-                  className="px-4 py-2 bg-[#ff006e]/10 text-[#ff006e] rounded-lg hover:bg-[#ff006e]/20 hover:shadow-[0_0_10px_rgba(255,0,110,0.2)] transition-all text-sm font-medium border border-[#ff006e]/30"
+                  className="flex items-center gap-2 cursor-pointer px-4 py-2 bg-[#ff006e]/10 text-[#ff006e] rounded-lg hover:bg-[#ff006e]/20 hover:shadow-[0_0_10px_rgba(255,0,110,0.2)] transition-all text-sm font-medium border border-[#ff006e]/30"
                 >
-                  🗑️ Delete
+                  <Trash className="w-4 h-4" /> <p>Delete</p>
                 </button>
               </div>
             </div>
@@ -385,4 +385,4 @@ const AIAnalyze = () => {
   );
 };
 
-export default AIAnalyze;
+export default ResumeAnalyze;

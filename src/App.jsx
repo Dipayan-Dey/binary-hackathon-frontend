@@ -13,7 +13,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Overview from "./dashboard/Overview";
-import AIAnalyze from "./dashboard/AIAnalyze";
+import AIAnalyze from "./dashboard/ResumeAnalyze";
 import Chatbot from "./dashboard/Chatbot";
 import Settings from "./dashboard/Settings";
 import Analytics from "./dashboard/Analytics";
@@ -97,6 +97,7 @@ function AppContent() {
             <Route path="interview" element={<Interview />} />
             <Route path="quiz" element={<Quiz />} />
             <Route path="live-interview" element={<LiveInterview />} />
+            <Route path="career-map" element={<CareerMap />} />
           </Route>
         </Routes>
       </main>
@@ -107,6 +108,7 @@ function AppContent() {
 
 import { ThemeProvider } from "./context/ThemeContext";
 import LiveInterview from "./dashboard/LiveInterview";
+import CareerMap from "./dashboard/CareerMap";
 // import { UserAccout } from "./hooks/account";
 
 function App() {
