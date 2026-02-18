@@ -12,6 +12,7 @@ import {
   Settings,
   LogOut,
   Menu,
+  Globe,
 } from "lucide-react";
 import "./Sidebar.css";
 import devlogo from "../../../public/my-sig-logo.png";
@@ -103,6 +104,15 @@ const Sidebar = ({ profile }) => {
           >
             <Mic size={20} />
             <span>Mock Interview</span>
+          </NavLink>
+
+          <NavLink
+            to="/dashboard/live-interview"
+            className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+            onClick={closeSidebar}
+          >
+            <Globe size={20} />
+            <span>Live Interview</span>
           </NavLink>
 
           <NavLink

@@ -96,6 +96,7 @@ function AppContent() {
             <Route path="integrations" element={<Integrations />} />
             <Route path="interview" element={<Interview />} />
             <Route path="quiz" element={<Quiz />} />
+            <Route path="live-interview" element={<LiveInterview />} />
           </Route>
         </Routes>
       </main>
@@ -105,6 +106,7 @@ function AppContent() {
 }
 
 import { ThemeProvider } from "./context/ThemeContext";
+import LiveInterview from "./dashboard/LiveInterview";
 // import { UserAccout } from "./hooks/account";
 
 function App() {

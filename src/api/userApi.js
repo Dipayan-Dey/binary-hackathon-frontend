@@ -105,3 +105,23 @@ export const chatbotService = {
     return response.data;
   },
 };
+
+// ==========================================
+// LIVE INTERVIEW SYSTEM APIs
+// ==========================================
+
+export const startLiveInterview = () => {
+  return axiosClient.post("/live-interview/start");
+};
+
+export const submitLiveInterviewAnswer = (sessionId, answer) => {
+  return axiosClient.post("/live-interview/answer", { sessionId, answer });
+};
+
+export const finishLiveInterview = (sessionId) => {
+  return axiosClient.post("/live-interview/finish", { sessionId });
+};
+
+export const getLiveInterviewSession = (sessionId) => {
+  return axiosClient.get(`/live-interview/session/${sessionId}`);
+};
