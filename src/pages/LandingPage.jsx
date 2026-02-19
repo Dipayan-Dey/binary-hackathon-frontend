@@ -6,6 +6,8 @@ import Benefits from '../components/Benefits';
 import TargetAudience from '../components/TargetAudience';
 import TechStack from '../components/TechStack';
 import CTA from '../components/CTA';
+import TestimonialScrollColumns from '../components/TestimonialScrollColumns';
+import FeedbackForm from '../components/FeedbackForm';
 
 const LandingPage = () => {
   return (
@@ -16,6 +18,8 @@ const LandingPage = () => {
       <TechStack />
       <Benefits />
       <TargetAudience />
+      {/* <FeedbackForm/> */}
+      {/* <TestimonialScrollColumns/> */}
       {/* <CTA /> */}
     </>
   );

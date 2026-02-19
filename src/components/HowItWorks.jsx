@@ -1,583 +1,824 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { UserPlus, Link2, FolderGit2, Sparkles, GraduationCap, MessageSquare, Video, Mail, Share2, ZoomIn, ZoomOut, Maximize2, X } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  UserPlus,
+  Link2,
+  FolderGit2,
+  Sparkles,
+  GraduationCap,
+  MessageSquare,
+  Video,
+  Mail,
+  Share2,
+} from "lucide-react";
+import { DotPattern, GridPattern } from "./BackgroundPatterns";
 
-const steps = [
+// ============================================================
+// ✏️  EDIT YOUR WORKFLOW STEPS HERE
+// ============================================================
+const STEPS = [
   {
     id: 1,
-    icon: <UserPlus className="w-7 h-7 md:w-8 md:h-8" />,
+    icon: UserPlus,
     title: "Register / Login",
-    description: "Create your account in seconds",
-    color: "from-blue-500 to-cyan-500",
-    bgColor: "bg-blue-500",
-    shadowColor: "shadow-blue-500/50",
-    position: { x: 12, y: 20 },
-    connections: [2]
+    desc: "Create your account in seconds and unlock access to your personalized AI-powered career dashboard designed to accelerate your growth.",
+    color: "#a78bfa"
   },
   {
     id: 2,
-    icon: <Link2 className="w-7 h-7 md:w-8 md:h-8" />,
+    icon: Link2,
     title: "Connect Profiles",
-    description: "Link GitHub & LinkedIn",
-    color: "from-purple-500 to-pink-500",
-    bgColor: "bg-purple-500",
-    shadowColor: "shadow-purple-500/50",
-    position: { x: 35, y: 8 },
-    connections: [3]
+    desc: "Securely link your GitHub and LinkedIn profiles to allow our AI to deeply understand your technical skills, experience, and professional journey.",
+    color: "#38bdf8"
   },
   {
     id: 3,
-    icon: <FolderGit2 className="w-7 h-7 md:w-8 md:h-8" />,
+    icon: FolderGit2,
     title: "Select Repository",
-    description: "Choose ONE GitHub repo",
-    color: "from-green-500 to-emerald-500",
-    bgColor: "bg-green-500",
-    shadowColor: "shadow-green-500/50",
-    position: { x: 58, y: 18 },
-    connections: [4]
+    desc: "Choose a GitHub repository that best represents your work so our AI can analyze your coding style, architecture decisions, and problem-solving approach.",
+    color: "#34d399"
   },
   {
     id: 4,
-    icon: <Sparkles className="w-7 h-7 md:w-8 md:h-8" />,
+    icon: Sparkles,
     title: "AI Analysis",
-    description: "System analyzes project + resume",
-    color: "from-yellow-500 to-orange-500",
-    bgColor: "bg-yellow-500",
-    shadowColor: "shadow-yellow-500/50",
-    position: { x: 80, y: 12 },
-    connections: [5]
+    desc: "Our advanced AI engine scans your codebase to identify strengths, detect gaps, and generate a detailed skill fingerprint unique to you.",
+    color: "#fbbf24"
   },
   {
     id: 5,
-    icon: <GraduationCap className="w-7 h-7 md:w-8 md:h-8" />,
+    icon: GraduationCap,
     title: "Skills Evaluation",
-    description: "AI evaluates skills & readiness",
-    color: "from-red-500 to-rose-500",
-    bgColor: "bg-red-500",
-    shadowColor: "shadow-red-500/50",
-    position: { x: 90, y: 38 },
-    connections: [6]
+    desc: "Benchmark your readiness against real-world job market expectations and discover exactly what you need to improve to become industry-ready.",
+    color: "#f472b6"
   },
   {
     id: 6,
-    icon: <MessageSquare className="w-7 h-7 md:w-8 md:h-8" />,
+    icon: MessageSquare,
     title: "AI Mentor Chat",
-    description: "Chat with personal AI mentor",
-    color: "from-indigo-500 to-blue-500",
-    bgColor: "bg-indigo-500",
-    shadowColor: "shadow-indigo-500/50",
-    position: { x: 82, y: 65 },
-    connections: [7]
+    desc: "Interact with your intelligent AI mentor to ask questions, receive tailored guidance, and get step-by-step recommendations for growth.",
+    color: "#60a5fa"
   },
   {
     id: 7,
-    icon: <Video className="w-7 h-7 md:w-8 md:h-8" />,
+    icon: Video,
     title: "Mock Interview",
-    description: "AI-powered mock interviews",
-    color: "from-teal-500 to-cyan-500",
-    bgColor: "bg-teal-500",
-    shadowColor: "shadow-teal-500/50",
-    position: { x: 60, y: 82 },
-    connections: [8]
+    desc: "Practice with realistic AI-powered interview simulations that test your technical knowledge, communication, and confidence under pressure.",
+    color: "#fb923c"
   },
   {
     id: 8,
-    icon: <Mail className="w-7 h-7 md:w-8 md:h-8" />,
+    icon: Mail,
     title: "Weekly Alerts",
-    description: "Receive alerts + emails",
-    color: "from-violet-500 to-purple-500",
-    bgColor: "bg-violet-500",
-    shadowColor: "shadow-violet-500/50",
-    position: { x: 35, y: 80 },
-    connections: [9]
+    desc: "Stay ahead with curated job alerts, personalized improvement tips, and progress reminders delivered directly to your inbox.",
+    color: "#4ade80"
   },
   {
     id: 9,
-    icon: <Share2 className="w-7 h-7 md:w-8 md:h-8" />,
+    icon: Share2,
     title: "LinkedIn Share",
-    description: "Post achievements to LinkedIn",
-    color: "from-pink-500 to-rose-500",
-    bgColor: "bg-pink-500",
-    shadowColor: "shadow-pink-500/50",
-    position: { x: 15, y: 60 },
-    connections: []
-  }
+    desc: "Showcase your milestones and achievements by sharing verified progress updates with your professional network to build credibility.",
+    color: "#f87171"
+  },
 ];
 
-const HowItWorks = () => {
-  const [activeStep, setActiveStep] = useState(null);
-  const [zoom, setZoom] = useState(1);
-  const [isFullscreen, setIsFullscreen] = useState(false);
+// ============================================================
 
-  const handleZoomIn = () => setZoom(prev => Math.min(prev + 0.2, 2));
-  const handleZoomOut = () => setZoom(prev => Math.max(prev - 0.2, 0.6));
-  const toggleFullscreen = () => setIsFullscreen(!isFullscreen);
+// Zigzag layout: odd steps go right, even steps go left
+const CARD_W = 300;
+const CARD_H = 130;
+const STEP_Y =250; // vertical gap per step
+const LEFT_X = 40;
+const RIGHT_X = 560;
+const CENTER_X = (LEFT_X + RIGHT_X + CARD_W) / 2;
 
-  // Generate organic curved path between two points
-  const generatePath = (start, end, width, height) => {
-    const startX = (start.x / 100) * width;
-    const startY = (start.y / 100) * height;
-    const endX = (end.x / 100) * width;
-    const endY = (end.y / 100) * height;
+function getPos(index) {
+  const x = index % 2 === 0 ? LEFT_X : RIGHT_X;
+  const y = index * STEP_Y + 20;
+  return { x, y };
+}
 
-    const deltaX = endX - startX;
-    const deltaY = endY - startY;
-    
-    // Create smooth organic curves
-    const cp1x = startX + deltaX * 0.25 + deltaY * 0.15;
-    const cp1y = startY + deltaY * 0.25 - deltaX * 0.15;
-    const cp2x = startX + deltaX * 0.75 - deltaY * 0.15;
-    const cp2y = startY + deltaY * 0.75 + deltaX * 0.15;
+const SVG_W = RIGHT_X + CARD_W + 60;
+const SVG_H = STEPS.length * STEP_Y + CARD_H + 40;
 
-    return `M ${startX} ${startY} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${endX} ${endY}`;
-  };
+function buildZigPath(fromIdx, toIdx) {
+  const a = getPos(fromIdx);
+  const b = getPos(toIdx);
+  const ax = a.x + CARD_W / 2;
+  const ay = a.y + CARD_H;
+  const bx = b.x + CARD_W / 2;
+  const by = b.y;
+  const my = (ay + by) / 2;
+  return `M ${ax} ${ay} C ${ax} ${my}, ${bx} ${my}, ${bx} ${by}`;
+}
+
+function TravelDot({ pathD, color }) {
+  return (
+    <circle
+      r={5}
+      fill={color}
+      style={{ filter: `drop-shadow(0 0 6px ${color})` }}
+    >
+      <animateMotion dur="1.8s" repeatCount="indefinite" path={pathD} />
+      <animate
+        attributeName="opacity"
+        values="0;1;1;0"
+        dur="1.8s"
+        repeatCount="indefinite"
+      />
+    </circle>
+  );
+}
+
+function StepCard({ step, index, isActive, isCompleted, onClick }) {
+  const Icon = step.icon;
+  const { x, y } = getPos(index);
+  const isLeft = index % 2 === 0;
 
   return (
-    <section id="workflow" className="relative py-20 md:py-32 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 overflow-hidden">
-      {/* Enhanced Background */}
-      <div className="absolute inset-0">
-        {/* Animated grid with depth */}
-        <div className="absolute inset-0 opacity-[0.15]">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `
-              radial-gradient(circle at 2px 2px, rgba(59, 130, 246, 0.15) 1px, transparent 0)
-            `,
-            backgroundSize: '50px 50px',
-            animation: 'gridMove 20s linear infinite'
-          }}></div>
+    <motion.g
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: index * 0.08 }}
+    >
+      {/* Connector label line to center spine */}
+      <motion.line
+        x1={isLeft ? x + CARD_W : x}
+        y1={y + CARD_H / 2}
+        x2={CENTER_X}
+        y2={y + CARD_H / 2}
+        stroke={isActive || isCompleted ? step.color : "rgba(255,255,255,0.08)"}
+        strokeWidth={isActive ? 2 : 1}
+        strokeDasharray={isCompleted || isActive ? "none" : "4 4"}
+        animate={{ opacity: isActive ? 1 : isCompleted ? 0.6 : 0.3 }}
+      />
+
+      {/* Step number on center spine */}
+      <motion.circle
+        cx={CENTER_X}
+        cy={y + CARD_H / 2}
+        r={16}
+        animate={{
+          fill: isActive || isCompleted ? step.color : "#1e1e2e",
+          stroke: isActive
+            ? step.color
+            : isCompleted
+              ? step.color + "88"
+              : "rgba(255,255,255,0.15)",
+          filter: isActive ? `drop-shadow(0 0 12px ${step.color})` : "none",
+        }}
+        transition={{ duration: 0.3 }}
+        strokeWidth={2}
+      />
+      <text
+        x={CENTER_X}
+        y={y + CARD_H / 2 + 5}
+        textAnchor="middle"
+        fontSize={11}
+        fontWeight={900}
+        fill={
+          isActive || isCompleted
+            ? isActive
+              ? "#000"
+              : "#fff"
+            : "rgba(255,255,255,0.4)"
+        }
+        style={{ fontFamily: "Inter, sans-serif" }}
+      >
+        {index + 1}
+      </text>
+
+      {/* Pulse ring on active */}
+      {isActive && (
+        <motion.circle
+          cx={CENTER_X}
+          cy={y + CARD_H / 2}
+          r={16}
+          fill="none"
+          stroke={step.color}
+          strokeWidth={2}
+          animate={{ r: [16, 28, 16], opacity: [0.8, 0, 0.8] }}
+          transition={{ duration: 1.6, repeat: Infinity }}
+        />
+      )}
+    </motion.g>
+  );
+}
+
+function CardOverlay({ step, index, isActive, isCompleted, onClick }) {
+  const Icon = step.icon;
+  const { x, y } = getPos(index);
+
+  return (
+    <motion.div
+      onClick={() => onClick(step.id)}
+      initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{
+        delay: index * 0.08,
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      whileHover={{ scale: 1.03, y: -3 }}
+      style={{
+        position: "absolute",
+        left: x,
+        top: y,
+        width: CARD_W,
+        height: CARD_H,
+        cursor: "pointer",
+        zIndex: isActive ? 20 : 5,
+      }}
+    >
+      {/* Active glow behind card */}
+      {isActive && (
+        <motion.div
+          animate={{ opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          style={{
+            position: "absolute",
+            inset: -8,
+            borderRadius: 20,
+            background: `radial-gradient(ellipse, ${step.color}22 0%, transparent 70%)`,
+            pointerEvents: "none",
+          }}
+        />
+      )}
+
+      <motion.div
+        animate={{
+          borderColor: isActive
+            ? step.color
+            : isCompleted
+              ? step.color + "55"
+              : "rgba(255,255,255,0.08)",
+          boxShadow: isActive
+            ? `0 0 0 1px ${step.color}, 0 0 30px ${step.color}33, inset 0 0 30px ${step.color}08`
+            : isCompleted
+              ? `0 0 0 1px ${step.color}33`
+              : "0 4px 24px rgba(0,0,0,0.4)",
+          background: isActive
+            ? `linear-gradient(135deg, ${step.color}15 0%, rgba(255,255,255,0.03) 100%)`
+            : "rgba(255,255,255,0.035)",
+        }}
+        transition={{ duration: 0.35 }}
+        style={{
+          width: "100%",
+          height: "100%",
+          borderRadius: 16,
+          border: "1px solid rgba(255,255,255,0.08)",
+          backdropFilter: "blur(18px)",
+          padding: "14px 18px",
+          display: "flex",
+          gap: 14,
+          alignItems: "center",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {/* Left color strip */}
+        <motion.div
+          animate={{
+            background: step.color,
+            opacity: isActive ? 1 : isCompleted ? 0.5 : 0.2,
+          }}
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 12,
+            bottom: 12,
+            width: 3,
+            borderRadius: "0 4px 4px 0",
+          }}
+        />
+
+        {/* Icon */}
+        <motion.div
+          animate={{
+            background: isActive ? `${step.color}22` : "rgba(255,255,255,0.05)",
+            boxShadow: isActive ? `0 0 20px ${step.color}44` : "none",
+          }}
+          style={{
+            width: 44,
+            height: 44,
+            borderRadius: 13,
+            flexShrink: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Icon
+            size={20}
+            color={
+              isActive || isCompleted ? step.color : "rgba(255,255,255,0.35)"
+            }
+          />
+        </motion.div>
+
+        {/* Text */}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div
+            style={{
+              fontSize: 13,
+              fontWeight: 700,
+              color: isActive ? "#fff" : "rgba(255,255,255,0.75)",
+              marginBottom: 5,
+              lineHeight: 1.2,
+            }}
+          >
+            {step.title}
+          </div>
+          <div
+            style={{
+              fontSize: 11,
+              color: "rgba(255,255,255,0.32)",
+              // lineHeight: 1.5,
+            }}
+            // className="text-ellipsis h-[200px] w-[400px] "
+          >
+            {step.desc}
+          </div>
         </div>
 
-        {/* Dynamic gradient orbs */}
-        <motion.div 
-          className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-gradient-to-r from-blue-600/15 to-cyan-600/15 rounded-full blur-3xl"
+        {/* Checkmark if completed */}
+        {isCompleted && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            style={{
+              width: 20,
+              height: 20,
+              borderRadius: "50%",
+              background: step.color,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+              fontSize: 11,
+              fontWeight: 900,
+              color: "#000",
+            }}
+          >
+            ✓
+          </motion.div>
+        )}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+export default function HowItWorks() {
+  const [activeStep, setActiveStep] = useState(1);
+  const [autoplay, setAutoplay] = useState(true);
+
+  useEffect(() => {
+    if (!autoplay) return;
+    const t = setInterval(
+      () => setActiveStep((p) => (p % STEPS.length) + 1),
+      2400,
+    );
+    return () => clearInterval(t);
+  }, [autoplay]);
+
+  const handleClick = (id) => {
+    setActiveStep(id);
+    setAutoplay(false);
+  };
+  const active = STEPS.find((s) => s.id === activeStep);
+  const activeIndex = activeStep - 1;
+
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+    // background: "linear-gradient(160deg, #020209 0%, #06060f 50%, #020209 100%)",
+    fontFamily: "'Inter', sans-serif",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "52px 24px 80px",
+    position: "relative",
+    overflow: "hidden",
+      }}
+      className="bg-[#020209]"
+    >
+      {/* Ambient top glow */}
+      <motion.div
+        animate={{
+          background: `radial-gradient(ellipse 800px 400px at 50% -10%, ${active?.color}18 0%, transparent 70%)`,
+        }}
+        transition={{ duration: 0.8 }}
+        style={{ position: "fixed", inset: 0, pointerEvents: "none" }}
+      />
+      <DotPattern />
+      {/* Scanline texture */}
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          pointerEvents: "none",
+          zIndex: 0,
+          backgroundImage:
+            "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.011) 2px, rgba(255,255,255,0.011) 4px)",
+        }}
+      />
+
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: -22 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        style={{
+          textAlign: "center",
+          marginBottom: 52,
+          position: "relative",
+          zIndex: 2,
+        }}
+      >
+        {/* Live step indicator */}
+        <motion.div
           animate={{
-            scale: [1, 1.2, 1],
-            x: [0, 50, 0],
-            y: [0, 30, 0],
+            borderColor: `${active?.color}66`,
+            background: `${active?.color}0e`,
           }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "5px 16px",
+            borderRadius: 100,
+            marginBottom: 16,
+            border: "1px solid",
           }}
-        />
-        <motion.div 
-          className="absolute bottom-20 right-1/4 w-[500px] h-[500px] bg-gradient-to-r from-purple-600/15 to-pink-600/15 rounded-full blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            x: [0, -50, 0],
-            y: [0, -30, 0],
+        >
+          <motion.div
+            animate={{
+              background: active?.color,
+              boxShadow: `0 0 10px ${active?.color}`,
+            }}
+            transition={{ duration: 0.4 }}
+            style={{ width: 8, height: 8, borderRadius: "50%" }}
+          />
+          <motion.span
+            animate={{ color: active?.color }}
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+            }}
+          >
+            Step {activeStep} — {active?.title}
+          </motion.span>
+        </motion.div>
+
+        <h2
+          style={{
+            fontSize: 40,
+            fontWeight: 900,
+            color: "#fff",
+            margin: "0 0 10px",
+            letterSpacing: "-0.03em",
           }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
+        >
+          Your Career{" "}
+          <motion.span
+            animate={{
+              color: active?.color,
+              textShadow: `0 0 28px ${active?.color}66`,
+            }}
+            transition={{ duration: 0.4 }}
+          >
+            Roadmap
+          </motion.span>
+        </h2>
+        <p style={{ fontSize: 14, color: "rgba(255,255,255,0.3)", margin: 0 }}>
+          9 steps from signup to dream job · tap any step
+        </p>
+      </motion.div>
+
+      {/* Main zigzag map */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          width: SVG_W,
+          maxWidth: "100%",
+          overflowX: "auto",
+        }}
+      >
+        <div style={{ position: "relative", width: SVG_W, height: SVG_H }}>
+          {/* SVG spine + paths */}
+          <svg
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              overflow: "visible",
+              pointerEvents: "none",
+              zIndex: 1,
+            }}
+            viewBox={`0 0 ${SVG_W} ${SVG_H}`}
+          >
+            <defs>
+              <filter id="glow2">
+                <feGaussianBlur stdDeviation="3" result="b" />
+                <feMerge>
+                  <feMergeNode in="b" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              {STEPS.slice(0, -1).map((step, i) => (
+                <linearGradient
+                  key={i}
+                  id={`zg${i}`}
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stopColor={step.color} />
+                  <stop offset="100%" stopColor={STEPS[i + 1].color} />
+                </linearGradient>
+              ))}
+            </defs>
+
+            {/* Center vertical spine */}
+            <line
+              x1={CENTER_X}
+              y1={20 + CARD_H / 2}
+              x2={CENTER_X}
+              y2={SVG_H - 40}
+              stroke="rgba(255,255,255,0.06)"
+              strokeWidth={2}
+              strokeDasharray="3 6"
+            />
+
+            {/* Zigzag connector paths */}
+            {STEPS.slice(0, -1).map((step, i) => {
+              const pathD = buildZigPath(i, i + 1);
+              const done = i < activeIndex;
+              const isNear = i === activeIndex - 1 || i === activeIndex;
+              return (
+                <g key={i}>
+                  <path
+                    d={pathD}
+                    fill="none"
+                    stroke={done ? step.color : "rgba(255,255,255,0.07)"}
+                    strokeWidth={done ? 2 : 1.5}
+                    strokeDasharray={done ? "none" : "5 5"}
+                    strokeLinecap="round"
+                    opacity={done ? 0.65 : 1}
+                  />
+                  {isNear && (
+                    <motion.path
+                      d={pathD}
+                      fill="none"
+                      stroke={`url(#zg${i})`}
+                      strokeWidth={3}
+                      strokeLinecap="round"
+                      filter="url(#glow2)"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ pathLength: 1, opacity: 1 }}
+                      transition={{ duration: 0.55 }}
+                    />
+                  )}
+                  {done && <TravelDot pathD={pathD} color={step.color} />}
+                </g>
+              );
+            })}
+
+            {/* Spine nodes */}
+            {STEPS.map((step, index) => (
+              <StepCard
+                key={step.id}
+                step={step}
+                index={index}
+                isActive={activeStep === step.id}
+                isCompleted={activeStep > step.id}
+                onClick={handleClick}
+              />
+            ))}
+          </svg>
+
+          {/* HTML cards overlay */}
+          {STEPS.map((step, index) => (
+            <CardOverlay
+              key={step.id}
+              step={step}
+              index={index}
+              isActive={activeStep === step.id}
+              isCompleted={activeStep > step.id}
+              onClick={handleClick}
+            />
+          ))}
+        </div>
       </div>
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16 md:mb-24">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-block text-blue-400 font-semibold tracking-wider uppercase text-sm mb-4"
+      {/* Bottom detail + controls */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeStep}
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            marginTop: 48,
+            width: "100%",
+            maxWidth: 580,
+            background: "rgba(255,255,255,0.035)",
+            backdropFilter: "blur(24px)",
+            borderRadius: 20,
+            padding: "20px 24px",
+            border: `1px solid ${active?.color}44`,
+            boxShadow: `0 0 40px ${active?.color}18, 0 16px 48px rgba(0,0,0,0.5)`,
+            position: "relative",
+            zIndex: 2,
+          }}
+        >
+          {/* Progress bar */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              marginBottom: 14,
+            }}
           >
-            Your Journey
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-6"
-          >
-            How It <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">Works</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto"
-          >
-            An intelligent network connecting each step of your career transformation
-          </motion.p>
-        </div>
-
-        {/* Mind Map View - Desktop */}
-        <div className="hidden lg:block">
-          <div className="relative w-full max-w-7xl mx-auto" style={{ height: '800px' }}>
-            {/* SVG for curved connections */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
-              <defs>
-                {/* Define gradient for each connection */}
-                {steps.map((step) => 
-                  step.connections.map((targetId) => {
-                    const targetStep = steps.find(s => s.id === targetId);
-                    return (
-                      <linearGradient
-                        key={`gradient-${step.id}-${targetId}`}
-                        id={`gradient-${step.id}-${targetId}`}
-                        x1="0%" y1="0%" x2="100%" y2="100%"
-                      >
-                        <stop offset="0%" stopColor={step.bgColor.replace('bg-', '#')} stopOpacity="0.6" />
-                        <stop offset="100%" stopColor={targetStep?.bgColor.replace('bg-', '#')} stopOpacity="0.6" />
-                      </linearGradient>
-                    );
-                  })
-                )}
-
-                {/* Glow filter */}
-                <filter id="glow">
-                  <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                  <feMerge>
-                    <feMergeNode in="coloredBlur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-              </defs>
-
-              {/* Draw all connections */}
-              {steps.map((step) => 
-                step.connections.map((targetId) => {
-                  const targetStep = steps.find(s => s.id === targetId);
-                  if (!targetStep) return null;
-
-                  const path = generatePath(step.position, targetStep.position, 1200, 800);
-
-                  return (
-                    <g key={`connection-${step.id}-${targetId}`}>
-                      {/* Main path */}
-                      <motion.path
-                        d={path}
-                        fill="none"
-                        stroke={`url(#gradient-${step.id}-${targetId})`}
-                        strokeWidth={activeStep === step.id || activeStep === targetId ? "3" : "2"}
-                        opacity={activeStep === null || activeStep === step.id || activeStep === targetId ? 0.8 : 0.3}
-                        initial={{ pathLength: 0, opacity: 0 }}
-                        whileInView={{ pathLength: 1, opacity: 0.8 }}
-                        viewport={{ once: true }}
-                        transition={{ 
-                          duration: 1.5, 
-                          delay: step.id * 0.1,
-                          ease: "easeInOut"
-                        }}
-                        filter="url(#glow)"
-                      />
-
-                      {/* Animated flow particles */}
-                      <motion.circle
-                        r="4"
-                        fill={step.bgColor.replace('bg-', '#')}
-                        opacity="0.8"
-                        filter="url(#glow)"
-                      >
-                        <animateMotion
-                          dur="4s"
-                          repeatCount="indefinite"
-                          path={path}
-                          begin={`${step.id * 0.5}s`}
-                        />
-                        <animate
-                          attributeName="opacity"
-                          values="0;0.8;0"
-                          dur="4s"
-                          repeatCount="indefinite"
-                        />
-                      </motion.circle>
-                    </g>
-                  );
-                })
-              )}
-            </svg>
-
-            {/* Step Nodes */}
-            {steps.map((step, index) => (
-              <motion.div
-                key={step.id}
-                initial={{ opacity: 0, scale: 0, y: 20 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ 
-                  delay: index * 0.1, 
-                  type: "spring", 
-                  stiffness: 200,
-                  damping: 15
-                }}
-                style={{
-                  position: 'absolute',
-                  left: `${step.position.x}%`,
-                  top: `${step.position.y}%`,
-                  transform: 'translate(-50%, -50%)',
-                  zIndex: activeStep === step.id ? 50 : 10
-                }}
-                onMouseEnter={() => setActiveStep(step.id)}
-                onMouseLeave={() => setActiveStep(null)}
-                className="cursor-pointer"
-              >
-                {/* Pulsing background ring */}
-                <motion.div
-                  className={`absolute -inset-6 bg-gradient-to-r ${step.color} rounded-full blur-2xl opacity-0`}
-                  animate={{
-                    opacity: activeStep === step.id ? [0.3, 0.6, 0.3] : 0,
-                    scale: activeStep === step.id ? [1, 1.2, 1] : 1
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                  }}
-                />
-
-                {/* Step number badge */}
-                <motion.div
-                  className={`absolute -top-3 -left-3 w-8 h-8 rounded-full bg-gradient-to-r ${step.color} flex items-center justify-center text-white font-bold text-sm shadow-xl border-2 border-slate-900 z-10`}
-                  whileHover={{ scale: 1.2, rotate: 360 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {index + 1}
-                </motion.div>
-
-                {/* Main node card */}
-                <motion.div
-                  className={`relative bg-slate-800/90 backdrop-blur-xl border-2 border-slate-700 rounded-2xl p-5 min-w-[220px] shadow-2xl ${step.shadowColor}`}
-                  whileHover={{ 
-                    scale: 1.05,
-                    borderColor: step.bgColor.replace('bg-', '#'),
-                    boxShadow: `0 25px 50px -12px ${step.bgColor.replace('bg-', 'rgba(')}0.5)`
-                  }}
-                  animate={{
-                    borderColor: activeStep === step.id ? step.bgColor.replace('bg-', '#') : 'rgb(51, 65, 85)'
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {/* Icon container */}
-                  <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center text-white mb-4 shadow-lg mx-auto`}>
-                    <motion.div
-                      whileHover={{ rotate: 360, scale: 1.1 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      {step.icon}
-                    </motion.div>
-                  </div>
-
-                  {/* Content */}
-                  <h3 className="text-white font-bold text-base mb-2 text-center">
-                    {step.title}
-                  </h3>
-                  <p className="text-slate-400 text-sm leading-relaxed text-center">
-                    {step.description}
-                  </p>
-
-                  {/* Animated progress bar */}
-                  <div className="mt-4 h-1.5 bg-slate-700 rounded-full overflow-hidden">
-                    <motion.div
-                      className={`h-full bg-gradient-to-r ${step.color} rounded-full`}
-                      initial={{ width: "0%", opacity: 0 }}
-                      whileInView={{ width: "100%", opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 + 0.5, duration: 1 }}
-                    />
-                  </div>
-                </motion.div>
-
-                {/* Connection indicator dots */}
-                {step.connections.length > 0 && (
-                  <motion.div
-                    className="absolute -right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full shadow-lg"
-                    animate={{
-                      scale: [1, 1.3, 1],
-                      opacity: [0.5, 1, 0.5]
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                    }}
-                  />
-                )}
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Mobile/Tablet View with Zoom */}
-        <div className={`lg:hidden relative ${isFullscreen ? 'fixed inset-0 z-50 bg-slate-950 p-6 overflow-auto' : ''}`}>
-          {/* Zoom Controls */}
-          <div className="flex justify-between items-center gap-2 mb-6">
-            <div className="flex gap-2">
-              <button
-                onClick={handleZoomOut}
-                className="p-2.5 bg-slate-800 border border-slate-700 rounded-lg text-white hover:bg-slate-700 transition-colors active:scale-95"
-                aria-label="Zoom out"
-              >
-                <ZoomOut className="w-5 h-5" />
-              </button>
-              <button
-                onClick={handleZoomIn}
-                className="p-2.5 bg-slate-800 border border-slate-700 rounded-lg text-white hover:bg-slate-700 transition-colors active:scale-95"
-                aria-label="Zoom in"
-              >
-                <ZoomIn className="w-5 h-5" />
-              </button>
-            </div>
-            <button
-              onClick={toggleFullscreen}
-              className="p-2.5 bg-gradient-to-r from-blue-600 to-purple-600 border border-blue-500 rounded-lg text-white hover:from-blue-700 hover:to-purple-700 transition-all active:scale-95 flex items-center gap-2 px-4"
-              aria-label="Toggle fullscreen"
-            >
-              {isFullscreen ? <X className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
-              <span className="text-sm font-semibold">{isFullscreen ? 'Exit' : 'Fullscreen'}</span>
-            </button>
-          </div>
-
-          {/* Scrollable Container */}
-          <div className={`overflow-auto rounded-xl border-2 border-slate-700/50 bg-slate-900/30 backdrop-blur-sm ${isFullscreen ? 'h-[calc(100vh-120px)]' : 'h-[700px]'}`}>
-            <div 
-              style={{ 
-                transform: `scale(${zoom})`, 
-                transformOrigin: 'top left', 
-                transition: 'transform 0.3s ease',
-                minWidth: '1200px',
-                height: '900px',
-                position: 'relative'
+            <motion.span
+              animate={{ color: active?.color }}
+              style={{
+                fontSize: 11,
+                fontWeight: 800,
+                textTransform: "uppercase",
+                letterSpacing: "0.12em",
+                flexShrink: 0,
               }}
             >
-              {/* SVG for mobile connections */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
-                <defs>
-                  {steps.map((step) => 
-                    step.connections.map((targetId) => {
-                      const targetStep = steps.find(s => s.id === targetId);
-                      return (
-                        <linearGradient
-                          key={`gradient-mobile-${step.id}-${targetId}`}
-                          id={`gradient-mobile-${step.id}-${targetId}`}
-                          x1="0%" y1="0%" x2="100%" y2="100%"
-                        >
-                          <stop offset="0%" stopColor={step.bgColor.replace('bg-', '#')} stopOpacity="0.6" />
-                          <stop offset="100%" stopColor={targetStep?.bgColor.replace('bg-', '#')} stopOpacity="0.6" />
-                        </linearGradient>
-                      );
-                    })
-                  )}
-                </defs>
-
-                {steps.map((step) => 
-                  step.connections.map((targetId) => {
-                    const targetStep = steps.find(s => s.id === targetId);
-                    if (!targetStep) return null;
-
-                    const path = generatePath(step.position, targetStep.position, 1200, 900);
-
-                    return (
-                      <g key={`connection-mobile-${step.id}-${targetId}`}>
-                        <motion.path
-                          d={path}
-                          fill="none"
-                          stroke={`url(#gradient-mobile-${step.id}-${targetId})`}
-                          strokeWidth="2.5"
-                          opacity="0.7"
-                          initial={{ pathLength: 0 }}
-                          whileInView={{ pathLength: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1.5, delay: step.id * 0.1 }}
-                        />
-
-                        <motion.circle r="3" fill={step.bgColor.replace('bg-', '#')} opacity="0.8">
-                          <animateMotion
-                            dur="4s"
-                            repeatCount="indefinite"
-                            path={path}
-                            begin={`${step.id * 0.5}s`}
-                          />
-                          <animate
-                            attributeName="opacity"
-                            values="0;0.8;0"
-                            dur="4s"
-                            repeatCount="indefinite"
-                          />
-                        </motion.circle>
-                      </g>
-                    );
-                  })
-                )}
-              </svg>
-
-              {/* Mobile Step Nodes */}
-              {steps.map((step, index) => (
-                <motion.div
-                  key={step.id}
-                  initial={{ opacity: 0, scale: 0 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.08, type: "spring", stiffness: 200 }}
-                  style={{
-                    position: 'absolute',
-                    left: `${step.position.x}%`,
-                    top: `${step.position.y}%`,
-                    transform: 'translate(-50%, -50%)',
-                    zIndex: 10
-                  }}
-                >
-                  <div className={`absolute -top-2.5 -left-2.5 w-7 h-7 rounded-full bg-gradient-to-r ${step.color} flex items-center justify-center text-white font-bold text-xs shadow-lg border-2 border-slate-900`}>
-                    {index + 1}
-                  </div>
-
-                  <div className={`relative bg-slate-800/95 backdrop-blur-xl border-2 border-slate-700 rounded-xl p-4 w-[200px] shadow-xl`}>
-                    <div className={`w-14 h-14 rounded-lg bg-gradient-to-br ${step.color} flex items-center justify-center text-white mb-3 shadow-lg mx-auto`}>
-                      {step.icon}
-                    </div>
-
-                    <h3 className="text-white font-bold text-sm mb-1.5 text-center">{step.title}</h3>
-                    <p className="text-slate-400 text-xs leading-relaxed text-center">{step.description}</p>
-
-                    <div className="mt-3 h-1 bg-slate-700 rounded-full overflow-hidden">
-                      <motion.div
-                        className={`h-full bg-gradient-to-r ${step.color}`}
-                        initial={{ width: "0%" }}
-                        whileInView={{ width: "100%" }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.08 + 0.3, duration: 0.8 }}
-                      />
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+              {activeStep} / {STEPS.length}
+            </motion.span>
+            <div
+              style={{
+                flex: 1,
+                height: 4,
+                borderRadius: 99,
+                background: "rgba(255,255,255,0.07)",
+                overflow: "hidden",
+              }}
+            >
+              <motion.div
+                animate={{
+                  width: `${(activeStep / STEPS.length) * 100}%`,
+                  background: active?.color,
+                  boxShadow: `0 0 10px ${active?.color}`,
+                }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                style={{ height: "100%", borderRadius: 99 }}
+              />
             </div>
+            <span
+              style={{
+                fontSize: 11,
+                color: "rgba(255,255,255,0.25)",
+                flexShrink: 0,
+              }}
+            >
+              {Math.round((activeStep / STEPS.length) * 100)}%
+            </span>
           </div>
 
-          <p className="text-center text-slate-500 text-sm mt-4">
-            💡 Use zoom controls and drag to explore the complete workflow
-          </p>
-        </div>
+          <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
+            <motion.div
+              animate={{
+                background: `${active?.color}22`,
+                borderColor: `${active?.color}55`,
+                boxShadow: `0 0 20px ${active?.color}33`,
+              }}
+              style={{
+                width: 48,
+                height: 48,
+                borderRadius: 14,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+                border: "1px solid",
+              }}
+            >
+              {active && <active.icon size={22} color={active.color} />}
+            </motion.div>
+            <div>
+              <div
+                style={{
+                  fontSize: 16,
+                  fontWeight: 800,
+                  color: "#fff",
+                  marginBottom: 4,
+                }}
+              >
+                {active?.title}
+              </div>
+              <div
+                style={{
+                  fontSize: 12.5,
+                  color: "rgba(255,255,255,0.42)",
+                  lineHeight: 1.6,
+                }}
+              >
+                {active?.desc}
+              </div>
+            </div>
+            {activeStep < STEPS.length && (
+              <motion.button
+                onClick={() => handleClick(activeStep + 1)}
+                animate={{
+                  background: active?.color,
+                  boxShadow: `0 4px 20px ${active?.color}55`,
+                }}
+                whileHover={{ scale: 1.07 }}
+                whileTap={{ scale: 0.95 }}
+                style={{
+                  marginLeft: "auto",
+                  padding: "10px 16px",
+                  borderRadius: 12,
+                  color: "#000",
+                  fontWeight: 800,
+                  fontSize: 13,
+                  border: "none",
+                  cursor: "pointer",
+                  flexShrink: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 4,
+                }}
+              >
+                Next →
+              </motion.button>
+            )}
+          </div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mt-16 md:mt-20"
-        >
-          <p className="text-slate-400 mb-6 text-base md:text-lg">Ready to transform your career?</p>
-          <a
-            href="#features"
-            className="inline-block px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-bold text-base md:text-lg hover:from-blue-700 hover:to-purple-700 transition-all hover:shadow-2xl hover:shadow-blue-500/50 hover:scale-105 transform"
+          {/* Step dots */}
+          <div
+            style={{
+              display: "flex",
+              gap: 5,
+              marginTop: 16,
+              justifyContent: "center",
+            }}
           >
-            Explore All Features
-          </a>
+            {STEPS.map((s) => (
+              <motion.button
+                key={s.id}
+                onClick={() => handleClick(s.id)}
+                animate={{
+                  width: s.id === activeStep ? 22 : 7,
+                  background:
+                    s.id <= activeStep ? s.color : "rgba(255,255,255,0.12)",
+                  boxShadow:
+                    s.id === activeStep ? `0 0 8px ${s.color}` : "none",
+                }}
+                transition={{ duration: 0.28 }}
+                style={{
+                  height: 7,
+                  borderRadius: 99,
+                  border: "none",
+                  cursor: "pointer",
+                  padding: 0,
+                }}
+              />
+            ))}
+          </div>
         </motion.div>
-      </div>
+      </AnimatePresence>
 
-      <style jsx>{`
-        @keyframes gridMove {
-          0% { background-position: 0 0; }
-          100% { background-position: 50px 50px; }
-        }
-      `}</style>
-    </section>
+      <motion.button
+        onClick={() => setAutoplay(!autoplay)}
+        animate={{
+          borderColor: autoplay ? active?.color : "rgba(255,255,255,0.1)",
+          color: autoplay ? active?.color : "rgba(255,255,255,0.25)",
+        }}
+        whileHover={{ scale: 1.04 }}
+        whileTap={{ scale: 0.96 }}
+        style={{
+          marginTop: 16,
+          padding: "7px 20px",
+          borderRadius: 100,
+          border: "1.5px solid",
+          background: "transparent",
+          fontSize: 11,
+          fontWeight: 700,
+          letterSpacing: "0.1em",
+          textTransform: "uppercase",
+          cursor: "pointer",
+          position: "relative",
+          zIndex: 2,
+        }}
+      >
+        {autoplay ? "⏸ Pause" : "▶ Resume"} Autoplay
+      </motion.button>
+    </div>
   );
-};
-
-export default HowItWorks;
+}

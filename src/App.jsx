@@ -24,6 +24,10 @@ import Reports from "./dashboard/Reports";
 import Integrations from "./dashboard/Integrations";
 import Interview from "./dashboard/Interview";
 import Quiz from "./dashboard/Quiz";
+import { ThemeProvider } from "./context/ThemeContext";
+import LiveInterview from "./dashboard/LiveInterview";
+import CareerMap from "./dashboard/CareerMap";
+import TitleManager from "./components/TitleManager";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./context/authContext";
@@ -49,6 +53,7 @@ function AppContent() {
   };
   return (
     <div className="min-h-screen font-sans transition-colors duration-300">
+      <TitleManager />
       <ToastContainer position="top-right" autoClose={3000} />
       {!isAuthPage && !isDashboard && <Navbar />}
       <main>
@@ -106,9 +111,6 @@ function AppContent() {
   );
 }
 
-import { ThemeProvider } from "./context/ThemeContext";
-import LiveInterview from "./dashboard/LiveInterview";
-import CareerMap from "./dashboard/CareerMap";
 // import { UserAccout } from "./hooks/account";
 
 function App() {
