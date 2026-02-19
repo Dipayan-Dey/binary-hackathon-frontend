@@ -21,7 +21,7 @@ const devlogo = "/my-sig-logo.png";
 
 const Sidebar = ({ profile }) => {
   const { logout } = useAuth();
-  console.log(profile);
+  // console.log(profile);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
