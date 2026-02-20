@@ -679,7 +679,7 @@ const CareerMap = () => {
 
               <div className="lg:col-span-2">
                 {roadmapData ? (
-                  <ZoomableRoadmap>
+                  // <ZoomableRoadmap>
                     <div className="rounded-2xl p-4 sm:p-10 min-h-[400px] flex flex-col" style={{ background:"#0f121d", border:"1px solid rgba(255,255,255,0.08)" }}>
                       <div className="relative z-10">
                         <div className="flex items-center justify-between mb-6 sm:mb-10">
@@ -750,7 +750,7 @@ const CareerMap = () => {
                         </div>
                       </div>
                     </div>
-                  </ZoomableRoadmap>
+                  // </ZoomableRoadmap>
                 ) : (
                   <div className="flex flex-col items-center justify-center p-8 rounded-2xl text-center"
                     style={{ background:"#0f121d", border:"1px dashed rgba(255,255,255,0.07)", color:"#475569", minHeight:280 }}>

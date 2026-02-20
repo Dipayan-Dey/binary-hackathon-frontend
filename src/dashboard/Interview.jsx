@@ -581,7 +581,11 @@ const Interview = () => {
                     </div>
                     <div className="mb-4">
                       <div className="text-3xl font-bold text-white mb-1">
-                        {item?.performanceMetrics?.averageScore %10 || "-"}
+                        {item?.performanceMetrics?.averageScore != null
+                          ? Math.round(
+                              item.performanceMetrics.averageScore / 10,
+                            )
+                          : "-"}
                         <span className="text-lg text-gray-500">/10</span>
                       </div>
                       <div className="text-xs text-gray-400 uppercase tracking-wide">
@@ -592,7 +596,7 @@ const Interview = () => {
                       <div>
                         <span className="text-gray-500 block">Questions</span>
                         <span className="text-white font-semibold">
-                          {item?.performanceMetrics?.totalQuestions || "-"}
+                          {item?.performanceMetrics?.totalQuestions ?? "-"}
                         </span>
                       </div>
                       <div className="text-right">
@@ -620,7 +624,6 @@ const Interview = () => {
 };
 
 export default Interview;
-
 
 // import React, { useState, useEffect, useRef, useCallback } from "react";
 // import { toast } from "react-toastify";
@@ -946,7 +949,6 @@ export default Interview;
 //           )}
 //         </div>
 
-      
 //         {view === "start" && (
 //           <div className="max-w-3xl mx-auto mt-10">
 //             <div className="bg-gradient-to-br from-[#2d1b69]/80 to-[#1a103c]/90 rounded-2xl p-10 border border-[#a855f7]/30 text-center shadow-[0_0_30px_rgba(168,85,247,0.2)] relative overflow-hidden">
@@ -961,7 +963,6 @@ export default Interview;
 //                 Our AI will ask you technical questions based on your resume and skills. You'll receive instant feedback on your answers.
 //               </p>
 
-              
 //               <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-4 mb-8 text-left">
 //                 <h3 className="text-yellow-400 font-bold mb-2 flex items-center gap-2">
 //                   <span>⚠️</span> Interview Rules
@@ -999,13 +1000,11 @@ export default Interview;
 //           </div>
 //         )}
 
-     
 //         {view === "interview" && session && (
 //           <div className="max-w-4xl mx-auto mt-6">
 //             {/* Auto re-enter fullscreen silently if user exits */}
 //             {!isFullscreen && view === "interview" && (() => { enterFullscreen(); return null; })()}
 
-         
 //             {tabWarning && (
 //               <div className="mb-4 bg-red-500/15 border border-red-500/40 rounded-xl px-4 py-3 text-red-300 text-sm flex items-center gap-2">
 //                 <span>🚨</span>
@@ -1013,7 +1012,6 @@ export default Interview;
 //               </div>
 //             )}
 
-           
 //             <div className="flex justify-between items-center mb-6">
 //               <div className="text-gray-400">
 //                 Question {currentQuestionIndex + 1} of {session.questions.length}
@@ -1048,7 +1046,6 @@ export default Interview;
 //                       style={{ userSelect: "none" }}
 //                     ></textarea>
 
-                   
 //                     <div className="absolute bottom-6 left-4 text-gray-600 text-xs pointer-events-none">
 //                       Enter to submit · Shift+Enter for new line
 //                     </div>
@@ -1124,7 +1121,6 @@ export default Interview;
 //           </div>
 //         )}
 
-       
 //         {view === "result" && session && (
 //           <div className="max-w-2xl mx-auto mt-10 text-center">
 //             <div className="bg-gradient-to-br from-[#2d1b69]/80 to-[#1a103c]/90 rounded-3xl p-10 border border-[#a855f7]/30 backdrop-blur-sm shadow-[0_0_30px_rgba(168,85,247,0.2)]">
@@ -1169,7 +1165,6 @@ export default Interview;
 //           </div>
 //         )}
 
-        
 //         {view === "history" && (
 //           <div className="mt-8">
 //             {history.length === 0 ? (
@@ -1233,5 +1228,3 @@ export default Interview;
 // };
 
 // export default Interview;
-
-
