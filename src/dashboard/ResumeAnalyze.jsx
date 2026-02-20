@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 import { analyzeResume } from "../api/userApi";
 import useResumeManagement from "../hooks/useResumeManagement";
 import ResumeUploadCard from "../components/ResumeUploadCard";
@@ -131,7 +132,7 @@ const ResumeAnalyze = () => {
                   <Eye className="w-4 h-4" /> <p>View Resume</p>
                 </button>
                 <label className="flex items-center gap-2 cursor-pointer px-4 py-2 bg-[#a855f7]/10 text-[#a855f7] rounded-lg hover:bg-[#a855f7]/20 hover:shadow-[0_0_10px_rgba(168,85,247,0.2)] transition-all text-sm font-medium cursor-pointer border border-[#a855f7]/30 flex items-center gap-2">
-                 <FolderSync className=" w-4 h-4" /> <p>Update Resume</p>
+                  <FolderSync className=" w-4 h-4" /> <p>Update Resume</p>
                   <input
                     type="file"
                     accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -154,20 +155,54 @@ const ResumeAnalyze = () => {
                 </label>
                 <button
                   onClick={async () => {
-                    if (
-                      window.confirm(
-                        "Are you sure you want to delete your resume? This will also delete your analysis results.",
-                      )
-                    ) {
-                      const result = await handleDelete();
-                      if (result.success) {
+                    const result = await Swal.fire({
+                      title: "Delete Resume?",
+                      text: "This will also delete your analysis results.",
+                      icon: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: "#ff006e",
+                      cancelButtonColor: "#6c757d",
+                      confirmButtonText: "Yes, delete it",
+                      cancelButtonText: "Cancel",
+                    });
+
+                    if (!result.isConfirmed) return;
+
+                    // Show loading state while deleting
+                    Swal.fire({
+                      title: "Deleting...",
+                      allowOutsideClick: false,
+                      didOpen: () => {
+                        Swal.showLoading();
+                      },
+                    });
+
+                    try {
+                      const response = await handleDelete();
+
+                      if (response.success) {
+                        await Swal.fire({
+                          icon: "success",
+                          title: "Deleted!",
+                          text: "Your resume has been removed successfully.",
+                          timer: 1500,
+                          showConfirmButton: false,
+                        });
+
                         refreshData();
                       }
+                    } catch (error) {
+                      Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Failed to delete resume. Please try again.",
+                      });
                     }
                   }}
                   className="flex items-center gap-2 cursor-pointer px-4 py-2 bg-[#ff006e]/10 text-[#ff006e] rounded-lg hover:bg-[#ff006e]/20 hover:shadow-[0_0_10px_rgba(255,0,110,0.2)] transition-all text-sm font-medium border border-[#ff006e]/30"
                 >
-                  <Trash className="w-4 h-4" /> <p>Delete</p>
+                  <Trash className="w-4 h-4" />
+                  <p>Delete</p>
                 </button>
               </div>
             </div>

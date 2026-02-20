@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 import {
   startInterview,
   submitInterviewAnswer,
@@ -214,29 +215,40 @@ const Interview = () => {
   };
 
   const handleDeleteInterview = async (sessionId) => {
-    alert(sessionId);
-    if (
-      !window.confirm(
-        "Are you sure you want to delete this interview session? This action cannot be undone.",
-      )
-    ) {
-      return;
-    }
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+    });
+
+    if (!result.isConfirmed) return;
 
     try {
-      // console.log("🗑️ Deleting interview session:", sessionId);
       const response = await deleteInterview(sessionId);
 
       if (response.data.success) {
-        console.log("✅ Interview deleted successfully");
-        toast.success("Interview session deleted successfully");
-        loadHistory(); // Refresh history to remove deleted item
+        Swal.fire({
+          icon: "success",
+          title: "Deleted!",
+          text: "Interview session deleted successfully.",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+
+        loadHistory();
       }
     } catch (error) {
-      console.error("❌ Error deleting interview:", error);
-      toast.error(
-        error.response?.data?.message || "Failed to delete interview session",
-      );
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text:
+          error.response?.data?.message || "Failed to delete interview session",
+      });
     }
   };
 
@@ -555,7 +567,9 @@ const Interview = () => {
                         <div
                           className={`px-2 py-1 rounded text-xs font-bold ${item.status === "completed" ? "bg-[#00f5a0]/20 text-[#00f5a0]" : "bg-[#ffd700]/20 text-[#ffd700]"}`}
                         >
-                          {item.status}
+                          {item.status === "completed"
+                            ? "Completed"
+                            : "In Progress"}
                         </div>
                         <button
                           onClick={() => handleDeleteInterview(item._id)}
