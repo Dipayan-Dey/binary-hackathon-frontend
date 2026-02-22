@@ -108,7 +108,7 @@ const GoogleLoginButton = () => {
         </span>
 
         {/* Hidden real GoogleLogin on top — invisible but functional */}
-        <div className="absolute inset-0 opacity-0 overflow-hidden rounded-xl flex items-center justify-center">
+        <div className="absolute inset-0 opacity-0 z-50 cursor-pointer">
           <GoogleLogin
             onSuccess={handleSuccess}
             onError={handleError}
