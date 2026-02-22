@@ -9,14 +9,14 @@ const TESTIMONIALS_LEFT = [
   {
     id: 1,
     name: "Sarah Chen",
-    role: "Senior Engineer",
+    role: "Senior Software Engineer",
     company: "Google",
     avatar: "SC",
     avatarColor: "#6366f1",
     rating: 5,
     quote:
-      "This platform completely transformed how I approach my career. Within 3 months of following the AI-generated roadmap, I landed a Senior role at Google.",
-    highlight: "Landed Senior role at Google",
+      "The AI resume analysis completely changed my job search. Readynx highlighted missing impact metrics and ATS gaps I had overlooked for years. After optimizing my resume and practicing with AI mock interviews, I secured a Senior Engineer role at Google.",
+    highlight: "Optimized resume → Senior @ Google",
   },
   {
     id: 2,
@@ -27,8 +27,8 @@ const TESTIMONIALS_LEFT = [
     avatarColor: "#ec4899",
     rating: 5,
     quote:
-      "I'd been stuck as a mid-level dev for two years. The personalized roadmap showed me exactly which skills were holding me back. Now I'm leading a team of 8 engineers.",
-    highlight: "Promoted to Tech Lead",
+      "The GitHub project analysis was mind-blowing. It automatically extracted my strongest technical skills and showed me exactly what to improve for leadership roles. Within months, I was promoted to Tech Lead at Stripe.",
+    highlight: "GitHub insights → Tech Lead",
   },
   {
     id: 3,
@@ -39,8 +39,8 @@ const TESTIMONIALS_LEFT = [
     avatarColor: "#f59e0b",
     rating: 5,
     quote:
-      "The career guidance here goes beyond just technical skills. It helped me identify leadership gaps I didn't even know I had. Six months later, I'm an Engineering Manager.",
-    highlight: "IC → Manager in 6 months",
+      "The AI interview simulator felt incredibly real. The feedback on clarity, structure, and technical depth helped me refine my communication skills. That preparation gave me the confidence to transition into Engineering Management.",
+    highlight: "AI Mock Interviews → EM role",
   },
   {
     id: 4,
@@ -51,8 +51,8 @@ const TESTIMONIALS_LEFT = [
     avatarColor: "#10b981",
     rating: 5,
     quote:
-      "The AI-powered analysis identified that I was over-investing in the wrong areas. It redirected my learning path completely. Best career investment I've ever made.",
-    highlight: "Became Principal at Netflix",
+      "The personalized quiz engine and skill reports revealed gaps I didn’t even realize I had. Readynx’s AI roadmap focused my preparation strategically. It was like having a 24/7 career strategist.",
+    highlight: "Skill reports → Principal @ Netflix",
   },
   {
     id: 5,
@@ -63,8 +63,8 @@ const TESTIMONIALS_LEFT = [
     avatarColor: "#8b5cf6",
     rating: 5,
     quote:
-      "The roadmap was frighteningly specific to my situation. It even predicted the exact technologies Shopify was hiring for before I applied. I felt completely prepared.",
-    highlight: "Predicted my hiring trends",
+      "The Gemini-powered career assistant gave actionable, specific guidance based on my resume and GitHub data. It wasn’t generic advice — it felt personalized to my exact career trajectory.",
+    highlight: "AI Career Assistant impact",
   },
 ];
 
@@ -78,8 +78,8 @@ const TESTIMONIALS_RIGHT = [
     avatarColor: "#f97316",
     rating: 5,
     quote:
-      "The skill gap analysis was eye-opening. I thought I was ready for a senior role but there were glaring blind spots. Fixing them got me to AWS Solutions Architect.",
-    highlight: "AWS Solutions Architect",
+      "The ATS score breakdown and resume suggestions helped me tailor my applications precisely. Combined with mock interviews, I walked into my AWS interviews fully prepared.",
+    highlight: "ATS Optimization → AWS",
   },
   {
     id: 7,
@@ -90,8 +90,8 @@ const TESTIMONIALS_RIGHT = [
     avatarColor: "#14b8a6",
     rating: 5,
     quote:
-      "This isn't just a course platform. It's a full career intelligence system. The guidance I got here set the foundation for becoming VP of Engineering at Figma.",
-    highlight: "VP of Engineering at Figma",
+      "What impressed me most was the depth of personalization. The AI used my experience, projects, and goals to generate a focused career strategy. It’s far beyond a typical learning platform.",
+    highlight: "AI-driven career strategy",
   },
   {
     id: 8,
@@ -102,8 +102,8 @@ const TESTIMONIALS_RIGHT = [
     avatarColor: "#a855f7",
     rating: 5,
     quote:
-      "I was skeptical about AI career advice but this was different. The recommendations were so tailored they felt like they came from a mentor who had known me for years.",
-    highlight: "Senior Architect at Microsoft",
+      "The combination of technical quizzes, project analytics, and AI feedback made my preparation structured and measurable. I could literally track my growth week by week.",
+    highlight: "Measured growth → Microsoft",
   },
   {
     id: 9,
@@ -114,8 +114,8 @@ const TESTIMONIALS_RIGHT = [
     avatarColor: "#ef4444",
     rating: 5,
     quote:
-      "The roadmap gave me a 12-month plan that was realistic and ambitious at the same time. Followed it exactly and hit every milestone. Now I lead the platform team at Uber.",
-    highlight: "Led 12-month career plan",
+      "The Cyber Aurora interface made the experience feel premium, but the real magic was the data-driven feedback. Every suggestion was specific and actionable.",
+    highlight: "Data-driven preparation",
   },
   {
     id: 10,
@@ -126,8 +126,8 @@ const TESTIMONIALS_RIGHT = [
     avatarColor: "#0ea5e9",
     rating: 5,
     quote:
-      "What separates this from everything else is the personalization. It saw patterns in my experience I had ignored. Two promotions later, I'm directing engineering at LinkedIn.",
-    highlight: "Two promotions in one year",
+      "Readynx identified patterns in my career progression and recommended precise leadership skills to develop. Two promotions later, I’m leading engineering teams at scale.",
+    highlight: "AI leadership insights",
   },
 ];
 // ============================================================
