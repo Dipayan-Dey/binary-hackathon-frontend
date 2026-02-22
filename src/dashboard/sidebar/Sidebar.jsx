@@ -105,7 +105,7 @@ const Sidebar = ({ profile }) => {
             onClick={closeSidebar}
           >
             <Mic size={20} />
-            <span>Mock Test</span>
+            <span>Interview</span>
           </NavLink>
 
           {/* <NavLink
