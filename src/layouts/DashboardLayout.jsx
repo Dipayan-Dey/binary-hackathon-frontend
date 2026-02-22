@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../dashboard/sidebar/Sidebar";
 import "./DashboardLayout.css";
 import UserProfile from "../hooks/UserProfile";
+import GeneralFloatingChatbot from "../dashboard/GeneralFloatingChatbot";
 
 const DashboardLayout = () => {
     const { profile } = UserProfile();
@@ -11,6 +12,7 @@ const DashboardLayout = () => {
       <Sidebar profile={profile} />
       <main className="dashboard-main">
         <Outlet />
+        <GeneralFloatingChatbot/>
       </main>
     </div>
   );

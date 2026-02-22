@@ -1,3 +1,4 @@
+import axios from "axios";
 import axiosClient from "./axiosClient";
 
 // ==========================================
@@ -104,7 +105,16 @@ export const chatbotService = {
     });
     return response.data;
   },
+
+  
 };
+
+export const generalchatbot= async (message) => {
+    const response = await axios.post("https://readynx-backend-ts.onrender.com/api/v1/chatbot/general-chat", {
+      message,
+    });
+    return response.data;
+  };
 
 // ==========================================
 // LIVE INTERVIEW SYSTEM APIs

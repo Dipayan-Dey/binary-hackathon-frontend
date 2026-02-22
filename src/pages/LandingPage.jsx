@@ -8,6 +8,7 @@ import TechStack from '../components/TechStack';
 import CTA from '../components/CTA';
 import TestimonialScrollColumns from '../components/TestimonialScrollColumns';
 import FeedbackForm from '../components/FeedbackForm';
+import GeneralFloatingChatbot from '../dashboard/GeneralFloatingChatbot';
 
 const LandingPage = () => {
   return (
@@ -18,6 +19,7 @@ const LandingPage = () => {
       <TechStack />
       <Benefits />
       <TargetAudience />
+      <GeneralFloatingChatbot/>
       {/* <FeedbackForm/> */}
       {/* <TestimonialScrollColumns/> */}
       {/* <CTA /> */}

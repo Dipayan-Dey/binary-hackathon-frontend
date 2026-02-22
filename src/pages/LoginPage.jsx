@@ -3,8 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   Mail,
   Lock,
-  Github,
-  Linkedin,
   AlertCircle,
   Eye,
   EyeOff,
@@ -17,7 +15,7 @@ import { HexagonPattern, DotPattern } from "../components/BackgroundPatterns";
 import { loginUser } from "../api/authApi";
 import { useAuth } from "../context/authContext";
 import GoogleLoginButton from "../components/GoogleLoginButton";
-import { div } from "framer-motion/client";
+
 const LoginPage = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -188,23 +186,8 @@ const LoginPage = () => {
             <div className="flex-1 border-t border-slate-800"></div>
           </div>
 
-          {/* Google Login Button */}
-          <div className="w-full">
-            {
-              loading ? (
-                <button
-                  disabled
-                  className="w-full py-3.5 bg-gradient-to-r from-gray-600 to-gray-400 text-white rounded-xl font-semibold cursor-not-allowed opacity-50"
-                >
-                  Loading...
-                </button>
-              ) : (
-               <div className=" w-full align-items-center justify-center">
-                <GoogleLoginButton />
-              </div>
-              )
-            }
-          </div>
+          {/* Google Login Button — self-contained with its own loading state */}
+          <GoogleLoginButton />
 
           <p className="text-center mt-8 text-slate-400 text-sm">
             Don't have an account?{" "}
