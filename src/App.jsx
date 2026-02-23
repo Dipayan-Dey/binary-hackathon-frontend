@@ -54,7 +54,7 @@ function AppContent() {
   return (
     <div className="min-h-screen font-sans transition-colors duration-300">
       <TitleManager />
-      <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer position="bottom-right" autoClose={3000} />
       {!isAuthPage && !isDashboard && <Navbar />}
       <main>
         <Routes>

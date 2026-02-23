@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
-import { Star } from "lucide-react";
+import { Search, Star } from "lucide-react";
 
 const AllRepositories = ({
   repos,
@@ -42,13 +42,19 @@ const AllRepositories = ({
       {/* Search and Filters */}
       <div className="flex flex-wrap gap-4 mb-6 items-center">
         {/* Search */}
-        <div className="flex-1 min-w-[250px]">
+        <div className="flex-1 min-w-[250px] relative">
+          {/* Search Icon */}
+          <Search
+            size={18}
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+          />
+
           <input
             type="text"
-            placeholder="🔍 Search repositories..."
+            placeholder="Search repositories..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-3 bg-[#0f172a]/80 border-2 border-[#00d9ff]/20 rounded-xl text-white text-base placeholder-gray-400 focus:border-[#00d9ff] focus:outline-none transition-colors shadow-[0_0_10px_rgba(0,217,255,0.1)]"
+            className="w-full pl-12 pr-4 py-3 bg-[#0f172a]/80 border-2 border-[#00d9ff]/20 rounded-xl text-white text-base placeholder-gray-400 focus:border-[#00d9ff] focus:outline-none transition-colors shadow-[0_0_10px_rgba(0,217,255,0.1)]"
           />
         </div>
 

@@ -16,7 +16,7 @@ import {
   Target,
   Star,
 } from "lucide-react";
-
+import "../components/RefreshButton.css"
 const Overview = ({ profile, handleRefresh }) => {
   const navigate = useNavigate();
   const [stats, setStats] = useState({
@@ -49,7 +49,7 @@ const Overview = ({ profile, handleRefresh }) => {
   return (
     <div className="dashboard-page">
       {/* Header Section */}
-      <div className="page-header mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="page-header mb-8 flex flex-wrap items-start md:items-center justify-between gap-4">
         <div>
           <h1 className="text-slate-300 text-sm font-semibold mb-2 flex items-center">
             {" "}
@@ -58,7 +58,7 @@ const Overview = ({ profile, handleRefresh }) => {
               Back to home
             </a>
           </h1>
-          <h1 className="text-white text-4xl font-bold mb-2 flex items-center gap-3">
+          <h1 className="text-white text-3xl md:text-4xl font-bold mb-2 flex items-center gap-3">
             <Hand className="w-10 h-10" /> Welcome back,{" "}
             {profile?.data?.user?.name?.split(" ")[0] || "User"} !
           </h1>
@@ -69,9 +69,9 @@ const Overview = ({ profile, handleRefresh }) => {
         <div>
           <button
             onClick={onRefresh}
-            className="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg transition-colors duration-300 mr-5 cursor-pointer flex items-center gap-1"
+            className="refresh-button"
           >
-            Refresh <RefreshCw className="inline-block ml-1" />
+            Refresh <RefreshCw className="inline-block ml-1 " />
           </button>
         </div>
       </div>

@@ -108,42 +108,69 @@ const Settings = () => {
       setSaving(true);
       const currentProfile = profileResponse?.data;
 
-      // Update personal info (name) if changed
-      if (profileData.name && profileData.name !== currentProfile?.user?.name) {
-        await updatePersonalInformation({ name: profileData.name });
+      // Update personal info (name) if changed and non-empty
+      if (
+        profileData.name?.trim() &&
+        profileData.name !== currentProfile?.user?.name
+      ) {
+        await updatePersonalInformation({ name: profileData.name.trim() });
       }
 
-      // Update profile fields (bio, location, website, phone, targetRole, experienceLevel, skills)
+      // Build profile updates — only changed, non-empty fields
       const profileUpdates = {};
-      if (profileData.bio !== currentProfile?.profile?.bio)
-        profileUpdates.bio = profileData.bio;
-      if (profileData.location !== currentProfile?.profile?.location)
-        profileUpdates.location = profileData.location;
-      if (profileData.website !== currentProfile?.profile?.website)
-        profileUpdates.website = profileData.website;
-      if (profileData.phone !== currentProfile?.profile?.phone)
-        profileUpdates.phone = profileData.phone;
-      if (profileData.targetRole !== currentProfile?.profile?.targetRole)
-        profileUpdates.targetRole = profileData.targetRole;
+
+      const addIfChanged = (key, newVal, oldVal) => {
+        const trimmed = typeof newVal === "string" ? newVal.trim() : newVal;
+        if (trimmed !== oldVal && trimmed !== "" && trimmed !== undefined) {
+          profileUpdates[key] = trimmed;
+        }
+      };
+
+      addIfChanged("bio", profileData.bio, currentProfile?.profile?.bio);
+      addIfChanged(
+        "location",
+        profileData.location,
+        currentProfile?.profile?.location,
+      );
+      addIfChanged(
+        "website",
+        profileData.website,
+        currentProfile?.profile?.website,
+      );
+      addIfChanged("phone", profileData.phone, currentProfile?.profile?.phone);
+      addIfChanged(
+        "targetRole",
+        profileData.targetRole,
+        currentProfile?.profile?.targetRole,
+      );
+      addIfChanged(
+        "experienceLevel",
+        profileData.experienceLevel,
+        currentProfile?.profile?.experienceLevel,
+      );
+
+      // Handle skills separately (array comparison)
+      const newSkills = profileData.skills.filter((s) => s.trim() !== "");
+      const oldSkills = currentProfile?.profile?.skills || [];
       if (
-        profileData.experienceLevel !== currentProfile?.profile?.experienceLevel
-      )
-        profileUpdates.experienceLevel = profileData.experienceLevel;
-      if (
-        JSON.stringify(profileData.skills) !==
-        JSON.stringify(currentProfile?.profile?.skills)
-      )
-        profileUpdates.skills = profileData.skills;
+        JSON.stringify(newSkills) !== JSON.stringify(oldSkills) &&
+        newSkills.length > 0
+      ) {
+        profileUpdates.skills = newSkills;
+      }
 
       if (Object.keys(profileUpdates).length > 0) {
+        console.log("Sending profile updates:", profileUpdates); // Debug log
         await updateProfile(profileUpdates);
       }
 
-      // Refresh profile data to show updates
       await refreshProfile();
       toast.success("Profile updated successfully!");
     } catch (error) {
       console.error("Error saving profile:", error);
+      // Log the actual response to see what the backend says
+      console.error("Response data:", error.response?.data);
+      console.error("Response status:", error.response?.status);
       toast.error(error.response?.data?.message || "Failed to save profile");
     } finally {
       setSaving(false);

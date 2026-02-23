@@ -44,7 +44,7 @@ const ResumeAnalyze = () => {
       await new Promise((resolve) => setTimeout(resolve, 1500));
       const response = await analyzeResume();
       if (response.data.success) {
-        toast.success("Resume analysis completed!");
+        toast.success(response?.data?.message || "Resume analysis done!");
         setAnalysisData(response.data.data);
         refreshData();
       }
@@ -77,7 +77,7 @@ const ResumeAnalyze = () => {
     <>
       {analyzing && <LoadingScreen message="Analyzing your resume..." />}
 
-      <div className="dashboard-page">
+      <div className="dashboard-page ">
         <RefreshButton onClick={refreshData} />
 
         <div className="page-header flex justify-between items-end">

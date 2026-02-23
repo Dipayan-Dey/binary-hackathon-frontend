@@ -1,57 +1,150 @@
+/* ─── RefreshButton — ReadyNX Sky+Amber Theme ─────────────────
+   Pill-shaped, with animated arc ring + glow pulse on load
+   ──────────────────────────────────────────────────────────── */
+
 .refresh-button {
   position: absolute;
-  top: 24px;
-  right: 24px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 7px;
+
+  padding: 0 14px;
+  height: 36px;
+  border-radius: 100px;
+
+  background: rgba(56, 189, 248, 0.07);
+  border: 1px solid rgba(56, 189, 248, 0.18);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 10;
+  color: rgba(56, 189, 248, 0.75);
+
+  font-family: 'Plus Jakarta Sans', 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  white-space: nowrap;
 }
 
+/* Shimmer sweep */
+.refresh-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg,
+    transparent 25%,
+    rgba(56, 189, 248, 0.12) 50%,
+    transparent 75%);
+  transform: translateX(-120%);
+  transition: transform 0.55s ease;
+  pointer-events: none;
+}
+
+.refresh-button:hover::before {
+  transform: translateX(120%);
+}
+
+/* Hover */
 .refresh-button:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(99, 102, 241, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(99, 102, 241, 0.2);
+  background: rgba(56, 189, 248, 0.13);
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #7dd3fc;
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 3px rgba(56, 189, 248, 0.08),
+    0 6px 18px rgba(56, 189, 248, 0.15);
 }
 
 .refresh-button:active {
-  transform: translateY(0) scale(0.95);
+  transform: translateY(0) scale(0.97);
+  box-shadow: none;
 }
 
 .refresh-button:disabled {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.45;
+  pointer-events: none;
 }
 
+/* ── Icon wrapper with spinning arc ring ── */
+.refresh-icon-wrap {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Arc ring — only visible while loading */
+.refresh-arc {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  border-top-color: var(--sb-amber, #fbbf24);
+  border-right-color: rgba(251, 191, 36, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+/* Icon itself */
 .refresh-icon {
-  width: 20px;
-  height: 20px;
-  color: rgba(255, 255, 255, 0.7);
-  transition: all 0.3s;
+  width: 14px;
+  height: 14px;
+  color: currentColor;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+  flex-shrink: 0;
 }
 
 .refresh-button:hover .refresh-icon {
-  color: white;
   transform: rotate(90deg);
 }
 
-.refresh-button.loading .refresh-icon {
-  animation: spin 1s linear infinite;
+/* ── Loading state ── */
+.refresh-button.loading {
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.3);
+  background: rgba(251, 191, 36, 0.07);
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.1);
+  animation: loadingPulse 1.8s ease-in-out infinite;
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.refresh-button.loading .refresh-icon {
+  animation: spinIcon 0.85s linear infinite;
+}
+
+.refresh-button.loading .refresh-arc {
+  opacity: 1;
+  animation: spinArc 0.85s linear infinite;
+}
+
+/* Label hides to "…" while loading — optional via data attr */
+.refresh-label {
+  transition: opacity 0.2s ease;
+}
+
+.refresh-button.loading .refresh-label {
+  opacity: 0.5;
+}
+
+@keyframes spinIcon {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinArc {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes loadingPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(251,191,36,0.1); }
+  50%       { box-shadow: 0 0 18px rgba(251,191,36,0.25); }
 }

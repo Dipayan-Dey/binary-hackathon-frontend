@@ -10,7 +10,16 @@ const RefreshButton = ({ onClick, loading = false }) => {
       disabled={loading}
       title="Refresh"
     >
-      <RefreshCw className="refresh-icon" />
+      {/* Icon with spinning arc ring */}
+      <div className="refresh-icon-wrap">
+        <span className="refresh-arc" />
+        <RefreshCw className="refresh-icon" />
+      </div>
+
+      {/* Text label */}
+      <span className="refresh-label">
+        {loading ? "Syncing" : "Refresh"}
+      </span>
     </button>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
+import Swal from "sweetalert2";
 import {
   Home,
   Sparkles,
@@ -26,8 +27,34 @@ const Sidebar = ({ profile }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = () => {
-    logout();
-    navigate("/login");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out of your account.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#00d9ff",
+      cancelButtonColor: "#ff006e",
+      confirmButtonText: "Yes, Logout",
+      cancelButtonText: "Cancel",
+      background: "#0f172a",
+      color: "#ffffff",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logout();
+        navigate("/login");
+
+        Swal.fire({
+          title: "Logged Out!",
+          text: "You have been successfully logged out.",
+          icon: "success",
+          // confirmButtonColor: "#00d9ff",
+          background: "#0f172a",
+          color: "#ffffff",
+          timer: 1000,
+          showConfirmButton: false,
+        });
+      }
+    });
   };
 
   const toggleSidebar = () => {
@@ -87,7 +114,7 @@ const Sidebar = ({ profile }) => {
             onClick={closeSidebar}
           >
             <Home size={20} />
-            <span>Overview</span>
+            <span>Home</span>
           </NavLink>
 
           <NavLink
@@ -105,7 +132,7 @@ const Sidebar = ({ profile }) => {
             onClick={closeSidebar}
           >
             <Mic size={20} />
-            <span>Interview</span>
+            <span>Mock Interview</span>
           </NavLink>
 
           {/* <NavLink
@@ -161,7 +188,7 @@ const Sidebar = ({ profile }) => {
             onClick={closeSidebar}
           >
             <Link2 size={20} />
-            <span>Integrations</span>
+            <span>Social Integrations</span>
           </NavLink>
 
           <NavLink
