@@ -10,29 +10,28 @@ const GoogleLoginButton = () => {
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
 
-  const handleSuccess = async (credentialResponse) => {
-    setLoading(true);
-    try {
-      const idToken = credentialResponse.credential;
-      const res = await googleLogin({ idToken });
-      const { token } = res.data;
+ const handleSuccess = async (credentialResponse) => {
+  setLoading(true);
+  try {
+    const idToken = credentialResponse.credential;
 
-      localStorage.setItem("token", token);
-      login(token);
+    const res = await googleLogin({ idToken });
 
-      toast.success(res.message || "Login successful!");
-      navigate("/dashboard");
-    } catch (error) {
-      console.error("Login error:", error);
-      const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
-        "Failed to login. Please check your credentials.";
-      toast.error(errorMessage);
-    } finally {
-      setLoading(false);
-    }
-  };
+    const { token } = res;   // ✅ correct
+
+    localStorage.setItem("token", token);
+    login(token);
+
+    toast.success(res.message || "Login successful!");
+    navigate("/dashboard");
+
+  } catch (error) {
+    console.error("Login error:", error);
+    toast.error("Google login failed");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleError = () => {
     console.log("Login Failed");
