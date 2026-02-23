@@ -13,7 +13,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Overview from "./dashboard/Overview";
-import AIAnalyze from "./dashboard/ResumeAnalyze";
+import ResumeAnalyze from "./dashboard/ResumeAnalyze";
 import Chatbot from "./dashboard/Chatbot";
 import Settings from "./dashboard/Settings";
 import Analytics from "./dashboard/Analytics";
@@ -90,7 +90,7 @@ function AppContent() {
                 <Overview profile={profile} handleRefresh={handleRefresh} />
               }
             />
-            <Route path="resume-analyse" element={<AIAnalyze />} />
+            <Route path="resume-analyse" element={<ResumeAnalyze />} />
             <Route path="chatbot" element={<Chatbot />} />
             <Route path="settings" element={<Settings />} />
             <Route path="analytics" element={<Analytics />} />

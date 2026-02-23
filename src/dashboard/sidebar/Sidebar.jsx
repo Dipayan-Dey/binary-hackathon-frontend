@@ -16,6 +16,7 @@ import {
   Globe,
   MessageSquareText,
   Github,
+  Users,
 } from "lucide-react";
 import "./Sidebar.css";
 const devlogo = "/my-sig-logo.png";
@@ -136,12 +137,12 @@ const Sidebar = ({ profile }) => {
           </NavLink>
 
           {/* <NavLink
-            to="/dashboard/live-interview"
+            to="/dashboard/team"
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
             onClick={closeSidebar}
           >
-            <Mic size={20} />
-            <span>Live Interview</span>
+            <Users size={20} />
+            <span>Team</span>
           </NavLink> */}
 
           <NavLink

@@ -830,22 +830,22 @@ export default function Features() {
                 <motion.div
                   animate={{ scale: [1, 1.5, 1], opacity: [0.7, 1, 0.7] }}
                   transition={{ duration: 2, repeat: Infinity }}
-                  style={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: "50%",
-                    background: "#6EE7F7",
-                    flexShrink: 0,
-                  }}
+                  // style={{
+                  //   width: 8,
+                  //   height: 8,
+                  //   borderRadius: "50%",
+                  //   background: "#6EE7F7",
+                  //   flexShrink: 0,
+                  // }}
                 />
                 <div
                   style={{
                     width: 24,
                     height: 1,
-                    background: "linear-gradient(90deg, #6EE7F7, #A78BFA)",
+                    // background: "linear-gradient(90deg, #6EE7F7, #A78BFA)",
                   }}
                 />
-                <span
+                {/* <span
                   style={{
                     fontSize: 10,
                     letterSpacing: "0.25em",
@@ -854,7 +854,7 @@ export default function Features() {
                   }}
                 >
                   Platform Features
-                </span>
+                </span> */}
               </motion.div>
 
               <motion.h2
@@ -905,7 +905,7 @@ export default function Features() {
             </div>
 
             {/* Stats row */}
-            {!isMobile && (
+            {/* {!isMobile && (
               <motion.div
                 initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -943,11 +943,11 @@ export default function Features() {
                   </div>
                 ))}
               </motion.div>
-            )}
+            )} */}
           </div>
 
           {/* Mobile stats */}
-          {isMobile && (
+          {/* {isMobile && (
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -985,7 +985,7 @@ export default function Features() {
                 </div>
               ))}
             </motion.div>
-          )}
+          )} */}
 
           {/* Divider */}
           <motion.div
