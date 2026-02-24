@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { startQuiz, submitQuizAnswers, getQuizHistory } from "../api/userApi";
+import {
+  startQuiz,
+  submitQuizAnswers,
+  getQuizHistory,
+  deleteQuiz,
+} from "../api/userApi";
 import { FileText, Rocket } from "lucide-react";
 import "./styles/DashboardPages.css";
+import Swal from "sweetalert2";
 
 const Quiz = () => {
   const [loading, setLoading] = useState(false);
+  const [deletingId, setDeletingId] = useState(null); // track which item is being deleted
   const [history, setHistory] = useState([]);
   const [session, setSession] = useState(null);
   const [answers, setAnswers] = useState({});
@@ -58,7 +65,6 @@ const Quiz = () => {
   };
 
   const handleSubmitQuiz = async () => {
-    // Check if all questions are answered
     if (Object.keys(answers).length < session.questions.length) {
       toast.warning("Please answer all questions before submitting");
       return;
@@ -91,7 +97,49 @@ const Quiz = () => {
     }
   };
 
-  if (loading) {
+  const handleDeleteQuiz = async (sessionId) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "This quiz history will be permanently deleted!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ff006e",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+      reverseButtons: true,
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      setDeletingId(sessionId); // show spinner on the specific card
+      await deleteQuiz(sessionId);
+
+      // ✅ Only update state locally — no loadHistory() call needed
+      setHistory((prev) => prev.filter((item) => item._id !== sessionId));
+
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: "Quiz deleted successfully.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      console.error("Error deleting quiz:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response?.data?.message || "Failed to delete quiz",
+      });
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
+  // Only show full-page loader for initial load or quiz start, NOT during delete
+  if (loading && view !== "history") {
     return (
       <div className="dashboard-page flex items-center justify-center h-screen">
         <div className="spinner"></div>
@@ -278,7 +326,12 @@ const Quiz = () => {
 
       {view === "history" && (
         <div className="mt-8">
-          {history.length === 0 ? (
+          {/* ✅ Loading overlay for history page during initial fetch */}
+          {loading ? (
+            <div className="flex items-center justify-center py-20">
+              <div className="spinner"></div>
+            </div>
+          ) : history.length === 0 ? (
             <div className="text-center py-20 bg-white/5 rounded-2xl border border-white/10">
               <p className="text-gray-400 text-lg mb-4">
                 No quiz history found.
@@ -295,8 +348,15 @@ const Quiz = () => {
               {history.map((item) => (
                 <div
                   key={item._id}
-                  className="bg-white/5 rounded-xl p-6 border border-white/10 hover:border-[#00f5a0]/50 transition-colors group"
+                  className="bg-white/5 rounded-xl p-6 border border-white/10 hover:border-[#00f5a0]/50 transition-colors group relative"
                 >
+                  {/* ✅ Per-card loading overlay while deleting */}
+                  {deletingId === item._id && (
+                    <div className="absolute inset-0 bg-black/60 rounded-xl flex items-center justify-center z-10">
+                      <div className="spinner"></div>
+                    </div>
+                  )}
+
                   <div className="flex justify-between items-start mb-4">
                     <div className="text-gray-400 text-sm">
                       {new Date(item.startedAt).toLocaleDateString()}
@@ -305,6 +365,15 @@ const Quiz = () => {
                       className={`px-2 py-1 rounded text-xs font-bold ${item.score >= 70 ? "bg-[#00f5a0]/20 text-[#00f5a0]" : item.score >= 40 ? "bg-[#ffd700]/20 text-[#ffd700]" : "bg-[#ff006e]/20 text-[#ff006e]"}`}
                     >
                       {item.score}% Score
+                    </div>
+                    <div>
+                      <button
+                        className="text-red-500 hover:text-red-600 text-sm font-semibold disabled:opacity-40"
+                        onClick={() => handleDeleteQuiz(item._id)}
+                        disabled={deletingId === item._id}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                   <div className="mb-4">

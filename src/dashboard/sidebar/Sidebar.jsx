@@ -101,9 +101,9 @@ const Sidebar = ({ profile }) => {
             <h3 className="profile-name">
               {profile?.data?.user?.name || "User"}
             </h3>
-            <p className="profile-email">
+            {/* <p className="profile-email">
               {profile?.data?.user?.email || "user@example.com"}
-            </p>
+            </p> */}
           </div>
         </div>
 

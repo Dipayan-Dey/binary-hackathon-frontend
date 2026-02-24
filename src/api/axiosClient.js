@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "https://qm50ddkk06.execute-api.ap-south-1.amazonaws.com/api/v1", 
+  baseURL: "https://readynx-backend-ts.onrender.com/api/v1", 
 });
 
 // Auto attach token

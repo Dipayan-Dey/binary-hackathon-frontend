@@ -23,6 +23,7 @@ const Settings = () => {
     error,
     refreshProfile,
   } = UserProfile();
+
   // Profile Settings - loaded from API
   const [profileData, setProfileData] = useState({
     name: "",
@@ -35,7 +36,7 @@ const Settings = () => {
     experienceLevel: "intermediate",
     skills: [],
   });
-  console.log("===================Profile Data===========", profileData);
+  console.log("===================Profile Data===========", profileResponse);
   // Notification Settings
   const [notificationSettings, setNotificationSettings] = useState({
     emailNotifications: true,
@@ -329,7 +330,11 @@ const Settings = () => {
                 <label className="settings-label">Email Address</label>
                 <input
                   type="email"
-                  value={profileData.email}
+                  value={
+                    profileResponse?.data?.profile?.privacySettings?.showEmail
+                      ? profileData.email
+                      : "xxxxxxxxxxxx"
+                  }
                   disabled
                   className="settings-input"
                   style={{ opacity: 0.7, cursor: "not-allowed" }}
