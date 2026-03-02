@@ -12,7 +12,7 @@ const DashboardLayout = () => {
       <Sidebar profile={profile} />
       <main className="dashboard-main">
         <Outlet />
-        <GeneralFloatingChatbot/>
+        {/* <GeneralFloatingChatbot/> */}
       </main>
     </div>
   );
