@@ -338,7 +338,7 @@ const Quiz = () => {
               </p>
               <button
                 onClick={() => setView("start")}
-                className="text-[#00f5a0] hover:text-[#00c785] underline"
+                className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-[#00f5a0] border border-[#00f5a0]/30 hover:shadow-[0_0_10px_rgba(0,245,160,0.2)] transition-all cursor-pointer"
               >
                 Take your first quiz
               </button>

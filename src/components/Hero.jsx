@@ -37,6 +37,12 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 pt-20">
       {/* Modern Geometric Background */}
+        <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap');
+        * { box-sizing: border-box; }
+        .trow { transition: background 0.15s, opacity 0.15s; cursor: pointer; }
+        .trow:hover { background: rgba(255,255,255,0.035) !important; opacity: 1 !important; }
+      `}</style>
       <div className="absolute inset-0">
         {/* Diagonal stripes pattern */}
         <div
@@ -95,6 +101,7 @@ const Hero = () => {
           >
             {/* Badge */}
             <motion.div
+            style={{fontFamily: "'DM Serif Display', serif",}}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -108,6 +115,7 @@ const Hero = () => {
 
             {/* Main Heading */}
             <motion.h1
+            style={{ fontFamily: "'Playfair Display', serif", fontStyle:"italic"}}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}

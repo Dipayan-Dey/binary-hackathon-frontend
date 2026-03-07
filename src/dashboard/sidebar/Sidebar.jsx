@@ -126,7 +126,14 @@ const Sidebar = ({ profile }) => {
             <Sparkles size={20} />
             <span>Resume Analyze</span>
           </NavLink>
-
+          <NavLink
+            to="/dashboard/quiz"
+            className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+            onClick={closeSidebar}
+          >
+            <FileText size={20} />
+            <span>Skill Quiz</span>
+          </NavLink>
           <NavLink
             to="/dashboard/interview"
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
@@ -152,15 +159,6 @@ const Sidebar = ({ profile }) => {
           >
             <Globe size={20} />
             <span>Career Map</span>
-          </NavLink>
-
-          <NavLink
-            to="/dashboard/quiz"
-            className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
-            onClick={closeSidebar}
-          >
-            <FileText size={20} />
-            <span>Skill Quiz</span>
           </NavLink>
 
           <NavLink
