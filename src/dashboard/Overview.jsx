@@ -16,7 +16,7 @@ import {
   Target,
   Star,
 } from "lucide-react";
-import "../components/RefreshButton.css"
+import "../components/RefreshButton.css";
 const Overview = ({ profile, handleRefresh }) => {
   const navigate = useNavigate();
   const [stats, setStats] = useState({
@@ -26,7 +26,15 @@ const Overview = ({ profile, handleRefresh }) => {
     githubConnected: false,
   });
   const [loading, setLoading] = useState(true);
+  const getGreeting = () => {
+    const hour = new Date().getHours();
 
+    if (hour < 12) return "Good Morning";
+    if (hour < 15) return "Good Noon";
+    if (hour < 18) return "Good Afternoon";
+    if (hour < 21) return "Good Evening";
+    return "Good Night";
+  };
   useEffect(() => {
     if (profile && profile.data) {
       const { resumeAnalysis, stats: userStats, connections } = profile.data;
@@ -59,7 +67,8 @@ const Overview = ({ profile, handleRefresh }) => {
             </a>
           </h1>
           <h1 className="text-white text-3xl md:text-4xl font-bold mb-2 flex items-center gap-3">
-            <Hand className="w-10 h-10" /> Welcome back,{" "}
+            <Hand className="w-10 h-10" />
+            {getGreeting()},{" "}
             {profile?.data?.user?.name?.split(" ")[0] || "User"} !
           </h1>
           <p className="text-gray-300 text-lg">
@@ -67,10 +76,7 @@ const Overview = ({ profile, handleRefresh }) => {
           </p>
         </div>
         <div>
-          <button
-            onClick={onRefresh}
-            className="refresh-button"
-          >
+          <button onClick={onRefresh} className="refresh-button">
             Refresh <RefreshCw className="inline-block ml-1 " />
           </button>
         </div>
