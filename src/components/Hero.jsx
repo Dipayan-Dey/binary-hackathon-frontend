@@ -17,7 +17,7 @@ const Hero = () => {
     {
       id: 1,
       image:
-        "https://ideogram.ai/assets/image/balanced/response/WQARCc9IRlaJlaUKvv8Vzg@2k",
+        "https://res.cloudinary.com/dlsuycdfj/image/upload/v1780771002/ChatGPT_Image_Jun_7_2026_12_06_24_AM_jjsksq.png",
       name: "Dipayan Dey",
       role: "DevOps Engineer | Lead Developer | Full Stack Developer | Data Analyst",
       tech: ["AWS", "Docker", "React", "Node.js", "Python", "AI/ML"],
