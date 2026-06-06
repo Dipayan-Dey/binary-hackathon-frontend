@@ -4,7 +4,7 @@ import "./styles/DashboardPages.css";
 
 const API_URL =
   import.meta.env.BACKEND_API_ENDPOINT ||
-  "https://qm50ddkk06.execute-api.ap-south-1.amazonaws.com/api/v1";
+  "https://hpcusltr52.execute-api.ap-south-1.amazonaws.com/api/v1";
 
 const Integrations = () => {
   const [integrations, setIntegrations] = useState({

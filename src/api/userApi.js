@@ -114,7 +114,7 @@ export const chatbotService = {
 };
 
 export const generalchatbot= async (message) => {
-    const response = await axios.post("https://readynx-backend-ts.onrender.com/api/v1/chatbot/general-chat", {
+    const response = await axios.post("https://hpcusltr52.execute-api.ap-south-1.amazonaws.com/api/v1/chatbot/general-chat", {
       message,
     });
     return response.data;
